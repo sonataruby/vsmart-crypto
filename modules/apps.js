@@ -32,7 +32,7 @@ router.get(prefix + "/my", (req, res) => {
 router.get(prefix + "/mining", (req, res) => {
 	 const dataMain = fsFile.readJSONFile('main.json');
 	 app.set('layout', config.layout.dir + "/apps");
-	 //dataMain.loadJS = ["jquery-ui.js","market.js"];
+	 dataMain.loadJS = ["jquery-ui.js","market.js"];
 	 res.render("apps/mining",dataMain);
 });
 
