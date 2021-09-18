@@ -29,5 +29,10 @@
 #game{
 	position: fixed;
 	top: 0;
-	left: 130px;
+	
+}
+@media (min-width: 576px) {
+	#game{
+		left: 130px;
+	}
 }
