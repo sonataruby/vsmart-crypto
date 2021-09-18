@@ -114,6 +114,6 @@ public/layout/*.ejs
 public/assets/js/web3setup.js
 #apps/index.ejs
 package-lock.json
-apps/components/*.ejs
+#apps/components/*.ejs
 dev/
 #public/game
