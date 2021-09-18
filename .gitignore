@@ -112,7 +112,7 @@ vps.txt
 main.josn
 public/layout/*.ejs
 public/assets/js/web3setup.js
-apps/index.ejs
+#apps/index.ejs
 package-lock.json
 apps/components/*.ejs
 dev/
