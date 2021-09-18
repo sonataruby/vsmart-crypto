@@ -1,9 +1,7 @@
 var levelData = [
     // level 1
     [
-        {'enemy': "lurr",'timeout': 3},
-        {'enemy': "brain",'timeout': 3}, 
-        {'enemy': "brain",'timeout': 3}, 
+        
         {'enemy': "asteroid",'timeout': 1},
         {'enemy': "asteroid",'timeout': 1},
         {'enemy': "asteroid 3",'timeout': 3},
