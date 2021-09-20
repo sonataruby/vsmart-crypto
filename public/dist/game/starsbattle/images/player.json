@@ -22,25 +22,25 @@
 		"sourceSize": {"w":119,"h":159}
 	},
 		"player_4":{
-		"frame": {"x":428.50,"y":96,"w":115,"h":150},
+		"frame": {"x":355,"y":0,"w":126,"h":159},
 		"rotated": false,
 		"trimmed": false,
-		"spriteSourceSize": {"x":0,"y":0,"w":115,"h":150},
-		"sourceSize": {"w":115,"h":150}
+		"spriteSourceSize": {"x":325,"y":0,"w":126,"h":159},
+		"sourceSize": {"w":126,"h":159}
 	},
 		"player_5":{
-		"frame": {"x":553,"y":92.5,"w":115,"h":150},
+		"frame": {"x":480,"y":0,"w":126,"h":159},
 		"rotated": false,
 		"trimmed": false,
-		"spriteSourceSize": {"x":0,"y":0,"w":115,"h":150},
-		"sourceSize": {"w":115,"h":150}
+		"spriteSourceSize": {"x":480,"y":0,"w":126,"h":159},
+		"sourceSize": {"w":126,"h":159}
 	},
 		"player_6":{
-		"frame": {"x":667,"y":83,"w":115,"h":150},
+		"frame": {"x":604,"y":0,"w":124,"h":159},
 		"rotated": false,
 		"trimmed": false,
-		"spriteSourceSize": {"x":0,"y":0,"w":115,"h":150},
-		"sourceSize": {"w":115,"h":150}
+		"spriteSourceSize": {"x":604,"y":0,"w":124,"h":159},
+		"sourceSize": {"w":124,"h":159}
 	},
 	"shield":
 	{
