@@ -25,14 +25,14 @@ router.get(prefix, (req, res) => {
 router.get(prefix + "/my", (req, res) => {
 	 const dataMain = fsFile.readJSONFile('main.json');
 	 app.set('layout', config.layout.dir + "/apps");
-	 dataMain.loadJS = ["jquery-ui.js","market.js"];
+	 dataMain.loadJS = ["game1.js"];
 	 res.render("apps/my",dataMain);
 });
 
 router.get(prefix + "/mining", (req, res) => {
 	 const dataMain = fsFile.readJSONFile('main.json');
 	 app.set('layout', config.layout.dir + "/apps");
-	 dataMain.loadJS = ["jquery-ui.js","market.js"];
+	 dataMain.loadJS = ["game1.js"];
 	 res.render("apps/mining",dataMain);
 });
 

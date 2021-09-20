@@ -7,6 +7,7 @@ var BootState = {
         game.scale.pageAlignHorizontally = true;
         game.scale.pageAlignVertically = true;
         
+        
     },
     
     preload: function() {
@@ -40,6 +41,7 @@ var BootState = {
 };
 
 function initLevelData() {
+    
     var levels = [];
     for (var i = 0; i < 30; i++) {
         var level = {unlocked: false, highscore: 0};

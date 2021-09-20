@@ -22,4 +22,6 @@ game.state.add('BootState', BootState);
 game.state.add('PreloadState', PreloadState);
 game.state.add('MainMenuState', MainMenuState);
 game.state.add('SelectLevelState', SelectLevelState);
+game.state.add('SelectClassState', SelectClassState);
 game.state.add('GameState', GameState);
+//game.state.add('GameStateWeb3', Web3);

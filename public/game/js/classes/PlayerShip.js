@@ -1,34 +1,45 @@
-var PlayerShip = function() {
-    Phaser.Sprite.call(this, game, game.world.centerX, game.world.height - 100, 'nftplayer', 'class_3');
-    this.anchor.setTo(0.5);
+var PlayerShip =  function() {
 
-    this.type = 'player';
-    this.hp = 10;
-    this.hpMax = this.hp;
-    this.invincible = false;
-    this.weapon = new Machinegun(this);
-    this.weapon.fire(true);
-    this.alive = true;
-    this.score = 0;
+    
+    this.getInfo().then((web3Player) => {
+       
+    
+        Phaser.Sprite.call(this, game, game.world.centerX, game.world.height - 100, 'nftplayer', 'player_'+web3Player.Class);
+        this.anchor.setTo(0.5);
 
-    this.moveSpeed = 7;
-    this.leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
-    this.rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+        this.type = 'player';
+        this.hp = 10;
+        this.hpMax = this.hp;
+        this.invincible = false;
+        this.weapon = new Machinegun(this);
+        this.weapon.fire(true);
+        this.alive = true;
+        this.score = 0;
 
-    this.shield = game.add.sprite(this.x, this.y, 'nftplayer', 'shield');
-    this.shield.alpha = 0;
-    this.shield.anchor.setTo(0.5);
+        this.moveSpeed = 7;
 
-    this.touchLeft = false;
-    this.touchRight = false;
-    game.input.onDown.add(this.onBeginTouch, this);
-    game.input.onUp.add(this.onEndTouch, this)
+        this.leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
+        this.rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
 
-    game.groups.player.add(this);
+        this.shield = game.add.sprite(this.x, this.y, 'nftplayer', 'shield');
+        this.shield.alpha = 0;
+        this.shield.anchor.setTo(0.5);
+
+        this.touchLeft = false;
+        this.touchRight = false;
+        game.input.onDown.add(this.onBeginTouch, this);
+        game.input.onUp.add(this.onEndTouch, this)
+
+        game.groups.player.add(this);
+    });
 }
 
 PlayerShip.prototype = Object.create(Phaser.Sprite.prototype);
 PlayerShip.prototype.constructor = PlayerShip;
+PlayerShip.prototype.getInfo = async function() {
+    let data = await game.web3.getPlayer(game.tokenId);
+    return data;
+}
 
 PlayerShip.prototype.onBeginTouch = function(pointer) {
     if (!this.touchLeft && pointer.x < gameWidth / 2) {

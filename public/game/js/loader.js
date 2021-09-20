@@ -16,6 +16,7 @@ var scripts = [
     'game/js/states/PreloadState.js',
     'game/js/states/MainMenuState.js',
     'game/js/states/SelectLevelState.js',
+    'game/js/states/SelectClassState.js',
     'game/js/states/GameState.js',
     'game/js/main.js',
 

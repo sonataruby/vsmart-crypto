@@ -7,7 +7,7 @@ const moment = require('moment');
 const path = require("path");
 const _ = require("lodash");
 //const io   = require('socket.io');
-const hostname = "http://localhost:5000";
+const upload = require("express-fileupload");
 
 //const vhost = require('vhost');
 const express = require("express");
@@ -26,6 +26,9 @@ const session = require('express-session')
 const contract = require('truffle-contract');
 const MetaAuth = require('meta-auth');
 const metaAuth = new MetaAuth();
+const sharp = require("sharp");
+
+
 
 //const socket = io.listen(server);
 function readJSONFile(filename) {
@@ -46,7 +49,14 @@ app.set('layout', __dirname+'/public/layout.ejs');
 app.use(EJSLayout);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(upload());
 app.use(cookieParser());
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", config.server.public); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 
 var dbQuery = async function(databaseQuery) {
@@ -261,26 +271,125 @@ app.post("/files", async (req, res) => {
 
 });
 
-app.post("upload", function(){
 
-});
 
 /*Build Block*/
-app.get("block", function(){
+app.get("/block", function(){
 
 });
-app.post("block", function(){
+app.post("/block", function(){
 
 });
 
 /*Build Once Page*/
-app.get("oncepage", function(){
+app.get("/oncepage", function(){
 
 });
-app.post("oncepage", function(){
+app.post("/oncepage", function(){
 
 });
 
+app.post("/upload", function(request, response) {
+    var images = "";
+    var height = 450;
+    var width = 750;
+
+    if(request.files) {
+        var file = request.files.filesfld;
+
+        if(file.mimetype.substring(0,5).toLowerCase() == "image") {
+
+            images = "/" + file.name;
+            if(request.body.fileName != "" && request.body.fileName != undefined) images = request.body.fileName;
+            if(parseInt(request.body.width) > 0 ) width = parseInt(request.body.width);
+            if(parseInt(request.body.height) > 0 ) height = parseInt(request.body.height);
+            //console.log(request.body);
+            /*
+            file.mv(__dirname + "/../public/upload" + images[i], function (err) {
+                if(err) {
+                    console.log(err);
+                }
+                
+            });
+            */
+            var vsh = sharp(file.data);
+            if(request.body.genIcon != undefined && request.body.genIcon == "true" ){
+                vsh.resize(192, 192, {
+                    kernel: sharp.kernel.nearest,
+                    fit: 'contain',
+                    position: 'right top',
+                    background: { r: 255, g: 255, b: 255, alpha: 0.5 }
+                  })
+                  .toFile(__dirname + "/../public/assets/ico/android-chrome-192x192.png");
+
+                vsh.resize(512, 512, {
+                    kernel: sharp.kernel.nearest,
+                    fit: 'contain',
+                    position: 'right top',
+                    background: { r: 255, g: 255, b: 255, alpha: 0.5 }
+                  })
+                  .toFile(__dirname + "/../public/assets/ico/android-chrome-512x512.png");
+                vsh.resize(16, 16, {
+                    kernel: sharp.kernel.nearest,
+                    fit: 'contain',
+                    position: 'right top',
+                    background: { r: 255, g: 255, b: 255, alpha: 0.5 }
+                  })
+                  .toFile(__dirname + "/../public/assets/ico/favicon-16x16.png");
+                vsh.resize(32, 32, {
+                    kernel: sharp.kernel.nearest,
+                    fit: 'contain',
+                    position: 'right top',
+                    background: { r: 255, g: 255, b: 255, alpha: 0.5 }
+                  })
+                  .toFile(__dirname + "/../public/assets/ico/favicon-32x32.png");
+
+                vsh.resize(48, 48, {
+                    kernel: sharp.kernel.nearest,
+                    fit: 'contain',
+                    position: 'right top',
+                    background: { r: 255, g: 255, b: 255, alpha: 0.5 }
+                  })
+                  .toFile(__dirname + "/../public/assets/ico/favicon.ico");
+                vsh.resize(48, 48, {
+                    kernel: sharp.kernel.nearest,
+                    fit: 'contain',
+                    position: 'right top',
+                    background: { r: 255, g: 255, b: 255, alpha: 0.5 }
+                  })
+                  .toFile(__dirname + "/../public/favicon.ico");
+
+                vsh.resize(48, 48, {
+                    kernel: sharp.kernel.nearest,
+                    fit: 'contain',
+                    position: 'right top',
+                    background: { r: 255, g: 255, b: 255, alpha: 0.5 }
+                  })
+                  .toFile(__dirname + "/public/favicon.ico");
+
+
+                vsh.resize(186, 186, {
+                    kernel: sharp.kernel.nearest,
+                    fit: 'contain',
+                    position: 'right top',
+                    background: { r: 255, g: 255, b: 255, alpha: 0.5 }
+                  })
+                  .toFile(__dirname + "/../public/assets/ico/apple-touch-icon.png");
+
+            }else{
+                  vsh.resize(width, height, {
+                    kernel: sharp.kernel.nearest,
+                    fit: 'contain',
+                    position: 'right top',
+                    background: { r: 255, g: 255, b: 255, alpha: 0.5 }
+                  })
+                  .toFile(__dirname + "/../public/upload/" + images);
+            }
+        }
+    }
+    // give the server a second to write the files
+    setTimeout(function(){response.json(images);}, 1000);
+});
 
 /*Farm Controller*/
 // start express server on port 5000

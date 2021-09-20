@@ -31,6 +31,7 @@ var jsonSmartNFT = loadDataJSON('smartnft');
 var jsonNFTMarket = loadDataJSON('nftmarket');
 var jsonNFTItem = loadDataJSON('nftitem');
 var jsonStaking = loadDataJSON('staking');
+var jsonGame1 = loadDataJSON('game1');
 
 gulp.task('blockchain', function() {
     return gulp.src('dev/blockchain.js')
@@ -45,7 +46,7 @@ gulp.task('blockchain', function() {
         .pipe(replace(/{nftitem}/g, jsonNFTItem))
         .pipe(replace(/{stacking}/g, jsonStaking))
         .pipe(replace(/{farm}/g, jsonFarm))
-       
+        .pipe(replace(/{game1}/g, jsonGame1))
         .pipe(concat('blockchain_dev.js'))
         //.pipe(uglify())
         .pipe(gulp.dest("dev"))
@@ -168,6 +169,19 @@ gulp.task('market', function() {
     
 });
 
+
+gulp.task('game1', function() {
+    
+    return gulp.src([
+            'dev/game1.js',
+        ])
+        .pipe(concat('game1.js'))
+        //.pipe(uglify())
+        .pipe(gulp.dest("public/dist"))
+        .pipe(browserSync.stream());
+    
+});
+
 gulp.task('web3admin', function() {
     
     
@@ -206,7 +220,7 @@ gulp.task('web3admin', function() {
 
 //gulp.task('clean', () => del(['data/dev/assent/js/*.js', 'data/dev/assent/css/*.css']));
 
-gulp.task('default', gulp.series(['blockchain','web3','web3admin','bootstrap','game','airdrop','ido','presell','farm','market'],function(done) { 
+gulp.task('default', gulp.series(['blockchain','web3','web3admin','bootstrap','game1','game','airdrop','ido','presell','farm','market'],function(done) { 
     // default task code here
     done();
 }));

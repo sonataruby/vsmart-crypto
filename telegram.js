@@ -1,8 +1,15 @@
 const TelegramBot = require('node-telegram-bot-api');
-var telegram = require('./config').telegram;
+const config = require('./config');
+var telegram = config.telegram;
 
 const express = require("express");
 const app = express();
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", config.server.public); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 const bot = new TelegramBot(telegram.token, {polling: true});
 const img_url = 'https://cdn-images-1.medium.com/max/1200/1*b708XUPLvguJNmrpbg8oXg.jpeg'
@@ -33,6 +40,7 @@ bot.onText(/\/start/, (msg,match) => {
                 "keyboard": [["Join Start >>","Website"]]
                 }
         };
+        /*
     bot.sendMediaGroup(telegram.TelegramChannel,
         [{
             "type": "photo",
@@ -47,8 +55,9 @@ bot.onText(/\/start/, (msg,match) => {
               "media": "https://cryptocar.cc/nfts/"+getNumber()+"/2.gif",
               "caption": "CAR NFT Class"
         }]);
+    */
     bot.sendPhoto(msg.chat.id,img_url,{
-        caption : "Welcome to Smart Crypto Bot\n ",
+        caption : "XAUUSD [SHORT]\nOpen : \nSL:\nTP : ",
         "reply_markup": {
                 "keyboard": [["Join Start >>","Website"]]
                 }
@@ -102,7 +111,7 @@ app.get("/", (req, res) => {
 
 app.post("/telegram", (req, res) => {
   var msg = req.body.text;
-  bot.sendMessage(telegram.TelegramChannel,msg);
+  //bot.sendMessage(telegram.TelegramChannel,msg);
   var data = '{"ok": "200"}';
   res.header('Content-Type', 'application/json');
   res.send(data);

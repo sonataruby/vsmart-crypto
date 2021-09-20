@@ -2,7 +2,7 @@
 	"title" : "Stars Battlet - NFT Game Play to earn on the BSC",
     "keywork" : "Stars Battlet - NFT Game Play to earn on the BSC",
     "description" : "Stars Battlet - NFT Game Play to earn on the BSC",
-    "banner" : "assets/car/banner.png",
+    "banner" : "upload/banner.png",
     "icoin" : "assets/ico",
     "base"  : "http://localhost:5000/",
     "logo" : "dist/site/logo-white.png",

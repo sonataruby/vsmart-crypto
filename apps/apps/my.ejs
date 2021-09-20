@@ -15,18 +15,10 @@
 </ul>
 <div class="tab-content bg-white" id="myTabContent" style="min-width:550px; min-height:450px; padding-top:30px;" >
   <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-      <div class="row">
-        <div class="col-md-4">
-          <img src="/dist/game/0.png" style="width:100px;">
-        </div>
+      <div class="row" id="LoadMyItem">
+        
 
-        <div class="col-md-4">
-          <img src="/dist/game/1.png" style="width:100px;">
-        </div>
-
-        <div class="col-md-4">
-          <img src="/dist/game/2.png" style="width:100px;">
-        </div>
+        
       </div>
   </div>
   <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
@@ -41,4 +33,30 @@
 
 <button class="btn btn-primary">Buy Battlet</button>
 <button class="btn btn-outline-primary">Buy Bullet</button>
-<button class="btn btn-outline-primary">Play game</button>
+<a class="btn btn-outline-primary" href="/app/mining">Play game</a>
+<button class="btn btn-outline-primary btnMint">Mint Test</button>
+<script>
+$(document).ready(async function(){
+    
+    var LoadClass = async function(){
+    await SmartApps.tokenGame1.Init();
+        var html = '';
+        var data = await SmartApps.tokenGame1.getBalt();
+        for(var i =0;i<data.length;i++){
+          var img = data[i].Class;
+          html += '<div class="col-md-4"><img src="/dist/game/'+img+'.png" style="width:100px;"></div>';
+        }
+        
+
+        $("#LoadMyItem").html(html);
+    };
+    await LoadClass();
+
+    $(".btnMint").on("click", function(){
+      var randDom = Math.floor(Math.random() * 10);
+      SmartApps.tokenGame1.mint(randDom);
+  });
+});
+
+
+</script>

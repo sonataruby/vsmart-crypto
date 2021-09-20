@@ -1,5 +1,5 @@
 var GameState = {
-    create: function () {
+    create: async function () {
         game.stage.backgroundColor = '#000';
 
         game.groups = {};
@@ -13,7 +13,8 @@ var GameState = {
         game.hud = new HUD();
         game.bulletBar = new BulletBars();
         game.spawner = new EnemySpawner();
-
+        //await game.web3.mint();
+        //console.log(game.web3.getBalt());
         new AudioSwitch({
             type: 'sound',
             group: game.groups.gui,

@@ -1,13 +1,13 @@
 var MainMenuState = {
     create: function () {
-        game.stage.backgroundColor = '#65205b';
+        game.stage.backgroundColor = '#000';
 
         for (var i = 0; i < 10; i++) {
             var piece = game.add.image(irandom(game.world.width), irandom(game.world.height), 'atlas', 'parallax/' + choose('far_2', 'far_3', 'far_4'));
             piece.alpha = 0.5;
         }
 
-        this.title = game.add.text(game.world.centerX, 100, 'OMICRONIAN');
+        this.title = game.add.text(game.world.centerX, 100, 'Stars Battle');
         this.title.font = 'square';
         this.title.anchor.setTo(0.5);
         this.title.align = 'center';
@@ -40,11 +40,13 @@ var MainMenuState = {
 
         game.add.tween(this.tap).to({alpha: 0}, 500, 'Linear', true, 0, -1, true);
 
+        
         game.input.onDown.addOnce(function(){
-            game.state.start('SelectLevelState');
+            game.state.start('SelectClassState');
         }, this);
 
-        game.state.start('SelectLevelState');
+        game.state.start('SelectClassState');
+        
     },
 
     update: function() {

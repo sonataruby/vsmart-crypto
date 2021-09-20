@@ -7,13 +7,14 @@ var PreloadState = {
         game.preloadBar = game.add.sprite(game.world.width/2, game.world.height/2+100, 'preload', 'progress');
         game.preloadBar.x -= game.preloadBar.width/2;
         game.load.setPreloadSprite(game.preloadBar);
-        
+        game.web3 = SmartApps.tokenGame1;
         // load assets 
         game.load.atlasJSONHash('atlas', 'game/assets/images/atlas.png', 'game/assets/images/atlas.json');
         game.load.atlasJSONHash('nftplayer', 'game/assets/images/player.png', 'game/assets/images/player.json');
         game.load.atlasJSONHash('npc', 'game/assets/images/npc.png', 'game/assets/images/npc.json');
         game.load.atlasJSONHash('scene', 'game/assets/images/scene.png', 'game/assets/images/scene.json');
-        
+        game.load.atlasJSONHash('control', 'game/assets/images/control.png', 'game/assets/images/control.json');
+        game.load.atlasJSONHash('bg', 'game/assets/images/background.png', 'game/assets/images/background.json');
 
         // audio
         game.load.audio('sndPew', 'game/assets/audio/pew.mp3', 'game/assets/audio/pew.ogg');
