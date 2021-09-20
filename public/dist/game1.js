@@ -13,7 +13,7 @@ SmartApps = (function (SmartApps, $, window) {
 
     SmartApps.tokenGame1 = {};
     SmartApps.tokenGame1.mint = async (className) => {
-        await Game1.mintStars(login_wallet,"BAT 1",className,1,100,0,7).send({gas:40000}).then((value) => {
+        await Game1.mintStars(login_wallet,"BAT 1",className,1,100,0,7).send({gas:50000}).then((value) => {
             console.log(value);
         });
     };
@@ -33,7 +33,7 @@ SmartApps = (function (SmartApps, $, window) {
                         Speed: info.Speed,
                         Score: info.Score,
                     }
-                    
+
                     objData.push(obj);
                 });
             }
