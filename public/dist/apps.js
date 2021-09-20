@@ -2316,7 +2316,7 @@ SmartApps = (function (SmartApps, $, window) {
     
 	var loginWallet = null;
 	var isConnect;
-	let ContractAddress = JSON.parse("{\"AddressContractPresell\" : \"\",\"AddressContractAirdrop\" : \"\",\"AddressContractIDO\" : \"\",\"AddressContractSmartToken\" : \"\",\"MasterIDOWallet\" : \"\",\"AddressContractSmartNFT\" : \"\",\"AddressContractNFTFactory\" : \"\",\"AddressContractNFTMarket\" : \"\",\"AddressContractLPCAKE\" : \"\",\"AddressContractFarm\" : \"\",\"AddressContractNFTGame\" : \"\",\"AddressContractStaking\" : \"\",\"AddressContractNFTItem\" : \"\",\"AddressContractGame1\" : \"0xb5165490bd25af93ac06de9b1daaafc1a6dfddad\"}");
+	let ContractAddress = JSON.parse("{\"AddressContractPresell\" : \"\",\"AddressContractAirdrop\" : \"\",\"AddressContractIDO\" : \"\",\"AddressContractSmartToken\" : \"\",\"MasterIDOWallet\" : \"\",\"AddressContractSmartNFT\" : \"\",\"AddressContractNFTFactory\" : \"\",\"AddressContractNFTMarket\" : \"\",\"AddressContractLPCAKE\" : \"\",\"AddressContractFarm\" : \"\",\"AddressContractNFTGame\" : \"\",\"AddressContractStaking\" : \"\",\"AddressContractNFTItem\" : \"\",\"AddressContractGame1\" : \"0x2ed71e74f29ff006bd0353dd782ba558311c673a\"}");
 	const Web3Modal = window.Web3Modal.default;
 	const providerOptions = {
 	  /* See Provider Options Section */
