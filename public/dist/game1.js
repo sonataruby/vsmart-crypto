@@ -33,6 +33,7 @@ SmartApps = (function (SmartApps, $, window) {
                         Speed: info.Speed,
                         Score: info.Score,
                     }
+                    
                     objData.push(obj);
                 });
             }

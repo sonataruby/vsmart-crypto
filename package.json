@@ -11,6 +11,7 @@
     "admin": "node server/server.js",
     "server": "cross-env NODE_ENV=production node server.js",
     "build": "node ./node_modules/gulp/bin/gulp.js default",
+    "game1": "node ./node_modules/gulp/bin/gulp.js game1js",
     "watch": "webpack-cli --watch",
     "module": "browserify -t brfs --standalone apps public/dev/client.js -o public/dist/extract.js",
     "telegram": "node telegram.js",

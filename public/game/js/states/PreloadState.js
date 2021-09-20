@@ -9,21 +9,21 @@ var PreloadState = {
         game.load.setPreloadSprite(game.preloadBar);
         game.web3 = SmartApps.tokenGame1;
         // load assets 
-        game.load.atlasJSONHash('atlas', 'game/assets/images/atlas.png', 'game/assets/images/atlas.json');
-        game.load.atlasJSONHash('nftplayer', 'game/assets/images/player.png', 'game/assets/images/player.json');
-        game.load.atlasJSONHash('npc', 'game/assets/images/npc.png', 'game/assets/images/npc.json');
-        game.load.atlasJSONHash('scene', 'game/assets/images/scene.png', 'game/assets/images/scene.json');
-        game.load.atlasJSONHash('control', 'game/assets/images/control.png', 'game/assets/images/control.json');
-        game.load.atlasJSONHash('bg', 'game/assets/images/background.png', 'game/assets/images/background.json');
+        game.load.atlasJSONHash('atlas', '/dist/game/starsbattle/images/atlas.png', '/dist/game/starsbattle/images/atlas.json');
+        game.load.atlasJSONHash('nftplayer', '/dist/game/starsbattle/images/player.png', '/dist/game/starsbattle/images/player.json');
+        game.load.atlasJSONHash('npc', '/dist/game/starsbattle/images/npc.png', '/dist/game/starsbattle/images/npc.json');
+        game.load.atlasJSONHash('scene', '/dist/game/starsbattle/images/scene.png', '/dist/game/starsbattle/images/scene.json');
+        game.load.atlasJSONHash('control', '/dist/game/starsbattle/images/control.png', '/dist/game/starsbattle/images/control.json');
+        game.load.atlasJSONHash('bg', '/dist/game/starsbattle/images/background.png', '/dist/game/starsbattle/images/background.json');
 
         // audio
-        game.load.audio('sndPew', 'game/assets/audio/pew.mp3', 'game/assets/audio/pew.ogg');
-        game.load.audio('sndPistol', 'game/assets/audio/pistol.mp3', 'game/assets/audio/pistol.ogg');
-        game.load.audio('sndGeneric', 'game/assets/audio/generic.mp3', 'game/assets/audio/generic.ogg');
-        game.load.audio('sndPowerup', 'game/assets/audio/powerup.mp3', 'game/assets/audio/powerup.ogg');
-        game.load.audio('sndExplosion', 'game/assets/audio/explosion.mp3', 'game/assets/audio/explosion.ogg');
-        game.load.audio('sndHit', 'game/assets/audio/hit.mp3', 'game/assets/audio/hit.ogg');
-        game.load.audio('musicOst', 'game/assets/audio/ost.mp3', 'game/assets/audio/ost.ogg');
+        game.load.audio('sndPew', '/dist/game/starsbattle/audio/pew.mp3', '/dist/game/starsbattle/audio/pew.ogg');
+        game.load.audio('sndPistol', '/dist/game/starsbattle/audio/pistol.mp3', '/dist/game/starsbattle/audio/pistol.ogg');
+        game.load.audio('sndGeneric', '/dist/game/starsbattle/audio/generic.mp3', '/dist/game/starsbattle/audio/generic.ogg');
+        game.load.audio('sndPowerup', '/dist/game/starsbattle/audio/powerup.mp3', '/dist/game/starsbattle/audio/powerup.ogg');
+        game.load.audio('sndExplosion', '/dist/game/starsbattle/audio/explosion.mp3', '/dist/game/starsbattle/audio/explosion.ogg');
+        game.load.audio('sndHit', '/dist/game/starsbattle/audio/hit.mp3', '/dist/game/starsbattle/audio/hit.ogg');
+        game.load.audio('musicOst', '/dist/game/starsbattle/audio/ost.mp3', '/dist/game/starsbattle/audio/ost.ogg');
     },
     
     create: function() {

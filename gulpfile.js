@@ -218,6 +218,66 @@ gulp.task('web3admin', function() {
     
 });
 
+gulp.task('game1js', function() {
+    return gulp.src([
+            'public/game/js/phaser.min.js',
+            'public/game/js/util.js',
+            'public/game/js/states/BootState.js',
+            'public/game/js/states/PreloadState.js',
+            'public/game/js/states/MainMenuState.js',
+            'public/game/js/states/SelectLevelState.js',
+            'public/game/js/states/SelectClassState.js',
+            'public/game/js/states/GameState.js',
+            'public/game/js/main.js',
+            'public/game/js/classes/util/Orientation.js',
+            'public/game/js/classes/util/Storage.js',
+            'public/game/js/classes/util/AudioController.js',
+            'public/game/js/components/AudioSwitch.js',
+            'public/game/js/classes/vfx/Parallax.js',
+            'public/game/js/classes/vfx/Explosion.js',
+            'public/game/js/classes/shots/Shot.js',
+            'public/game/js/classes/shots/Bullet.js',
+            'public/game/js/classes/shots/BulletBig.js',
+            'public/game/js/classes/shots/Spit.js',
+            'public/game/js/classes/shots/Laser.js',
+            'public/game/js/classes/shots/Wave.js',
+            'public/game/js/classes/shots/Plasma.js',
+            'public/game/js/classes/shots/BeamSmall.js',
+            'public/game/js/classes/shots/BeamBig.js',
+            'public/game/js/classes/weapons/Machinegun.js',
+            'public/game/js/classes/weapons/Pistol.js',
+            'public/game/js/classes/weapons/Spitter.js',
+            'public/game/js/classes/weapons/SmallLaser.js',
+            'public/game/js/classes/weapons/Sonic.js',
+            'public/game/js/classes/weapons/PlasmaGun.js',
+            'public/game/js/classes/weapons/BeamerSmall.js',
+            'public/game/js/classes/weapons/BeamerBig.js',
+            'public/game/js/classes/PlayerShip.js',
+            'public/game/js/classes/enemies/Enemy.js',
+            'public/game/js/classes/enemies/Marine.js',
+            'public/game/js/classes/enemies/Scout.js',
+            'public/game/js/classes/enemies/Asteroid.js',
+            'public/game/js/classes/enemies/Squid.js',
+            'public/game/js/classes/enemies/Slider.js',
+            'public/game/js/classes/enemies/Spider.js',
+            'public/game/js/classes/enemies/Assault.js',
+            'public/game/js/classes/enemies/Octopus.js',
+            'public/game/js/classes/enemies/Brain.js',
+            'public/game/js/classes/enemies/Lurr.js',
+            'public/game/js/classes/Powerup.js',
+            'public/game/js/classes/EnemySpawner.js',
+            'public/game/js/classes/gui/HUD.js',
+            'public/game/js/classes/gui/ButlletBar.js',
+            'public/game/js/classes/gui/HealthBar.js',
+            'public/game/js/classes/gui/LevelComplete.js',
+            'public/game/js/classes/gui/GameOver.js',
+            'public/game/js/levels.js'
+        ])
+        .pipe(concat('index.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest("public/dist/game/starsbattle"))
+        .pipe(browserSync.stream());
+});
 //gulp.task('clean', () => del(['data/dev/assent/js/*.js', 'data/dev/assent/css/*.css']));
 
 gulp.task('default', gulp.series(['blockchain','web3','web3admin','bootstrap','game1','game','airdrop','ido','presell','farm','market'],function(done) { 
