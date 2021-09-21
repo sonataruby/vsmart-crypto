@@ -31,6 +31,8 @@ var PlayerShip =  function() {
         game.input.onUp.add(this.onEndTouch, this)
 
         game.groups.player.add(this);
+
+
     });
 }
 
@@ -47,6 +49,7 @@ PlayerShip.prototype.onBeginTouch = function(pointer) {
     } else if (!this.touchRight && pointer.x >= gameWidth / 2) {
         this.touchRight = pointer;
     }
+
 }
 
 PlayerShip.prototype.onEndTouch = function(pointer) {
@@ -56,6 +59,7 @@ PlayerShip.prototype.onEndTouch = function(pointer) {
     } else if (pointer === this.touchRight) {
         this.touchRight = false;
     }
+    game.backgrounds.drawBackground(this);
 }
 
 

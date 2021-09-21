@@ -11,7 +11,7 @@ var loadScriptsSync = function (scripts) {
 }
 var scripts = [
     'game/js/util.js',
-
+    'game/js/background.js',
     'game/js/states/BootState.js',
     'game/js/states/PreloadState.js',
     'game/js/states/MainMenuState.js',

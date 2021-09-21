@@ -400,14 +400,7 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":90,"h":84},
 	"sourceSize": {"w":90,"h":84}
 },
-"player_ship":
-{
-	"frame": {"x":156,"y":123,"w":76,"h":68},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":76,"h":68},
-	"sourceSize": {"w":76,"h":68}
-},
+
 "powerups/health":
 {
 	"frame": {"x":393,"y":0,"w":40,"h":32},

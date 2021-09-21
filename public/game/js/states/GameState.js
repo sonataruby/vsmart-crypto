@@ -1,8 +1,12 @@
 var GameState = {
     create: async function () {
-        game.stage.backgroundColor = '#000';
+        game.stage.backgroundColor = '#c20ed7';
 
         game.groups = {};
+        var backgroundScreen = game.add.tileSprite(0, 0,game.gameWidth, game.gameWidth, "backgroundgame");
+        backgroundScreen.anchor.setTo(0, 0);
+        backgroundScreen.scale.set(1.5, 1.6);
+        backgroundScreen.fixedToCamera = true;
         var groups = ['bg', 'enemies', 'player', 'collectibles', 'shots', 'vfx', 'gui'];
         groups.forEach(function(item) {
             game.groups[item] = game.add.group();
@@ -40,5 +44,21 @@ var GameState = {
             var right = game.add.image(game.world.width - 128, game.world.height - 128, 'atlas', 'gui/touch_right');
             right.alpha = 0.2;
         }
-    },
+
+        var canvas = document.querySelector('canvas');
+        
+        if(canvas.getContext) {
+            var ctx = canvas.getContext('2d', {
+            alpha: false,
+            });
+            game.gameWidth = canvas.width;
+            game.gameHeight = canvas.height;
+            game.backgrounds = new Backgroun3d({
+                width   : canvas.width,
+                height  : canvas.height,
+                ctx     : ctx
+            });
+            game.backgrounds.initStars();
+        }
+    }
 };

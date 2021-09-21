@@ -221,9 +221,12 @@ gulp.task('web3admin', function() {
 gulp.task('game1js', function() {
     return gulp.src([
             'public/game/js/phaser.min.js',
+            'node_modules/socket.io/client-dist/socket.io.js',
             'public/game/js/util.js',
+            
             'public/game/js/states/BootState.js',
             'public/game/js/states/PreloadState.js',
+            'public/game/js/background.js',
             'public/game/js/states/MainMenuState.js',
             'public/game/js/states/SelectLevelState.js',
             'public/game/js/states/SelectClassState.js',
@@ -274,7 +277,7 @@ gulp.task('game1js', function() {
             'public/game/js/levels.js'
         ])
         .pipe(concat('index.js'))
-        .pipe(uglify())
+       // .pipe(uglify())
         .pipe(gulp.dest("public/dist/game/starsbattle"))
         .pipe(browserSync.stream());
 });

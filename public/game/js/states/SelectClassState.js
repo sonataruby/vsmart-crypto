@@ -1,12 +1,28 @@
 var SelectClassState = {
     create: async function() {
-        game.stage.backgroundColor = '#000';
+
+        game.stage.backgroundColor = '#140c32';
+        var backgroundScreen = game.add.tileSprite(0, 0,game.gameWidth, game.gameWidth, "backgroundgame");
+        //backgroundScreen.width = game.width;
+        //backgroundScreen.height = game.hight;
+        //backgroundScreen.anchor.setTo(0, 0);
+        //backgroundScreen.scale.set(0.75, 0.6);
+        //backgroundScreen.fixedToCamera = true;
+
 
         for (var i = 0; i < 10; i++) {
-            var piece = game.add.image(irandom(game.world.width), irandom(game.world.height), 'atlas', 'parallax/' + choose('far_0','far_1','far_2', 'far_3', 'far_4'));
+            var piece = game.add.image(irandom(game.world.width), irandom(game.world.height), 'parallax', choose('far_0','far_1','far_2', 'far_3', 'far_4'));
             piece.alpha = 0.5;
         }
 
+        /*
+
+        this.backgrounds = [];
+        for (let i = 0; i < 5; i += 1) {
+          const bg = new ScrollingBackground(this, 'sprBg0', i * 10);
+          this.backgrounds.push(bg);
+        }
+        */
         this.title = game.add.text(game.world.centerX, 100, 'Select Class');
         this.title.font = 'square';
         this.title.anchor.setTo(0.5);
@@ -44,6 +60,8 @@ var SelectClassState = {
 
             //PlayerImage.alpha = 0.5;
         }
+
+
 
         //game.state.start('GameState');
     }

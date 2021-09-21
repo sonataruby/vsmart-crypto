@@ -14,7 +14,7 @@ var BootState = {
         game.load.atlasJSONHash(
             'preload',
             '/dist/game/starsbattle/images/preload_atlas.png',
-            '/dist//game/starsbattle/images/preload_atlas.json'           
+            '/dist/game/starsbattle/images/preload_atlas.json'           
         );
     },
     
