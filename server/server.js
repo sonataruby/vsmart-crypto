@@ -272,6 +272,10 @@ app.post("/files", async (req, res) => {
 });
 
 
+app.get("/game/stars", async (req, res) => {
+    const dataMain = readJSONFile('main.json');
+    res.render("game/stars",dataMain);
+});
 
 /*Build Block*/
 app.get("/block", function(){

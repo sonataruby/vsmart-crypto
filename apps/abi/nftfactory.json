@@ -5,11 +5,6 @@
 				"internalType": "address",
 				"name": "_nft",
 				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "_nftExp",
-				"type": "address"
 			}
 		],
 		"stateMutability": "nonpayable",
@@ -136,6 +131,84 @@
 		"type": "function"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "MarketPlaceBulletOf",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "price",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "bullet",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "MarketPlaceItemOf",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "price",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint8",
+				"name": "lever",
+				"type": "uint8"
+			},
+			{
+				"internalType": "uint256",
+				"name": "class",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "bullet",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "bulletclass",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "speed",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"inputs": [],
 		"name": "STATIC_ROLE",
 		"outputs": [
@@ -185,6 +258,141 @@
 		"name": "addStaticUser",
 		"outputs": [],
 		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_tokenId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_itemID",
+				"type": "uint256"
+			}
+		],
+		"name": "buyBullet",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_itemID",
+				"type": "uint256"
+			}
+		],
+		"name": "buyStars",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "totalCats",
+				"type": "uint256"
+			}
+		],
+		"name": "getBulletMarket",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "price",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "bullet",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct StarsBattleFactory.MarketPlaceBullet[]",
+				"name": "result",
+				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "totalCats",
+				"type": "uint256"
+			}
+		],
+		"name": "getMarketStars",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "price",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint8",
+						"name": "lever",
+						"type": "uint8"
+					},
+					{
+						"internalType": "uint256",
+						"name": "class",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "bullet",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "bulletclass",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "speed",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct StarsBattleFactory.MarketPlaceItem[]",
+				"name": "result",
+				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -351,99 +559,37 @@
 	{
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "_owner",
-				"type": "address"
-			},
-			{
-				"internalType": "uint8",
-				"name": "_lever",
-				"type": "uint8"
-			}
-		],
-		"name": "mint",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
 				"internalType": "string",
 				"name": "_name",
 				"type": "string"
 			},
 			{
-				"internalType": "uint256",
-				"name": "_model",
-				"type": "uint256"
-			}
-		],
-		"name": "mintCar",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_id",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_exp",
-				"type": "uint256"
-			}
-		],
-		"name": "mintItem",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_owner",
-				"type": "address"
-			},
-			{
-				"internalType": "string",
-				"name": "_name",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_model",
-				"type": "uint256"
-			},
-			{
 				"internalType": "uint8",
 				"name": "_lever",
 				"type": "uint8"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_class",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_bullet",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_bulletcount",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_speed",
+				"type": "uint256"
 			}
 		],
-		"name": "mintQuality",
+		"name": "mintStars",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -552,11 +698,24 @@
 			},
 			{
 				"internalType": "uint256",
-				"name": "_acceleraction",
+				"name": "_models",
 				"type": "uint256"
 			}
 		],
-		"name": "setAcceleraction",
+		"name": "setClass",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_curentcy",
+				"type": "address"
+			}
+		],
+		"name": "setCurentcy",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -582,24 +741,6 @@
 				"type": "uint256"
 			},
 			{
-				"internalType": "uint256",
-				"name": "_handing",
-				"type": "uint256"
-			}
-		],
-		"name": "setHanding",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_tokenId",
-				"type": "uint256"
-			},
-			{
 				"internalType": "uint8",
 				"name": "_lever",
 				"type": "uint8"
@@ -613,37 +754,27 @@
 	{
 		"inputs": [
 			{
+				"internalType": "uint256",
+				"name": "_itemID",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "_name",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_price",
+				"type": "uint256"
+			},
+			{
 				"internalType": "uint8",
-				"name": "_lever",
+				"name": "_number",
 				"type": "uint8"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_exp",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_speed",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_acceleraction",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_handing",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_nitro",
-				"type": "uint256"
 			}
 		],
-		"name": "setLeverRole",
+		"name": "setMarketBullet",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -652,16 +783,46 @@
 		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "_tokenId",
+				"name": "_itemID",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "_name",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_price",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint8",
+				"name": "_lever",
+				"type": "uint8"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_class",
 				"type": "uint256"
 			},
 			{
 				"internalType": "uint256",
-				"name": "_models",
+				"name": "_bullet",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_bulletclass",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_speed",
 				"type": "uint256"
 			}
 		],
-		"name": "setModels",
+		"name": "setMarketStars",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -675,37 +836,6 @@
 			}
 		],
 		"name": "setNft",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_nft",
-				"type": "address"
-			}
-		],
-		"name": "setNftExp",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_tokenId",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_power",
-				"type": "uint256"
-			}
-		],
-		"name": "setPower",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -738,30 +868,6 @@
 		],
 		"name": "transferOwnership",
 		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_tokenIdItem",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_tokenIdItem2",
-				"type": "uint256"
-			}
-		],
-		"name": "upLeverItem",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
 		"stateMutability": "nonpayable",
 		"type": "function"
 	}

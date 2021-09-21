@@ -21,7 +21,7 @@
 		"market" : true
 	},
 	"token" : {
-		"name" : "CAR",
+		"name" : "STARS",
 		"supply" : "1.000.000",
 		"price" : "0.02",
 		"airdrop_start" : "2021/09/31",

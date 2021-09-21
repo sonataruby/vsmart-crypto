@@ -9,7 +9,7 @@ module.exports = {
       let jsonToken = require(path.resolve(__dirname, "json/main.json"));
       let jsonAddress = require(path.resolve(__dirname, "apps/abi/address.json"));
       jsonToken.contractAddress = jsonAddress;
-
+      jsonToken.version = Math.random();
       let jsonMage = Object.assign({}, jsonToken, jsonData);
       //console.log(_.mergeWith(jsonToken, jsonData, jsonMage));
     	return _.mergeWith(jsonToken, jsonData, jsonMage);

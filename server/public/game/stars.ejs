@@ -1,0 +1,142 @@
+
+<h4 class="contractaddress d-flex justify-content-between"></h4>
+<hr>
+<div class="row">
+	<div class="col-6">
+		<div class="card">
+			<div class="card-body">
+			Factory : <%=address.AddressContractNFTFactory%><br>
+			Stars : <%=address.AddressContractGame1%><br>
+			
+			</div>
+		</div>
+	</div>
+	<div class="col-6">
+		<div class="card">
+			<div class="card-body">
+				<button class="btn btn-sm btn-primary" id="setupfatory">Connect Factory</button>
+				<button class="btn btn-sm btn-primary" id="setCurentcy">Connect Curentcy</button>
+				<button class="btn btn-sm btn-primary" id="setNft">Connect NFT</button>
+				
+				<a class="btn btn-primary btn-sm" href="/game/stars/builder">Game Builder</a>
+
+				
+			</div>
+		</div>
+	</div>
+	<div class="col-12">
+		<div class="card">
+			<div class="card-body">
+			<div class="input-group mb-3">
+				  <input type="text" class="form-control" id="adminAddress" placeholder="Admin Wallet" aria-label="Recipient's username" aria-describedby="button-addon2">
+				  <button class="btn btn-outline-secondary" type="button" id="setAdmin">Set Admin</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<br>
+<h4>Item Stars Marketplace</h4>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Price</th>
+      <th scope="col">Lever</th>
+      <th scope="col">Class</th>
+      <th scope="col">Bullet</th>
+      <th scope="col">Class Bullet</th>
+      <th scope="col">Speed</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody id="LoadController">
+    
+   
+  </tbody>
+</table>
+<h4>Item Bullet Marketplace</h4>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col" width="70">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Bullet</th>
+      <th scope="col">Price</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <tr>
+      <th scope="row"><input class="form-control"></th>
+      <td><input class="form-control"></td>
+      <td><input class="form-control"></td>
+      <td><input class="form-control"></td>
+      <td><button class="btn btn-sm btn-primary">Update</button></td>
+    </tr>
+    
+  </tbody>
+</table>
+
+<script type="text/javascript">
+	$(document).ready(async function(){
+		var loadBat = async () => {
+			await SmartApps.tokenGame1.Init();
+			var data = await SmartApps.tokenGame1.getMarketPlate(6);
+			var html = '';
+			for(var i =0;i<data.length;i++){
+	          var img = data[i].Class;
+	          html += '<tr>';
+			  html += '    <th scope="row"><input class="form-control id" value="'+i+'"></th>';
+			  html += '    <td><input class="form-control name" value="'+data[i].name+'"></td>';
+			  html += '    <td><input class="form-control price" value="'+data[i].price+'"></td>';
+			  html += '    <td><input class="form-control lever" value="'+data[i].lever+'"></td>';
+			  html += '    <td><input class="form-control class" value="'+data[i].class+'"></td>';
+			  html += '    <td><input class="form-control bullet" value="'+data[i].bullet+'"></td>';
+			  html += '    <td><input class="form-control bulletclass" value="'+data[i].bulletclass+'"></td>';
+			  html += '    <td><input class="form-control speed" value="'+data[i].speed+'"></td>';
+			  html += '    <td class="text-end"><button class="btn btn-sm btn-primary btnUpdate">Update</button></td>';
+			  html += '  </tr>';
+	        }
+	        $("#LoadController").html(html);
+		};
+		await loadBat();
+
+		$(".btnUpdate").on("click", function(){
+
+			var _id = $(this).parent().parent().find(".id").val();
+			var _name = $(this).parent().parent().find(".name").val();
+			var _price = $(this).parent().parent().find(".price").val();
+			var _lever = $(this).parent().parent().find(".lever").val();
+			var _class = $(this).parent().parent().find(".class").val();
+			var _bullet = $(this).parent().parent().find(".bullet").val();
+			var _bulletclass = $(this).parent().parent().find(".bulletclass").val();
+			var _spead = $(this).parent().parent().find(".speed").val();
+
+			SmartApps.tokenGame1.setMarketStars(_id, _name, _price, _lever, _class, _bullet, _bulletclass, _spead);
+		});
+
+		var loadBullet = async () => {
+		};
+
+
+		$("#setupfatory").on("click", function(){
+			SmartApps.tokenGame1.connectFactory();
+		});
+		$("#setCurentcy").on("click", function(){
+			SmartApps.tokenGame1.setCurentcy();
+		});
+		$("#setNft").on("click", function(){
+			SmartApps.tokenGame1.setNft();
+		});
+		
+		
+		$("#setAdmin").on("click", function(){
+			var address = $("#adminAddress").val();
+			SmartApps.tokenGame1.addAdmin(address);
+		});
+
+	});
+</script>

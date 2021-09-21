@@ -35,6 +35,13 @@ router.get(prefix + "/mining", (req, res) => {
 	 dataMain.loadJS = ["game1.js"];
 	 res.render("apps/mining",dataMain);
 });
+router.get(prefix + "/marketplace", (req, res) => {
+	 const dataMain = fsFile.readJSONFile('main.json');
+	 app.set('layout', config.layout.dir + "/apps");
+	 dataMain.loadJS = ["game1.js"];
+	 res.render("apps/marketplace",dataMain);
+});
+
 
 app.use(router);
 module.exports.app = app;
