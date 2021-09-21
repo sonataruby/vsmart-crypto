@@ -24,7 +24,7 @@ var PreloadState = {
         game.load.audio('sndExplosion', '/dist/game/starsbattle/audio/explosion.mp3', '/dist/game/starsbattle/audio/explosion.ogg');
         game.load.audio('sndHit', '/dist/game/starsbattle/audio/hit.mp3', '/dist/game/starsbattle/audio/hit.ogg');
         game.load.audio('musicOst', '/dist/game/starsbattle/audio/ost.mp3', '/dist/game/starsbattle/audio/ost.ogg');
-        game.load.image('backgroundgame','/dist/game/starsbattle/images/background2.png');
+        game.load.image('backgroundgame','/dist/game/starsbattle/images/'+choose("background2.png","bg.png","bg2.png","bg3.png","bg4.png","bg5.png"));
     },
     
     create: function() {

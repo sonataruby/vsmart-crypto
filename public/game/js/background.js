@@ -25,7 +25,7 @@ class Backgroun3d{
 		if (this.ctx) {
 			
 			this.animateStars(shooter);
-			console.log(shooter);
+			//console.log(shooter);
 		}
 	};
 
