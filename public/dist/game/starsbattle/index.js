@@ -6228,7 +6228,9 @@ var PreloadState = {
         game.load.audio('sndExplosion', '/dist/game/starsbattle/audio/explosion.mp3', '/dist/game/starsbattle/audio/explosion.ogg');
         game.load.audio('sndHit', '/dist/game/starsbattle/audio/hit.mp3', '/dist/game/starsbattle/audio/hit.ogg');
         game.load.audio('musicOst', '/dist/game/starsbattle/audio/ost.mp3', '/dist/game/starsbattle/audio/ost.ogg');
-        game.load.image('backgroundgame','/dist/game/starsbattle/images/'+choose("background2.png","bg.png","bg2.png","bg3.png","bg4.png","bg5.png"));
+        game.load.image('backgroundgame','/dist/game/starsbattle/images/'+choose("background2.png","bg1.jpg","bg.png","bg2.png","bg3.png","bg4.png","bg5.png"));
+        game.load.image('skys','/dist/game/starsbattle/images/sky.png');
+        
     },
     
     create: function() {
@@ -6440,18 +6442,22 @@ var SelectLevelState = {
         //game.state.start('GameState');
     }
 }
+var backgroundScreen;
 var SelectClassState = {
     create: async function() {
 
         game.stage.backgroundColor = '#140c32';
-        var backgroundScreen = game.add.tileSprite(0, 0,game._width, game._height, "backgroundgame");
-        backgroundScreen.anchor.setTo(0, 0);
-        backgroundScreen.scale.set(1.5, 1.6);
-        backgroundScreen.fixedToCamera = true;
+        var backgroundScreenHome = game.add.tileSprite(0, 0,game._width, game._height, "backgroundgame");
+        backgroundScreenHome.anchor.setTo(0, 0);
+        backgroundScreenHome.scale.set(1.5, 1.6);
+        backgroundScreenHome.fixedToCamera = true;
+        
 
+        backgroundScreen = game.add.tileSprite(0, 0,game._width, game._height, "skys");
+        
 
         for (var i = 0; i < 10; i++) {
-            var piece = game.add.image(irandom(game.world.width), irandom(game.world.height), 'parallax', choose('far_0','far_1','far_2', 'far_3', 'far_4'));
+            var piece = game.add.image(irandom(game.world.width), irandom(game.world.height), 'atlas', 'parallax/'+choose('far_0','far_1','far_2', 'far_3', 'far_4'));
             piece.alpha = 0.5;
         }
 
@@ -6504,17 +6510,24 @@ var SelectClassState = {
 
 
         //game.state.start('GameState');
+    },
+    update : () => {
+        //console.log(backgroundScreen);
+        backgroundScreen.tilePosition.y +=2;
     }
 }
+var backgroundScreen;
 var GameState = {
     create: async function () {
         game.stage.backgroundColor = '#333';
 
         game.groups = {};
-        var backgroundScreen = game.add.tileSprite(0, 0,game._width, game._height, "backgroundgame");
-        backgroundScreen.anchor.setTo(0, 0);
-        backgroundScreen.scale.set(1.5, 1.6);
-        backgroundScreen.fixedToCamera = true;
+        var backgroundScreenHome = game.add.tileSprite(0, 0,game._width, game._height, "backgroundgame");
+        backgroundScreenHome.anchor.setTo(0, 0);
+        backgroundScreenHome.scale.set(1.5, 1.6);
+        backgroundScreenHome.fixedToCamera = true;
+
+        backgroundScreen = game.add.tileSprite(0, 0,game._width, game._height, "skys");
         var groups = ['bg', 'enemies', 'player', 'collectibles', 'shots', 'vfx', 'gui'];
         groups.forEach(function(item) {
             game.groups[item] = game.add.group();
@@ -6567,6 +6580,9 @@ var GameState = {
             });
             game.backgrounds.initStars();
         }
+    },
+    update : () => {
+        backgroundScreen.tilePosition.y +=2;
     }
 };
 var width = window.innerWidth

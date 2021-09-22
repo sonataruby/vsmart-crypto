@@ -1,12 +1,15 @@
+var backgroundScreen;
 var GameState = {
     create: async function () {
         game.stage.backgroundColor = '#333';
 
         game.groups = {};
-        var backgroundScreen = game.add.tileSprite(0, 0,game._width, game._height, "backgroundgame");
-        backgroundScreen.anchor.setTo(0, 0);
-        backgroundScreen.scale.set(1.5, 1.6);
-        backgroundScreen.fixedToCamera = true;
+        var backgroundScreenHome = game.add.tileSprite(0, 0,game._width, game._height, "backgroundgame");
+        backgroundScreenHome.anchor.setTo(0, 0);
+        backgroundScreenHome.scale.set(1.5, 1.6);
+        backgroundScreenHome.fixedToCamera = true;
+
+        backgroundScreen = game.add.tileSprite(0, 0,game._width, game._height, "skys");
         var groups = ['bg', 'enemies', 'player', 'collectibles', 'shots', 'vfx', 'gui'];
         groups.forEach(function(item) {
             game.groups[item] = game.add.group();
@@ -59,5 +62,8 @@ var GameState = {
             });
             game.backgrounds.initStars();
         }
+    },
+    update : () => {
+        backgroundScreen.tilePosition.y +=2;
     }
 };
