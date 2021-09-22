@@ -5,7 +5,7 @@ const db = require('./server/db');
 let Web3 = require('web3');
 let fs = require('fs');
 //let web3 = new Web3("https://bsc-dataseed.binance.org");
-let web3 = new Web3("https://data-seed-prebsc-1-s2.binance.org:8545");
+let web3 = new Web3(config.blockChianURL);
 
 // App setup
 const PORT = 7000;

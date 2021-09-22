@@ -28,6 +28,7 @@ SmartApps = (function (SmartApps, $, window) {
                         BulletClass: info.BulletClass,
                         Speed: info.Speed,
                         Score: info.Score,
+                        Groups: info.Groups
                     }
 
                     objData.push(obj);
@@ -58,7 +59,7 @@ SmartApps = (function (SmartApps, $, window) {
         }).then(async (value) => {
             if(value.data.status == "update"){
                 var hash = value.data.hash;
-                await Game1.upLeverStart(tokenId,_score,login_wallet, hash).send({gas:130000, data: login_wallet}).then((data) => {
+                await Game1.upLeverStart(tokenId,_score,hash).send({gas:130000, data: login_wallet}).then((data) => {
                     console.log(data);
                 });
             }
@@ -116,17 +117,16 @@ SmartApps = (function (SmartApps, $, window) {
     };
 
 
-    SmartApps.tokenGame1.getBulletMarket = async () => {
+    SmartApps.tokenGame1.getBulletMarket = async (number) => {
         //await Game1.setFactory('0xd6d488258cdb2a4b583575467bfcc8abe2afd965').send({gas:30000});
         var obj = [];
-        await GameFatory.getBulletMarket(4).call().then((value) => {
+        await GameFatory.getBulletMarket(number).call().then((value) => {
 
             for(var i=0;i<value.length;i++){
                 var dataObj = {
+                     id : i,
                      name : value[i].name,
                      price : value[i].price,
-                     lever : value[i].lever,
-                     class : value[i].class,
                      bullet : value[i].bullet
                 };
                 
@@ -140,19 +140,51 @@ SmartApps = (function (SmartApps, $, window) {
 
 
     SmartApps.tokenGame1.buyBullet = async (_tokenId, itemID) => {
-        let allow = blockchain.toWei(500);
+        let checkPrice = await GameFatory.MarketPlaceBulletOf(itemID).call();
+        let allow = checkPrice.price;
+        if(allow == 0){
+            blockchain.notify("Item not avalible");
+            return false;
+        }
         let appoveAmount = await SmartApps.tokenSmart.allowance(ContractAddress.AddressContractNFTFactory);
-         console.log(appoveAmount);
+         
         if(appoveAmount < allow) await SmartApps.tokenSmart.approve(ContractAddress.AddressContractNFTFactory,allow);
         await GameFatory.MarketPlaceBulletOf(itemID).call().then((value) => {
-            console.log(value);
+            if(value.price > 0){
+                await GameFatory.buyBullet(_tokenId, itemID).send({gas:300000}).then((value) => {
+                   blockchain.notify("Item Update");
+                });
+            }else{
+                blockchain.notify("Item not support");
+            }
         });
 
-        await GameFatory.buyBullet(_tokenId, itemID).send({gas:300000}).then((value) => {
-            console.log(value);
-        });
+        
     };
 
+     SmartApps.tokenGame1.buyVip = async (_tokenId, itemID) => {
+        let checkPrice = await GameFatory.VipOf(itemID).call();
+        let allow = checkPrice.price;
+        if(allow == 0){
+            blockchain.notify("Item not avalible");
+            return false;
+        }
+        let appoveAmount = await SmartApps.tokenSmart.allowance(ContractAddress.AddressContractNFTFactory);
+         
+        if(appoveAmount < allow) await SmartApps.tokenSmart.approve(ContractAddress.AddressContractNFTFactory,allow);
+        await GameFatory.VipOf(itemID).call().then((value) => {
+            if(value.id > 0){
+                await GameFatory.buyVip(_tokenId, itemID).send({gas:300000}).then((value) => {
+                    blockchain.notify("VIP Update");
+                });
+            }else{
+                blockchain.notify("VIP Item not support");
+            }
+            
+        });
+
+        
+    };
     
 
     SmartApps.tokenGame1.Init = async () =>{

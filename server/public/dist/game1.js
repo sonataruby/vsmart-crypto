@@ -67,6 +67,8 @@ SmartApps = (function (SmartApps, $, window) {
     };
 
 
+
+
     SmartApps.tokenGame1.addAdmin = async (address) => {
 
         await GameFatory.addAdmin(address).send({gas:150000}).then((value) => {
@@ -136,17 +138,16 @@ SmartApps = (function (SmartApps, $, window) {
     };
 
 
-    SmartApps.tokenGame1.getBulletMarket = async () => {
+    SmartApps.tokenGame1.getBulletMarket = async (number) => {
         //await Game1.setFactory('0xd6d488258cdb2a4b583575467bfcc8abe2afd965').send({gas:30000});
         var obj = [];
-        await GameFatory.getBulletMarket(4).call().then((value) => {
+        await GameFatory.getBulletMarket(number).call().then((value) => {
 
             for(var i=0;i<value.length;i++){
                 var dataObj = {
+                    id : i,
                      name : value[i].name,
                      price : value[i].price,
-                     lever : value[i].lever,
-                     class : value[i].class,
                      bullet : value[i].bullet
                 };
                 
@@ -173,6 +174,43 @@ SmartApps = (function (SmartApps, $, window) {
         });
     };
 
+    SmartApps.tokenGame1.setMarketBullet = async (tokenId,_name,_price, _buletnumber) => {
+        _price = blockchain.toWei(_price);
+        await GameFatory.setMarketBullet(tokenId,_name,_price, _buletnumber).send({gas:180000}).then((value) => {
+            blockchain.notify("Update ok");
+        });
+    };
+
+
+    SmartApps.tokenGame1.setLeverBuilder = async (_lever,_score,_bullet, _bulletclass, _speed) => {
+       
+        await Game1.setLeverData(_lever,_score,_bullet, _bulletclass, _speed).send({gas:180000}).then((value) => {
+            blockchain.notify("Update ok");
+        });
+    };
+    
+    SmartApps.tokenGame1.getLeverBulder = async (number) => {
+        //await Game1.setFactory('0xd6d488258cdb2a4b583575467bfcc8abe2afd965').send({gas:30000});
+        var obj = [];
+        await Game1.getLeverData(number).call().then((value) => {
+
+            for(var i=0;i<value.length;i++){
+                var dataObj = {
+                    id : i,
+                     Score : value[i].Score,
+                     Bullet : value[i].Bullet,
+                     BulletClass : value[i].BulletClass,
+                     Speed : value[i].Speed
+                };
+                
+                obj.push(dataObj);
+            }
+            
+        });
+        console.log(obj);
+        return obj;
+    };
+    
     
 
     SmartApps.tokenGame1.Init = async () =>{

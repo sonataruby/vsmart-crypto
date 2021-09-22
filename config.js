@@ -24,6 +24,7 @@ var layout_config = {
 }
 
 
+
 module.exports.server = server;
 module.exports.layout = layout_config;
 module.exports.db_config = db_config;
@@ -34,3 +35,5 @@ var telegram = {
 	TelegramChannel : "@Cryptocar_Global"
 }
 module.exports.telegram = telegram;
+module.exports.blockChianURL = "https://data-seed-prebsc-1-s2.binance.org:8545";
+//https://bsc-dataseed.binance.org <== Mainnet
