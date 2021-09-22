@@ -72,3 +72,4 @@ var SelectClassState = {
         backgroundScreen.tilePosition.y +=2;
     }
 }
+

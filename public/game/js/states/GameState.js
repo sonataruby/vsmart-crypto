@@ -14,7 +14,7 @@ var GameState = {
         groups.forEach(function(item) {
             game.groups[item] = game.add.group();
         });
-
+        initLevelData();
         game.playerShip = new PlayerShip();
         game.parallax = new Parallax();
         game.hud = new HUD();
@@ -73,3 +73,14 @@ var GameState = {
         backgroundScreen.tilePosition.y +=2;
     }
 };
+function initLevelData() {
+    storage = new Storage(game.settings.storagePrefix);
+    var levels = [];
+    for (var i = 0; i < 30; i++) {
+        var level = {unlocked: i < game.currentLevel ? true : false, highscore: 0};
+        levels.push(level);
+    }
+    levels[0].unlocked = true;
+
+    storage.setItem('levels', JSON.stringify(levels));
+}

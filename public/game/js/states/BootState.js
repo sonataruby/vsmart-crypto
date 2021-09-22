@@ -26,14 +26,14 @@ var BootState = {
             game.orientation = new Orientation(game.settings.displayOrientation);   
             game.orientation.checkOrientation();
         }        
-        
+        initLevelData();
         // add storage controller
         game.storage = new Storage(game.settings.storagePrefix);
         
         // add audio controller
         game.audio = new AudioController();
         
-        if (game.storage.getItem('levels', 'string') === null) initLevelData();
+        
 
         // start preload state
         game.state.start('PreloadState')

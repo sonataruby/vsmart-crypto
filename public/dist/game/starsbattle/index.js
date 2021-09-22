@@ -6177,14 +6177,14 @@ var BootState = {
             game.orientation = new Orientation(game.settings.displayOrientation);   
             game.orientation.checkOrientation();
         }        
-        
+        initLevelData();
         // add storage controller
         game.storage = new Storage(game.settings.storagePrefix);
         
         // add audio controller
         game.audio = new AudioController();
         
-        if (game.storage.getItem('levels', 'string') === null) initLevelData();
+        
 
         // start preload state
         game.state.start('PreloadState')
@@ -6517,6 +6517,8 @@ var SelectClassState = {
         backgroundScreen.tilePosition.y +=2;
     }
 }
+
+
 var backgroundScreen;
 var GameState = {
     create: async function () {
@@ -6533,7 +6535,7 @@ var GameState = {
         groups.forEach(function(item) {
             game.groups[item] = game.add.group();
         });
-
+        initLevelData();
         game.playerShip = new PlayerShip();
         game.parallax = new Parallax();
         game.hud = new HUD();
@@ -6592,6 +6594,17 @@ var GameState = {
         backgroundScreen.tilePosition.y +=2;
     }
 };
+function initLevelData() {
+    storage = new Storage(game.settings.storagePrefix);
+    var levels = [];
+    for (var i = 0; i < 30; i++) {
+        var level = {unlocked: i < game.currentLevel ? true : false, highscore: 0};
+        levels.push(level);
+    }
+    levels[0].unlocked = true;
+
+    storage.setItem('levels', JSON.stringify(levels));
+}
 var width = window.innerWidth
 || document.documentElement.clientWidth
 || document.body.clientWidth;
