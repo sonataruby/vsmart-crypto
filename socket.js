@@ -171,11 +171,12 @@ io.on("connection", function (socket) {
     let Score = data.score;
     let Lever = data.lever;
     let hash = data.hash;
+    let record = data.record;
 
     var LoadDB = await db.dbQuery("SELECT * FROM game_stars WHERE tokenId='"+tokenid+"'",true);
 
     if(LoadDB == "" || LoadDB == undefined){
-        db.dbQuery("INSERT INTO `game_stars` (`tokenId`, `bulletCount`, `Score`, `Lever`) VALUES ('"+tokenid+"', '"+bulletCount+"', '"+Score+"', '"+Lever+"');");
+        db.dbQuery("INSERT INTO `game_stars` (`tokenId`, `bulletCount`, `Score`, `Lever`, `Record`) VALUES ('"+tokenid+"', '"+bulletCount+"', '"+Score+"', '"+Lever+"', '"+record+"');");
     }else{
       var readBulet = LoadDB.bulletCount - bulletCount;
       db.dbQuery("UPDATE `game_stars` SET bulletCount='"+readBulet+"' WHERE tokenId='"+tokenid+"';");
