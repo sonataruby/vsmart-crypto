@@ -1,9 +1,9 @@
 var GameState = {
     create: async function () {
-        game.stage.backgroundColor = '#c20ed7';
+        game.stage.backgroundColor = '#333';
 
         game.groups = {};
-        var backgroundScreen = game.add.tileSprite(0, 0,game.gameWidth, game.gameWidth, "backgroundgame");
+        var backgroundScreen = game.add.tileSprite(0, 0,game._width, game._height, "backgroundgame");
         backgroundScreen.anchor.setTo(0, 0);
         backgroundScreen.scale.set(1.5, 1.6);
         backgroundScreen.fixedToCamera = true;
@@ -17,8 +17,7 @@ var GameState = {
         game.hud = new HUD();
         game.bulletBar = new BulletBars();
         game.spawner = new EnemySpawner();
-        //await game.web3.mint();
-        //console.log(game.web3.getBalt());
+        
         new AudioSwitch({
             type: 'sound',
             group: game.groups.gui,

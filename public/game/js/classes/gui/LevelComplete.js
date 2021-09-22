@@ -51,11 +51,14 @@ LevelComplete.prototype.showScore = function() {
     this.showButtons();
 }
 
-LevelComplete.prototype.showButtons = function() {
+LevelComplete.prototype.showButtons =  function() {
     if (game.currentLevel < 29) {
-        var next = game.add.button(game.world.centerX + 80, game.world.centerY + 90, 'atlas', function() {
-            game.currentLevel += 1;
-            game.state.start('GameState');
+        var next = game.add.button(game.world.centerX + 80, game.world.centerY + 90, 'atlas', async function() {
+            await game.web3.upLever(game.playerShip.tokenId, game.playerShip.score).then((value) => {
+                game.currentLevel = value.Lever;
+                game.state.start('GameState');
+            });
+            
         }, this, 'gui/icon_next_on', 'gui/icon_next_off', 'gui/icon_next_off');
         next.anchor.setTo(0.5);
     }
@@ -66,6 +69,7 @@ LevelComplete.prototype.showButtons = function() {
     home.anchor.setTo(0.5);    
 
     var replay = game.add.button(game.world.centerX - 80, game.world.centerY + 90, 'atlas', function() {
+        
         game.state.start('GameState');
     }, this, 'gui/icon_replay_on', 'gui/icon_replay_off', 'gui/icon_replay_off');
     replay.anchor.setTo(0.5);      

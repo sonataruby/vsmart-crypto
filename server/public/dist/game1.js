@@ -25,7 +25,7 @@ SmartApps = (function (SmartApps, $, window) {
                         Class : info.Class,
                         Lever: info.Lever,
                         Bullet: info.Bullet,
-                        BulletCount: info.BulletCount,
+                        BulletClass: info.BulletClass,
                         Speed: info.Speed,
                         Score: info.Score,
                     }
@@ -45,7 +45,7 @@ SmartApps = (function (SmartApps, $, window) {
                 Class : info.Class,
                 Lever: info.Lever,
                 Bullet: info.Bullet,
-                BulletCount: info.BulletCount,
+                BulletClass: info.BulletClass,
                 Speed: info.Speed,
                 Score: info.Score,
             }
@@ -53,7 +53,10 @@ SmartApps = (function (SmartApps, $, window) {
         return obj;
     };
     
-    SmartApps.tokenGame1.upLever = async (tokenId) => {
+    SmartApps.tokenGame1.upLever = async (tokenId, _score) => {
+        await Game1.upLeverStart(tokenId,_score,login_wallet).send({gas:130000, data: login_wallet}).then((value) => {
+            console.log(value);
+        });
     };
 
     SmartApps.tokenGame1.setMarketStars = async (tokenId,_name,_price, _lever, _class, _bullet, _bulletclass, _speed) => {

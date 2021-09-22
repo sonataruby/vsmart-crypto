@@ -29385,9 +29385,7 @@ img.mfp-img {
   .btn {
     font-size: 13px;
     line-height: 25px;
-    padding: 12px 30px;
     letter-spacing: 0.1em;
-    min-width: 120px;
   }
 
   .btn.btn-grad {
@@ -29399,14 +29397,12 @@ img.mfp-img {
     font-weight: 700;
     line-height: 24px;
     padding: 15px 40px;
-    min-width: 190px;
   }
 
   .btn-md {
     font-size: 12px;
     line-height: 24px;
     padding: 8px 20px;
-    min-width: 160px;
   }
 
   .btn-md.btn-grad {

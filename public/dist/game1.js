@@ -21,7 +21,7 @@ SmartApps = (function (SmartApps, $, window) {
                    
                     var obj = {
                         tokenId : value[i],
-                        ClassName : info.ClassName,
+                        name : info.ClassName,
                         Class : info.Class,
                         Lever: info.Lever,
                         Bullet: info.Bullet,
@@ -41,7 +41,7 @@ SmartApps = (function (SmartApps, $, window) {
         await Game1.getOptions(tokenId).call().then((info) => {
             obj = {
                 tokenId : tokenId,
-                ClassName : info.ClassName,
+                name : info.ClassName,
                 Class : info.Class,
                 Lever: info.Lever,
                 Bullet: info.Bullet,
@@ -87,7 +87,7 @@ SmartApps = (function (SmartApps, $, window) {
     SmartApps.tokenGame1.buyMarketPlate = async (itemID) => {
         
         let checkPrice = await GameFatory.MarketPlaceItemOf(itemID).call();
-        console.log(ContractAddress.AddressContractNFTFactory);
+       
         let allow = checkPrice.price;
         if(allow == 0){
             blockchain.notify("Item not avalible");
@@ -95,7 +95,7 @@ SmartApps = (function (SmartApps, $, window) {
         }
         let appoveAmount = await SmartApps.tokenSmart.allowance(ContractAddress.AddressContractNFTFactory);
         
-        if(appoveAmount * 1.5 < allow) await SmartApps.tokenSmart.approve(ContractAddress.AddressContractNFTFactory,allow);
+        if(appoveAmount < allow) await SmartApps.tokenSmart.approve(ContractAddress.AddressContractNFTFactory,allow);
         
 
         await GameFatory.buyStars(itemID).send({gas:1000000}).then((value) => {

@@ -15,8 +15,9 @@ var PlayerShip =  function() {
         this.weapon.fire(true);
         this.alive = true;
         this.score = 0;
-
-        this.moveSpeed = 7;
+        this.bullet = web3Player.Bullet;
+        this.moveSpeed = web3Player.Speed > 2 ? web3Player.Speed : 7;
+        this.tokenId = web3Player.tokenId;
 
         this.leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
         this.rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
@@ -31,6 +32,7 @@ var PlayerShip =  function() {
         game.input.onUp.add(this.onEndTouch, this)
 
         game.groups.player.add(this);
+
 
 
     });
@@ -65,7 +67,10 @@ PlayerShip.prototype.onEndTouch = function(pointer) {
 
 PlayerShip.prototype.update = function() {
     if(!this.alive) return;
-
+    if(this.bullet < 1) {
+        this.weapon.destroy();
+        this.bullet = 0;
+    }
     // movement
     var left = this.leftKey.isDown ? -1 : 0;
     var right = this.rightKey.isDown? 1 : 0;
@@ -165,4 +170,8 @@ PlayerShip.prototype.removeShield = function() {
 PlayerShip.prototype.addScore = function(value) {
     this.score += value;
     game.hud.updateScore();
+}
+PlayerShip.prototype.addBullet = function(value) {
+    this.bullet -= value;
+    game.bulletBar.updateBullet();
 }

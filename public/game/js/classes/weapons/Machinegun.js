@@ -12,6 +12,7 @@ var Machinegun = function(parent) {
 }
 
 Machinegun.prototype.fire = function(repeat) {
+
     if (!this.active) return;
     if (this.reloading) return;
     this.reloading = true;
@@ -31,7 +32,9 @@ Machinegun.prototype.fire = function(repeat) {
         new this.shot(this.parent.x - 24, this.parent.y + 20, this.parent.type, this.damage);
         new this.shot(this.parent.x + 24, this.parent.y + 20, this.parent.type, this.damage);
     }
-    //game.bulletBar.update();
+    
+    if (this.active) game.playerShip.addBullet(1);
+
     game.audio.playSound('sndPew');
     game.time.events.add(this.reloadTime * 1000, this.reload, this, repeat);
 }

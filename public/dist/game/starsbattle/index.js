@@ -6510,10 +6510,10 @@ var SelectClassState = {
 }
 var GameState = {
     create: async function () {
-        game.stage.backgroundColor = '#c20ed7';
+        game.stage.backgroundColor = '#333';
 
         game.groups = {};
-        var backgroundScreen = game.add.tileSprite(0, 0,game.gameWidth, game.gameWidth, "backgroundgame");
+        var backgroundScreen = game.add.tileSprite(0, 0,game._width, game._height, "backgroundgame");
         backgroundScreen.anchor.setTo(0, 0);
         backgroundScreen.scale.set(1.5, 1.6);
         backgroundScreen.fixedToCamera = true;
@@ -6527,8 +6527,7 @@ var GameState = {
         game.hud = new HUD();
         game.bulletBar = new BulletBars();
         game.spawner = new EnemySpawner();
-        //await game.web3.mint();
-        //console.log(game.web3.getBalt());
+        
         new AudioSwitch({
             type: 'sound',
             group: game.groups.gui,
@@ -7066,6 +7065,7 @@ var Machinegun = function(parent) {
 }
 
 Machinegun.prototype.fire = function(repeat) {
+
     if (!this.active) return;
     if (this.reloading) return;
     this.reloading = true;
@@ -7085,7 +7085,9 @@ Machinegun.prototype.fire = function(repeat) {
         new this.shot(this.parent.x - 24, this.parent.y + 20, this.parent.type, this.damage);
         new this.shot(this.parent.x + 24, this.parent.y + 20, this.parent.type, this.damage);
     }
-    //game.bulletBar.update();
+    
+    if (this.active) game.playerShip.addBullet(1);
+
     game.audio.playSound('sndPew');
     game.time.events.add(this.reloadTime * 1000, this.reload, this, repeat);
 }
@@ -7330,8 +7332,9 @@ var PlayerShip =  function() {
         this.weapon.fire(true);
         this.alive = true;
         this.score = 0;
-
-        this.moveSpeed = 7;
+        this.bullet = web3Player.Bullet;
+        this.moveSpeed = web3Player.Speed > 2 ? web3Player.Speed : 7;
+        this.tokenId = web3Player.tokenId;
 
         this.leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
         this.rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
@@ -7346,6 +7349,7 @@ var PlayerShip =  function() {
         game.input.onUp.add(this.onEndTouch, this)
 
         game.groups.player.add(this);
+
 
 
     });
@@ -7380,7 +7384,10 @@ PlayerShip.prototype.onEndTouch = function(pointer) {
 
 PlayerShip.prototype.update = function() {
     if(!this.alive) return;
-
+    if(this.bullet < 1) {
+        this.weapon.destroy();
+        this.bullet = 0;
+    }
     // movement
     var left = this.leftKey.isDown ? -1 : 0;
     var right = this.rightKey.isDown? 1 : 0;
@@ -7480,6 +7487,10 @@ PlayerShip.prototype.removeShield = function() {
 PlayerShip.prototype.addScore = function(value) {
     this.score += value;
     game.hud.updateScore();
+}
+PlayerShip.prototype.addBullet = function(value) {
+    this.bullet -= value;
+    game.bulletBar.updateBullet();
 }
 var Enemy = function(x, y, sprite) {
     Phaser.Sprite.call(this, game, x, y, 'atlas', sprite);
@@ -7976,7 +7987,7 @@ HUD.prototype.updateScore = function() {
 var BulletBars = function() {
     //this.bulletBar = new BulletBars(20, 20);
 
-    this.bulletCount = game.add.text(game.world.width - 100, 56, game.playerShip.score);
+    this.bulletCount = game.add.text(game.world.width - 120, 56, game.playerShip.bullet);
     this.bulletCount.anchor.setTo(0.5, 1);
     this.bulletCount.align = 'right';
     this.bulletCount.fill = '#fff';
@@ -7987,11 +7998,11 @@ var BulletBars = function() {
 }
 
 BulletBars.prototype.update = function() {
-    this.bulletCount.text = 100;
+    this.bulletCount.text = game.playerShip.bullet;
 }
 
-BulletBars.prototype.updateScore = function() {
-    //this.score.text = game.playerShip.score;
+BulletBars.prototype.updateBullet = function() {
+    this.bulletCount.text = game.playerShip.bullet;
 }
 var HealthBar = function(x, y) {
     Phaser.Sprite.call(this, game, x, y, 'atlas', 'gui/health_bar_bg');
@@ -8061,11 +8072,14 @@ LevelComplete.prototype.showScore = function() {
     this.showButtons();
 }
 
-LevelComplete.prototype.showButtons = function() {
+LevelComplete.prototype.showButtons =  function() {
     if (game.currentLevel < 29) {
-        var next = game.add.button(game.world.centerX + 80, game.world.centerY + 90, 'atlas', function() {
-            game.currentLevel += 1;
-            game.state.start('GameState');
+        var next = game.add.button(game.world.centerX + 80, game.world.centerY + 90, 'atlas', async function() {
+            await game.web3.upLever(game.playerShip.tokenId, game.playerShip.score).then((value) => {
+                game.currentLevel = value.Lever;
+                game.state.start('GameState');
+            });
+            
         }, this, 'gui/icon_next_on', 'gui/icon_next_off', 'gui/icon_next_off');
         next.anchor.setTo(0.5);
     }
@@ -8076,6 +8090,7 @@ LevelComplete.prototype.showButtons = function() {
     home.anchor.setTo(0.5);    
 
     var replay = game.add.button(game.world.centerX - 80, game.world.centerY + 90, 'atlas', function() {
+        
         game.state.start('GameState');
     }, this, 'gui/icon_replay_on', 'gui/icon_replay_off', 'gui/icon_replay_off');
     replay.anchor.setTo(0.5);      
