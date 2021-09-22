@@ -17,7 +17,7 @@ $(document).ready(async function(){
           var img = data[i].class;
           var bullet = data[i].bullet;
           var price = data[i].price;
-          html += '<div class="col-md-4 mb-3"><div class="card"><div class="card-body"><img src="/dist/game/'+img+'.png" style="width:100px;"><br>1 NFT<br>'+bullet+' Bullet<br>'+price+' <%=token.name%><br><button class="btn btn-sm btn-outline-info btnMint" data-id="'+i+'">BUY</button> </div></div></div>';
+          html += '<div class="col-md-4 mb-3"><div class="card"><div class="card-body"><img src="/nfts/'+img+'.png" style="width:100px;"><br>1 NFT<br>'+bullet+' Bullet<br>'+price+' <%=token.name%><br><button class="btn btn-sm btn-outline-info btnMint" data-id="'+i+'">BUY</button> </div></div></div>';
         }
         
 

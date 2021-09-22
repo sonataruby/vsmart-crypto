@@ -1,12 +1,13 @@
 var BootState = {
     init: function() {
         // Responsive scaling
-        game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+        //this.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
+        game.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
         
         // Center the game
         game.scale.pageAlignHorizontally = true;
         game.scale.pageAlignVertically = true;
-        
+        game.scale.refresh()
         
     },
     

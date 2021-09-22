@@ -11,7 +11,7 @@ var gameHeight = height;
 
 
 
-var game = new Phaser.Game(gameWidth, gameHeight, Phaser.CANVAS,'game');
+var game = new Phaser.Game({width : gameWidth, height : gameHeight, renderer : Phaser.CANVAS,parent : 'game',scaleMode: Phaser.ScaleManager.EXACT_FIT});
 game.settings = {
     'lockOrientation': false, // should we prevent a player from playing using incorrect orientation?
     'displayOrientation': 'portrait', // portrait, landscape
