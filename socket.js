@@ -157,6 +157,10 @@ app.post("/nft", async (req, res) => {
         db.dbQuery("UPDATE `game_stars` SET bulletCount='"+info.Bullet+"', Score='"+info.Score+"', Lever='"+info.Lever+"' WHERE tokenId='"+tokenid+"';");
       });
     });
+  var data = '{"ok": "200"}';
+  res.header('Content-Type', 'application/json');
+  res.send(data);
+  res.end( data );
 });
 
 // Socket setup
