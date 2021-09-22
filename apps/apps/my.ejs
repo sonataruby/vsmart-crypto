@@ -24,12 +24,12 @@ $(document).ready(async function(){
           html += '<div class="col-sm-3">';
           html += '          <div class="card">';
           html += '            <div class="card-body">';
-          html += '              <img src="/dist/game/'+img+'.png" style="width:100px; height:120px;">';
+          html += '              <img src="/nfts/'+img+'.png" style="width:100px; height:120px;">';
           html += '              <b>'+data[i].name+'</b><br>';
           html += '              Lever : '+data[i].Lever+'<br>';
           html += '              Bullet : '+data[i].Bullet+'<br>';
           html += '             <div class="btn-group" role="group">';
-          html += '              <button class="btn btn-outline-info btn-sm btnBuyBullet" data-tokenid="'+data[i].tokenId+'"><i class="ti ti-shop"></i>Buy</button>';
+          html += '              <button class="btn btn-outline-info btn-sm btnBuyBullet" data-bs-toggle="modal" data-bs-target="#BulletModal" data-tokenid="'+data[i].tokenId+'"><i class="ti ti-shop"></i>Buy</button>';
           html += '              <button class="btn btn-outline-info btn-sm btnSellMarket" data-tokenid="'+data[i].tokenId+'"><i class="ti ti-shop"></i>Sell</button>';
           html += '            </div>';
           html += '            </div>';
@@ -42,8 +42,46 @@ $(document).ready(async function(){
     };
     await LoadClass();
 
+    $(".btnBuyBullet").on("click", function(){
+        var tokenid = $(this).data("tokenid");
+        
+        $(".btnBuyBulletExe").attr("data-tokenid",tokenid);
+    });
+
+    var dataBullet = await SmartApps.tokenGame1.getBulletMarket(6);
+    var html = '';
+    for(var i =0;i<dataBullet.length;i++){
+        html += '<div class="col-4 btnBuyBulletExe" data-itemid="'+i+'"><img src="/nfts/'+(i+1)+'.gif" style="width:100%"><b>'+dataBullet[i].name+'</b><br>'+dataBullet[i].price+' <%=token.name%><br>Bullet : '+dataBullet[i].bullet+'</div>';
+    }
+    $(".modal-body .row").html(html);
+
+    $(".btnBuyBulletExe").on("click", function(){
+        var tokenid = $(this).data("tokenid");
+        var itemid = $(this).data("itemid");
+        SmartApps.tokenGame1.buyBullet(tokenid,itemid);
+    });
+
     
 });
 
 
 </script>
+
+<!-- Modal -->
+<div class="modal fade" id="BulletModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Sellect Bullet</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
