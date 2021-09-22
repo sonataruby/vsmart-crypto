@@ -149,7 +149,7 @@ SmartApps = (function (SmartApps, $, window) {
         let appoveAmount = await SmartApps.tokenSmart.allowance(ContractAddress.AddressContractNFTFactory);
          
         if(appoveAmount < allow) await SmartApps.tokenSmart.approve(ContractAddress.AddressContractNFTFactory,allow);
-        await GameFatory.MarketPlaceBulletOf(itemID).call().then((value) => {
+        await GameFatory.MarketPlaceBulletOf(itemID).call().then(async (value) => {
             if(value.price > 0){
                 await GameFatory.buyBullet(_tokenId, itemID).send({gas:300000}).then((value) => {
                    blockchain.notify("Item Update");
@@ -172,7 +172,7 @@ SmartApps = (function (SmartApps, $, window) {
         let appoveAmount = await SmartApps.tokenSmart.allowance(ContractAddress.AddressContractNFTFactory);
          
         if(appoveAmount < allow) await SmartApps.tokenSmart.approve(ContractAddress.AddressContractNFTFactory,allow);
-        await GameFatory.VipOf(itemID).call().then((value) => {
+        await GameFatory.VipOf(itemID).call().then(async (value) => {
             if(value.id > 0){
                 await GameFatory.buyVip(_tokenId, itemID).send({gas:300000}).then((value) => {
                     blockchain.notify("VIP Update");
