@@ -126,7 +126,7 @@ SmartApps = (function (SmartApps, $, window) {
                 var dataObj = {
                      id : i,
                      name : value[i].name,
-                     price : value[i].price,
+                     price : blockchain.fromWei(value[i].price),
                      bullet : value[i].bullet
                 };
                 
@@ -134,7 +134,7 @@ SmartApps = (function (SmartApps, $, window) {
             }
             
         });
-        console.log(obj);
+       
         return obj;
     };
 
