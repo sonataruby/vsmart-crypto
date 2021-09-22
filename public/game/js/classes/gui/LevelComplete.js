@@ -54,8 +54,8 @@ LevelComplete.prototype.showScore = function() {
 LevelComplete.prototype.showButtons =  function() {
     if (game.currentLevel < 29) {
         var next = game.add.button(game.world.centerX + 80, game.world.centerY + 90, 'atlas', async function() {
-            await game.web3.upLever(game.playerShip.tokenId, game.playerShip.score).then((value) => {
-                game.currentLevel = value.Lever;
+            await game.web3.upLever(game.playerShip.tokenId, game.playerShip.score).then(() => {
+                game.currentLevel += 1;
                 game.state.start('GameState');
             });
             
