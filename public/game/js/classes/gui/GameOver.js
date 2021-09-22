@@ -9,7 +9,15 @@ GameOver.prototype = Object.create(Phaser.Sprite.prototype);
 GameOver.prototype.constructor = GameOver;
 
 GameOver.prototype.showButtons = function() {
+    game.socket.emit("update",{
+                tokenId:game.playerShip.tokenId,
+                score : game.playerShip.score, 
+                bullet : game.playerShip.bullet, 
+                lever : game.currentLevel,
+                record : 0,
+                hash : game.hash});
     var levels = game.add.button(game.world.centerX - 80, game.world.centerY + 30, 'atlas', function() {
+        
         game.state.start('SelectClassState');
     }, this, 'gui/icon_levels_on', 'gui/icon_levels_off', 'gui/icon_levels_off');
     levels.anchor.setTo(0.5);

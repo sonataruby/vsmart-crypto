@@ -176,7 +176,7 @@ gulp.task('game1', function() {
             'dev/game1.js',
         ])
         .pipe(concat('game1.js'))
-        //.pipe(uglify())
+        .pipe(uglify())
         .pipe(gulp.dest("public/dist"))
         .pipe(browserSync.stream());
     
