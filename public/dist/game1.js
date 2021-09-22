@@ -52,7 +52,7 @@ SmartApps = (function (SmartApps, $, window) {
     SmartApps.tokenGame1.upLever = async (tokenId, _score, _bullet) => {
         let lever = 1;
         await axios.post("https://api.starsbattle.co/uplever",{
-            tokenId : tokenId,
+            tokenid : tokenId,
             score : _score,
             bullet : _bullet,
             wallet : login_wallet
