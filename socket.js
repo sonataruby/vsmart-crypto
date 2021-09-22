@@ -1,19 +1,156 @@
 const express = require("express");
 const socket = require("socket.io");
+const config = require('./config');
+const db = require('./server/db');
+let Web3 = require('web3');
+let fs = require('fs');
+//let web3 = new Web3("https://bsc-dataseed.binance.org");
+let web3 = new Web3("https://data-seed-prebsc-1-s2.binance.org:8545");
 
 // App setup
 const PORT = 7000;
 const app = express();
 const server = app.listen(PORT, function () {
   console.log(`Listening on port ${PORT}`);
-  console.log(`http://localhost:${PORT}`);
+  console.log(`${config.server.api}`);
+});
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", '*'); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
 });
 
+
+console.log(config.server.api);
+
 // Static files
-app.use(express.static("public"));
+//app.use(express.static("public"));
+let Address = JSON.parse(fs.readFileSync(__dirname + '/apps/abi/address.json', 'utf8'));
+
+let loadNftFatory =  async () => {
+    var farmArtifact = JSON.parse(fs.readFileSync(__dirname + '/apps/abi/nftfactory.json', 'utf8'));
+    let contract = await new web3.eth.Contract(farmArtifact, Address.AddressContractNFTFactory)
+    return contract.methods;
+};
+
+let loadGame1 =  async () => {
+    var farmArtifact = JSON.parse(fs.readFileSync(__dirname + '/apps/abi/game1.json', 'utf8'));
+    let contract = await new web3.eth.Contract(farmArtifact, Address.AddressContractGame1,{gas:150000})
+    return contract.methods;
+};
+
+let loadMarkets =  async () => {
+    var farmArtifact = JSON.parse(fs.readFileSync(__dirname + '/apps/abi/nftmarket.json', 'utf8'));
+    let contract = await new web3.eth.Contract(farmArtifact, Address.AddressContractNFTMarket)
+    return contract.methods;
+};
+let loadTokens =  async () => {
+    var farmArtifact = JSON.parse(fs.readFileSync(__dirname + '/apps/abi/smarttoken.json', 'utf8'));
+    let contract = await new web3.eth.Contract(farmArtifact, Address.AddressContractSmartToken)
+    return contract.methods;
+};
+
+app.get("/", (req, res) => {
+  var data = '{"ok": "200"}';
+  res.header('Content-Type', 'application/json');
+  res.send(data);
+  res.end( data );
+});
+
+
+app.get("/layer/:tokenid", async (req, res) => {
+  var tokenid = req.params.tokenid;
+  var data = '{"ok": "200"}';
+  await loadGame1().then(async (pool) => {
+      await pool.paramsOf(tokenid).call().then(async (info) => {
+        
+        data = {
+            tokenId : tokenid,
+            name : info.ClassName,
+            Class : info.Class,
+            Lever: info.Lever,
+            Bullet: info.Bullet,
+            BulletClass: info.BulletClass,
+            Speed: info.Speed,
+            Score: info.Score,
+        }
+
+        var LoadDB = await db.dbQuery("SELECT * FROM game_stars WHERE tokenId='"+tokenid+"'",true);
+
+        if(LoadDB != "" && LoadDB != undefined){
+            data.Bullet = LoadDB.bulletCount;
+            data.Score = LoadDB.Score;
+            data.Lever = LoadDB.Lever;
+        }
+
+      });
+  });
+
+  res.header('Content-Type', 'application/json');
+  res.send(data);
+  res.end( data );
+});
+
+app.post("/uplever", async (req, res) => {
+  var tokenid = req.body.tokenid;
+  var score = req.body.score;
+  var bullet = req.body.bullet;
+
+  var data = '{"ok": "200"}';
+  var LoadDB = await db.dbQuery("SELECT * FROM game_stars WHERE tokenId='"+tokenid+"' AND Score='"+score+"' AND bulletCount='"+bullet+"'",true);
+  if(LoadDB != "" && LoadDB != undefined){
+    data.status = "update";
+  }
+  res.header('Content-Type', 'application/json');
+  res.send(data);
+  res.end( data );
+});
+
+app.get("/nft/:tokenid", async (req, res) => {
+  var tokenid = req.params.tokenid;
+ 
+  var data = [];
+  
+
+  await loadGame1().then(async (pool) => {
+      await pool.paramsOf(tokenid).call().then(async (info) => {
+        
+        var player = {
+            tokenId : tokenid,
+            name : info.ClassName,
+            Class : info.Class,
+            Lever: info.Lever,
+            Bullet: info.Bullet,
+            BulletClass: info.BulletClass,
+            Speed: info.Speed,
+            Score: info.Score,
+        }
+
+        var LoadDB = await db.dbQuery("SELECT * FROM game_stars WHERE tokenId='"+tokenid+"'",true);
+
+        if(LoadDB != "" && LoadDB != undefined){
+            player.Bullet = LoadDB.bulletCount;
+            player.Score = LoadDB.Score;
+            player.Lever = LoadDB.Lever;
+        }
+        player.status = "200";
+        data.push(player);
+      });
+  });
+
+ 
+  res.header('Content-Type', 'application/json');
+  res.send(data);
+  res.end( data );
+});
+
 
 // Socket setup
-const io = socket(server);
+const io = socket(server, {
+  cors: {
+    origin: '*',
+  }
+});
 
 const activeUsers = new Set();
 
@@ -24,6 +161,27 @@ io.on("connection", function (socket) {
     socket.userId = data;
     activeUsers.add(data);
     io.emit("new user", [...activeUsers]);
+  });
+
+  socket.on("update", async (data) => {
+    
+    let tokenid = data.tokenId;
+    let bulletCount = data.bullet;
+    let Score = data.score;
+    let Lever = data.lever;
+    let hash = data.hash;
+
+    var LoadDB = await db.dbQuery("SELECT * FROM game_stars WHERE tokenId='"+tokenid+"'",true);
+
+    if(LoadDB == "" || LoadDB == undefined){
+        db.dbQuery("INSERT INTO `game_stars` (`tokenId`, `bulletCount`, `Score`, `Lever`) VALUES ('"+tokenid+"', '"+bulletCount+"', '"+Score+"', '"+Lever+"');");
+    }else{
+      var readBulet = LoadDB.bulletCount - bulletCount;
+      db.dbQuery("UPDATE `game_stars` SET bulletCount='"+readBulet+"' WHERE tokenId='"+tokenid+"';");
+    }
+
+    io.emit("user update", socket.userId);
+
   });
 
   socket.on("disconnect", () => {

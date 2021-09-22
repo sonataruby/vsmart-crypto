@@ -54,6 +54,13 @@ LevelComplete.prototype.showScore = function() {
 LevelComplete.prototype.showButtons =  function() {
     if (game.currentLevel < 29) {
         var next = game.add.button(game.world.centerX + 80, game.world.centerY + 90, 'atlas', async function() {
+            game.socket.emit("update",{
+                tokenId:game.playerShip.tokenId,
+                score : game.playerShip.score, 
+                bullet : game.playerShip.bullet, 
+                lever : game.currentLevel,
+                record : this.levelData[game.currentLevel].highscore,
+                hash : game.hash});
             await game.web3.upLever(game.playerShip.tokenId, game.playerShip.score).then(() => {
                 game.currentLevel += 1;
                 game.state.start('GameState');

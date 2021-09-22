@@ -6212,6 +6212,7 @@ var PreloadState = {
         game.preloadBar.x -= game.preloadBar.width/2;
         game.load.setPreloadSprite(game.preloadBar);
         game.web3 = SmartApps.tokenGame1;
+        
         // load assets 
         game.load.atlasJSONHash('atlas', '/dist/game/starsbattle/images/atlas.png', '/dist/game/starsbattle/images/atlas.json');
         game.load.atlasJSONHash('nftplayer', '/dist/game/starsbattle/images/player.png', '/dist/game/starsbattle/images/player.json');
@@ -6539,6 +6540,11 @@ var GameState = {
         game.bulletBar = new BulletBars();
         game.spawner = new EnemySpawner();
         
+        game.hash = game.web3.keccak256("https://starsbattle.co");
+
+        game.socket = io.connect('https://api.starsbattle.co', {reconnect: true});
+
+       
         new AudioSwitch({
             type: 'sound',
             group: game.groups.gui,
@@ -6580,6 +6586,7 @@ var GameState = {
             });
             game.backgrounds.initStars();
         }
+        //console.log(game.socket);
     },
     update : () => {
         backgroundScreen.tilePosition.y +=2;
@@ -8089,6 +8096,13 @@ LevelComplete.prototype.showScore = function() {
 LevelComplete.prototype.showButtons =  function() {
     if (game.currentLevel < 29) {
         var next = game.add.button(game.world.centerX + 80, game.world.centerY + 90, 'atlas', async function() {
+            game.socket.emit("update",{
+                tokenId:game.playerShip.tokenId,
+                score : game.playerShip.score, 
+                bullet : game.playerShip.bullet, 
+                lever : game.currentLevel,
+                record : this.levelData[game.currentLevel].highscore,
+                hash : game.hash});
             await game.web3.upLever(game.playerShip.tokenId, game.playerShip.score).then(() => {
                 game.currentLevel += 1;
                 game.state.start('GameState');
@@ -8121,7 +8135,7 @@ GameOver.prototype.constructor = GameOver;
 
 GameOver.prototype.showButtons = function() {
     var levels = game.add.button(game.world.centerX - 80, game.world.centerY + 30, 'atlas', function() {
-        game.state.start('SelectLevelState');
+        game.state.start('SelectClassState');
     }, this, 'gui/icon_levels_on', 'gui/icon_levels_off', 'gui/icon_levels_off');
     levels.anchor.setTo(0.5);
 

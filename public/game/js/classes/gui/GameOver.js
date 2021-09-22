@@ -10,7 +10,7 @@ GameOver.prototype.constructor = GameOver;
 
 GameOver.prototype.showButtons = function() {
     var levels = game.add.button(game.world.centerX - 80, game.world.centerY + 30, 'atlas', function() {
-        game.state.start('SelectLevelState');
+        game.state.start('SelectClassState');
     }, this, 'gui/icon_levels_on', 'gui/icon_levels_off', 'gui/icon_levels_off');
     levels.anchor.setTo(0.5);
 

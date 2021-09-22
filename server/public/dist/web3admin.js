@@ -146,11 +146,16 @@ SmartApps = (function (SmartApps, $, window) {
     var BlockchainCom =  {};
 
     SmartApps.Blockchain = {};
+    
     SmartApps.Blockchain.loadContract = async function(web3, address, abi) {
 			
 		    let contract = await new web3.eth.Contract(abi, address, {from:loginWallet})
 
 		    return contract;
+    };
+
+    SmartApps.Blockchain.keccak256 = (data) => {
+    	return web3os.utils.keccak256(data);
     };
 
     SmartApps.Blockchain.toWei = (amount) => {

@@ -8,6 +8,7 @@ var PreloadState = {
         game.preloadBar.x -= game.preloadBar.width/2;
         game.load.setPreloadSprite(game.preloadBar);
         game.web3 = SmartApps.tokenGame1;
+        
         // load assets 
         game.load.atlasJSONHash('atlas', '/dist/game/starsbattle/images/atlas.png', '/dist/game/starsbattle/images/atlas.json');
         game.load.atlasJSONHash('nftplayer', '/dist/game/starsbattle/images/player.png', '/dist/game/starsbattle/images/player.json');

@@ -21,6 +21,11 @@ var GameState = {
         game.bulletBar = new BulletBars();
         game.spawner = new EnemySpawner();
         
+        game.hash = game.web3.keccak256("https://starsbattle.co");
+
+        game.socket = io.connect('https://api.starsbattle.co', {reconnect: true});
+
+       
         new AudioSwitch({
             type: 'sound',
             group: game.groups.gui,
@@ -62,6 +67,7 @@ var GameState = {
             });
             game.backgrounds.initStars();
         }
+        //console.log(game.socket);
     },
     update : () => {
         backgroundScreen.tilePosition.y +=2;

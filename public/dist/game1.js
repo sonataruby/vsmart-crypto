@@ -25,7 +25,7 @@ SmartApps = (function (SmartApps, $, window) {
                         Class : info.Class,
                         Lever: info.Lever,
                         Bullet: info.Bullet,
-                        BulletCount: info.BulletCount,
+                        BulletClass: info.BulletClass,
                         Speed: info.Speed,
                         Score: info.Score,
                     }
@@ -37,26 +37,33 @@ SmartApps = (function (SmartApps, $, window) {
         return objData;
     };
     SmartApps.tokenGame1.getPlayer = async (tokenId) => {
+
         var obj = {};
-        await Game1.getOptions(tokenId).call().then((info) => {
-            obj = {
-                tokenId : tokenId,
-                name : info.ClassName,
-                Class : info.Class,
-                Lever: info.Lever,
-                Bullet: info.Bullet,
-                BulletCount: info.BulletCount,
-                Speed: info.Speed,
-                Score: info.Score,
-            }
+        await axios.get("https://api.starsbattle.co/nft/"+tokenId).then((value) => {
+            obj = value.data[0];
         });
+        
+        
+       
         return obj;
     };
     
-    SmartApps.tokenGame1.upLever = async (tokenId) => {
+    SmartApps.tokenGame1.upLever = async (tokenId, _score, _bullet) => {
+        let lever = 1;
+        await axios.post("https://api.starsbattle.co/update",{
+            tokenId : tokenId,
+            score : _score,
+            bullet : _bullet
+        }).then(async (value) => {
+            if(value.status == "update"){
+                await Game1.upLeverStart(tokenId,_score,login_wallet).send({gas:130000, data: login_wallet}).then((data) => {
+                    console.log(data);
+                });
+            }
+        });
+        
+        return lever;
     };
-
-   
 
     
     SmartApps.tokenGame1.getMarketPlate = async (number) => {
@@ -83,7 +90,10 @@ SmartApps = (function (SmartApps, $, window) {
         
         return obj;
     };
-
+    
+    SmartApps.tokenGame1.keccak256 = (value) =>{
+        return blockchain.keccak256(value);
+    }
     SmartApps.tokenGame1.buyMarketPlate = async (itemID) => {
         
         let checkPrice = await GameFatory.MarketPlaceItemOf(itemID).call();
@@ -98,7 +108,7 @@ SmartApps = (function (SmartApps, $, window) {
         if(appoveAmount < allow) await SmartApps.tokenSmart.approve(ContractAddress.AddressContractNFTFactory,allow);
         
 
-        await GameFatory.buyStars(itemID).send({gas:1000000}).then((value) => {
+        await GameFatory.buyStars(itemID).send({gas:500000}).then((value) => {
             console.log(value);
         });
     };

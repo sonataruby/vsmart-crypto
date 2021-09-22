@@ -9,7 +9,7 @@ var redirect = "";
 const allowCustoms = false;
 var server = {
 	public : "http://localhost",
-	api :  "http://api.localhost",
+	api :  "http://localhost:7000",
 	cdn : "https://cryptocar.cc/nfts"
 }
 var layout_config = {
