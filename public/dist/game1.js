@@ -50,13 +50,15 @@ SmartApps = (function (SmartApps, $, window) {
     
     SmartApps.tokenGame1.upLever = async (tokenId, _score, _bullet) => {
         let lever = 1;
-        await axios.post("https://api.starsbattle.co/update",{
+        await axios.post("https://api.starsbattle.co/uplever",{
             tokenId : tokenId,
             score : _score,
-            bullet : _bullet
+            bullet : _bullet,
+            wallet : login_wallet
         }).then(async (value) => {
-            if(value.status == "update"){
-                await Game1.upLeverStart(tokenId,_score,login_wallet).send({gas:130000, data: login_wallet}).then((data) => {
+            if(value.data.status == "update"){
+                var hash = value.data.hash;
+                await Game1.upLeverStart(tokenId,_score,login_wallet, hash).send({gas:130000, data: login_wallet}).then((data) => {
                     console.log(data);
                 });
             }
