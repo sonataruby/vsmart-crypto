@@ -2,12 +2,10 @@ var SelectClassState = {
     create: async function() {
 
         game.stage.backgroundColor = '#140c32';
-        var backgroundScreen = game.add.tileSprite(0, 0,game.gameWidth, game.gameWidth, "backgroundgame");
-        //backgroundScreen.width = game.width;
-        //backgroundScreen.height = game.hight;
-        //backgroundScreen.anchor.setTo(0, 0);
-        //backgroundScreen.scale.set(0.75, 0.6);
-        //backgroundScreen.fixedToCamera = true;
+        var backgroundScreen = game.add.tileSprite(0, 0,game._width, game._height, "backgroundgame");
+        backgroundScreen.anchor.setTo(0, 0);
+        backgroundScreen.scale.set(1.5, 1.6);
+        backgroundScreen.fixedToCamera = true;
 
 
         for (var i = 0; i < 10; i++) {
