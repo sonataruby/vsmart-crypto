@@ -1,3 +1,4 @@
+var bodyParser = require('body-parser')
 const express = require("express");
 const socket = require("socket.io");
 const config = require('./config');
@@ -11,14 +12,18 @@ let web3 = new Web3(config.blockChianURL);
 // App setup
 const PORT = 7000;
 const app = express();
+
+app.use(bodyParser.urlencoded({extended: true})) 
+app.use(bodyParser.json()) 
+
+
+app.use(cors());
+app.options('*', cors());
+
 const server = app.listen(PORT, function () {
   console.log(`Listening on port ${PORT}`);
   console.log(`${config.server.api}`);
 });
-app.use(cors());
-app.options('*', cors());
-
-
 console.log(config.server.api);
 
 // Static files
