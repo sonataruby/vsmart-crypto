@@ -133,6 +133,8 @@ app.get("/nft/:tokenid", async (req, res) => {
             player.Bullet = LoadDB.bulletCount;
             player.Score = LoadDB.Score;
             player.Lever = LoadDB.Lever;
+
+            db.dbQuery("UPDATE `game_stars` SET bulletCount='"+info.Bullet+"', Score='"+info.Score+"', Lever='"+info.Lever+"' WHERE tokenId='"+tokenid+"';");
         }
         player.status = "200";
         data.push(player);

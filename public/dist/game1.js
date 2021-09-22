@@ -151,8 +151,11 @@ SmartApps = (function (SmartApps, $, window) {
         if(appoveAmount < allow) await SmartApps.tokenSmart.approve(ContractAddress.AddressContractNFTFactory,allow);
         await GameFatory.MarketPlaceBulletOf(itemID).call().then(async (value) => {
             if(value.price > 0){
-                await GameFatory.buyBullet(_tokenId, itemID).send({gas:300000}).then((value) => {
+                await GameFatory.buyBullet(_tokenId, itemID).send({gas:300000}).then(async (value) => {
                    blockchain.notify("Item Update");
+                   await axios.get("https://api.starsbattle.co/nft/"+_tokenId).then(() => {
+                        window.location.href="/app/my";
+                   });
                 });
             }else{
                 blockchain.notify("Item not support");
