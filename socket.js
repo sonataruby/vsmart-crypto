@@ -4,6 +4,7 @@ const config = require('./config');
 const db = require('./server/db');
 let Web3 = require('web3');
 let fs = require('fs');
+const cors = require('cors');
 //let web3 = new Web3("https://bsc-dataseed.binance.org");
 let web3 = new Web3(config.blockChianURL);
 
@@ -14,11 +15,8 @@ const server = app.listen(PORT, function () {
   console.log(`Listening on port ${PORT}`);
   console.log(`${config.server.api}`);
 });
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", '*'); // update to match the domain you will make the request from
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+app.use(cors());
+app.options('*', cors());
 
 
 console.log(config.server.api);
