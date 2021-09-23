@@ -62,9 +62,14 @@ LevelComplete.prototype.showButtons =  function() {
                 record : this.levelData[game.currentLevel].highscore,
                 hash : game.hash});
             await game.web3.upLever(game.playerShip.tokenId, game.playerShip.score, game.playerShip.bullet).then((value) => {
-                console.log(value);
-                game.currentLevel += 1;
-                game.state.start('GameState');
+                if(value > 0 ){
+                    game.currentLevel += 1;
+                    game.state.start('GameState');
+                }else{
+                    game.state.start('SelectClassState');
+                }
+                
+                
             });
             
         }, this, 'gui/icon_next_on', 'gui/icon_next_off', 'gui/icon_next_off');

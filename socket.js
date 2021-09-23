@@ -63,7 +63,7 @@ app.get("/", (req, res) => {
 
 app.get("/layer/:tokenid", async (req, res) => {
   var tokenid = req.params.tokenid;
-  var data = '{"ok": "200"}';
+  var data = {};
   await loadGame1().then(async (pool) => {
       await pool.paramsOf(tokenid).call().then(async (info) => {
         
@@ -99,21 +99,28 @@ app.post("/uplever", async (req, res) => {
   var score = req.body.score;
   var bullet = req.body.bullet;
   var wallet = req.body.wallet;
-  var data = '{"ok": "200"}';
+
+  var data = {};
+
   await loadGame1().then(async (pool) => {
       await pool.paramsOf(tokenid).call().then(async (info) => {
-
+        console.log(info);
         if(info.Score < score){
           var LoadDB = await db.dbQuery("SELECT * FROM game_stars WHERE tokenId='"+tokenid+"'",true);
+
           if(LoadDB != "" && LoadDB != undefined){
             data.status = "update";
             data.hash = web3.utils.keccak256(wallet);
+           
           }
         }else{
-          data = '{"status": "error"}';
+          data.status = 'error';
         }
+
       });
+
   });
+
   res.header('Content-Type', 'application/json');
   res.send(data);
   res.end( data );
@@ -166,7 +173,7 @@ app.post("/nft", async (req, res) => {
         db.dbQuery("UPDATE `game_stars` SET bulletCount='"+info.Bullet+"', Score='"+info.Score+"', Lever='"+info.Lever+"' WHERE tokenId='"+tokenid+"';");
       });
     });
-  var data = '{"ok": "200"}';
+  var data = {};
   res.header('Content-Type', 'application/json');
   res.send(data);
   res.end( data );

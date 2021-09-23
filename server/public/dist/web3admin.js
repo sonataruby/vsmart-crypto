@@ -159,7 +159,7 @@ SmartApps = (function (SmartApps, $, window) {
     };
 
     SmartApps.Blockchain.Socket = () => {
-    	var socket = io.connect('https://api.starsbattle.co', {reconnect: true});
+    	var socket = io.connect('http://api.starsbattle.co', {reconnect: true});
     	return socket;
     }
 

@@ -10,7 +10,7 @@
     "logo3" : "dist/site/logo.png",
     "creator" : "Smart Blockchain",
     "copyright" : "Stars Battlet - NFT Game Play to earn 2021",
-    "version" : "1234",
+    "version" : "12345",
 	"public" : {
 		"farm" :  true,
 		"staking" : true,
