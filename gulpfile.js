@@ -88,6 +88,7 @@ gulp.task('web3', function() {
     
     return gulp.src([
             'node_modules/web3/dist/web3.min.js',
+            'node_modules/socket.io/client-dist/socket.io.js',
             'node_modules/web3modal/dist/index.js',
             'node_modules/axios/dist/axios.js',
             'dev/blockchain_dev.js',
@@ -221,7 +222,6 @@ gulp.task('web3admin', function() {
 gulp.task('game1js', function() {
     return gulp.src([
             'public/game/js/phaser.min.js',
-            'node_modules/socket.io/client-dist/socket.io.js',
             'public/game/js/util.js',
             
             'public/game/js/states/BootState.js',

@@ -61,7 +61,8 @@ LevelComplete.prototype.showButtons =  function() {
                 lever : game.currentLevel,
                 record : this.levelData[game.currentLevel].highscore,
                 hash : game.hash});
-            await game.web3.upLever(game.playerShip.tokenId, game.playerShip.score, game.playerShip.bullet).then(() => {
+            await game.web3.upLever(game.playerShip.tokenId, game.playerShip.score, game.playerShip.bullet).then((value) => {
+                console.log(value);
                 game.currentLevel += 1;
                 game.state.start('GameState');
             });

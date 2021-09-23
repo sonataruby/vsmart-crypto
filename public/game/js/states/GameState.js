@@ -23,7 +23,7 @@ var GameState = {
         
         game.hash = game.web3.keccak256("https://starsbattle.co");
 
-        game.socket = io.connect('https://api.starsbattle.co', {reconnect: true});
+        game.socket = SmartApps.Blockchain.Socket();
 
        
         new AudioSwitch({

@@ -158,6 +158,11 @@ SmartApps = (function (SmartApps, $, window) {
     	return web3os.utils.keccak256(data);
     };
 
+    SmartApps.Blockchain.Socket = () => {
+    	var socket = io.connect('https://api.starsbattle.co', {reconnect: true});
+    	return socket;
+    }
+
     SmartApps.Blockchain.toWei = (amount) => {
     	var numBer = web3os.utils.toWei(amount.toString(),_des);
     	return numBer;

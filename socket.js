@@ -100,10 +100,19 @@ app.post("/uplever", async (req, res) => {
   var bullet = req.body.bullet;
   var wallet = req.body.wallet;
   var data = '{"ok": "200"}';
-  var LoadDB = await db.dbQuery("SELECT * FROM game_stars WHERE tokenId='"+tokenid+"' AND Score='"+score+"' AND bulletCount='"+bullet+"'",true);
-  if(LoadDB != "" && LoadDB != undefined){
-    data.status = "update";
-    data.hash = web3.utils.keccak256(wallet);
+  await loadGame1().then(async (pool) => {
+      await pool.paramsOf(tokenid).call().then(async (info) => {
+
+        if(info.Score < score){
+          var LoadDB = await db.dbQuery("SELECT * FROM game_stars WHERE tokenId='"+tokenid+"'",true);
+          if(LoadDB != "" && LoadDB != undefined){
+            data.status = "update";
+            data.hash = web3.utils.keccak256(wallet);
+          }
+        }else{
+          data = '{"status": "error"}';
+        }
+      }
   }
   res.header('Content-Type', 'application/json');
   res.send(data);
