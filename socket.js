@@ -112,8 +112,8 @@ app.post("/uplever", async (req, res) => {
         }else{
           data = '{"status": "error"}';
         }
-      }
-  }
+      });
+  });
   res.header('Content-Type', 'application/json');
   res.send(data);
   res.end( data );
