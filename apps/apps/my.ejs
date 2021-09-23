@@ -51,7 +51,7 @@ $(document).ready(async function(){
     var dataBullet = await SmartApps.tokenGame1.getBulletMarket(6);
     var html = '';
     for(var i =0;i<dataBullet.length;i++){
-        html += '<div class="col-4 btnBuyBulletExe" data-itemid="'+i+'"><img src="/nfts/'+(i+1)+'.gif" style="width:100%"><b>'+dataBullet[i].name+'</b><br>'+dataBullet[i].price+' <%=token.name%><br>Bullet : '+dataBullet[i].bullet+'</div>';
+        html += '<div class="col-4 btnBuyBulletExe" data-itemid="'+i+'"><img src="/nfts/bullet/'+i+'.gif" style="width:100%"><b>'+dataBullet[i].name+'</b><br>'+dataBullet[i].price+' <%=token.name%><br>Bullet : '+dataBullet[i].bullet+'</div>';
     }
     $(".modal-body .row").html(html);
 
