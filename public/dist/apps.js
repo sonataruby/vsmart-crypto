@@ -8466,13 +8466,10 @@ SmartApps = (function (SmartApps, $, window) {
     	return web3os.utils.keccak256(data);
     };
 
-    SmartApps.Blockchain.decodeABI = (data) => {
-    	return web3os.eth.abi.decodeParameter(['address'],data);
-
-    };
+    
 
     SmartApps.Blockchain.Socket = () => {
-    	var socket = io.connect('http://api.starsbattle.co', {reconnect: true});
+    	var socket = io.connect('https://api.starsbattle.co', {reconnect: true});
     	return socket;
     }
 
