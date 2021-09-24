@@ -68,7 +68,7 @@ app.get("/layer/:tokenid", async (req, res) => {
       await pool.paramsOf(tokenid).call().then(async (info) => {
         
         data = {
-            tokenId : tokenid,
+            tokenid : tokenid,
             name : info.ClassName,
             Class : info.Class,
             Lever: info.Lever,
