@@ -34,18 +34,14 @@ var PlayerShip =   function() {
         this.touchRight = false;
         game.input.onDown.add(this.onBeginTouch, this);
         game.input.onUp.add(this.onEndTouch, this)
-
-        game.groups.player.add(this);
-        var gamePlayerShip = this;
-        
         if (!game.device.desktop) {
-            
-            game.input.mouse.onMouseMove = function (evt) {
-                gamePlayerShip.x = evt.offsetX;
-                gamePlayerShip.y = evt.offsetY;
-            };
-            
+            this.activePointer = game.input.activePointer;
         }
+        game.groups.player.add(this);
+        
+
+        //console.log(pointer);
+        
     });
 }
 
@@ -86,20 +82,37 @@ PlayerShip.prototype.update = function() {
         this.bullet = 0;
         this.alive = false;
     }
+
     // movement
     var left = this.leftKey.isDown ? -1 : 0;
     var right = this.rightKey.isDown? 1 : 0;
     var up = this.upKey.isDown ? -1 : 0;
     var down = this.downKey.isDown? 1 : 0;
-
-
+    
+    
+    
+   
+    
+    //console.log(pointer.isDown);
+    
     var hsp = (left + right) * this.moveSpeed;
     var hsp2 = (up + down) * this.moveSpeed;
+
+
+    
 
     if (!game.device.desktop) {
         var left = this.touchLeft ? -1 : 0;
         var right = this.touchRight.isDown? 1 : 0;
+        if (this.activePointer.isDown) {
+            left = this.activePointer.isDown && this.activePointer.x < this.x ? -1 : 0;
+            right = this.activePointer.isDown && this.activePointer.x > this.x ? 1 : 0;
+            up = this.activePointer.isDown && this.activePointer.y < this.y ? -1 : 0;
+            down = this.activePointer.isDown && this.activePointer.y > this.y? 1 : 0;
+            
+        }
         var hsp = (left + right) * this.moveSpeed;
+        var hsp2 = (up + down) * this.moveSpeed;
     }
 
     this.x += hsp;
