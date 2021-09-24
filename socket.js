@@ -101,34 +101,34 @@ app.post("/uplever", async (req, res) => {
   var wallet = req.body.wallet;
 
   var data = {};
+  if(Number(tokenid) > 0 ){
+    await loadGame1().then(async (pool) => {
+        await pool.paramsOf(tokenid).call().then(async (info) => {
+          
+          //var timeNow = "Singal";
+          //var hash_code = web3.utils.padRight(web3.utils.asciiToHex("SingalsData"),64);
+          const bl = await web3.eth.getBlock('latest'); 
+          var timeNow = bl.timestamp;
 
-  await loadGame1().then(async (pool) => {
-      await pool.paramsOf(tokenid).call().then(async (info) => {
-        
-        //var timeNow = "Singal";
-        //var hash_code = web3.utils.padRight(web3.utils.asciiToHex("SingalsData"),64);
-        const bl = await web3.eth.getBlock('latest'); 
-        var timeNow = bl.timestamp;
+          var hash_code = web3.eth.abi.encodeParameters(['uint256'],[Number(info.Lever) + Number(tokenid) + Number(score) + Number(bullet)]);
+          var hash_x = web3.eth.abi.encodeParameters(['uint256','uint256','uint256','bytes32','address','uint256'],[tokenid,score,bullet,hash_code,wallet,timeNow]);
 
-        var hash_code = web3.eth.abi.encodeParameters(['uint256'],[Number(info.Lever) + Number(tokenid) + Number(score) + Number(bullet)]);
-        var hash_x = web3.eth.abi.encodeParameters(['uint256','uint256','uint256','bytes32','address','uint256'],[tokenid,score,bullet,hash_code,wallet,timeNow]);
+          if(info.Score < score){
+            var LoadDB = await db.dbQuery("SELECT * FROM game_stars WHERE tokenId='"+tokenid+"'",true);
 
-        if(info.Score < score){
-          var LoadDB = await db.dbQuery("SELECT * FROM game_stars WHERE tokenId='"+tokenid+"'",true);
-
-          if(LoadDB != "" && LoadDB != undefined){
-            data.status = "update";
-            data.hash = hash_x;
-            
+            if(LoadDB != "" && LoadDB != undefined){
+              data.status = "update";
+              data.hash = hash_x;
+              
+            }
+          }else{
+            data.status = 'error';
           }
-        }else{
-          data.status = 'error';
-        }
 
-      });
+        });
 
-  });
-
+    });
+  }
   res.header('Content-Type', 'application/json');
   res.send(data);
   res.end( data );
@@ -159,7 +159,7 @@ app.get("/nft/:tokenid", async (req, res) => {
         if(LoadDB != "" && LoadDB != undefined){
             player.Bullet = LoadDB.bulletCount;
             player.Score = LoadDB.Score;
-            player.Lever = LoadDB.Lever;
+            //player.Lever = LoadDB.Lever;
 
             
         }
