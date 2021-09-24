@@ -1288,6 +1288,7 @@ var PlayerShip =   function() {
         this.moveSpeed = web3Player.Speed > 2 ? web3Player.Speed : 7;
         this.tokenId = web3Player.tokenId;
         this.validateScore = web3Player.NextLeverScore;
+        console.log(web3Player);
         this.leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
         this.rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
 
@@ -2084,6 +2085,8 @@ GameOver.prototype = Object.create(Phaser.Sprite.prototype);
 GameOver.prototype.constructor = GameOver;
 
 GameOver.prototype.showButtons = function() {
+
+    
     game.socket.emit("update",{
                 tokenId:game.playerShip.tokenId,
                 score : game.playerShip.score, 
