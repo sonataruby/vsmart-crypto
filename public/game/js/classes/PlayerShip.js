@@ -36,9 +36,16 @@ var PlayerShip =   function() {
         game.input.onUp.add(this.onEndTouch, this)
 
         game.groups.player.add(this);
-
-
-
+        var gamePlayerShip = this;
+        
+        if (!game.device.desktop) {
+            
+            game.input.mouse.onMouseMove = function (evt) {
+                gamePlayerShip.x = evt.offsetX;
+                gamePlayerShip.y = evt.offsetY;
+            };
+            
+        }
     });
 }
 
@@ -50,6 +57,8 @@ PlayerShip.prototype.getInfo = async function() {
 }
 
 PlayerShip.prototype.onBeginTouch = function(pointer) {
+    
+
     if (!this.touchLeft && pointer.x < gameWidth / 2) {
         this.touchLeft = pointer;
     } else if (!this.touchRight && pointer.x >= gameWidth / 2) {
@@ -65,7 +74,8 @@ PlayerShip.prototype.onEndTouch = function(pointer) {
     } else if (pointer === this.touchRight) {
         this.touchRight = false;
     }
-    //game.backgrounds.drawBackground(this); Set 3d
+    
+    game.backgrounds.drawBackground(this);// Set 3d
 }
 
 
@@ -81,8 +91,9 @@ PlayerShip.prototype.update = function() {
     var right = this.rightKey.isDown? 1 : 0;
     var up = this.upKey.isDown ? -1 : 0;
     var down = this.downKey.isDown? 1 : 0;
-    var hsp = (left + right) * this.moveSpeed;
 
+
+    var hsp = (left + right) * this.moveSpeed;
     var hsp2 = (up + down) * this.moveSpeed;
 
     if (!game.device.desktop) {
