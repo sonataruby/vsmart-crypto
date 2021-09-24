@@ -87,7 +87,6 @@ app.get("/layer/:tokenid", async (req, res) => {
             //data.Lever = LoadDB.Lever;
         }
 
-        console.log(data);
       });
   });
 

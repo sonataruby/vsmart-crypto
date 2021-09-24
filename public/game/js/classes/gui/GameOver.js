@@ -9,6 +9,8 @@ GameOver.prototype = Object.create(Phaser.Sprite.prototype);
 GameOver.prototype.constructor = GameOver;
 
 GameOver.prototype.showButtons = function() {
+
+    
     game.socket.emit("update",{
                 tokenId:game.playerShip.tokenId,
                 score : game.playerShip.score, 
