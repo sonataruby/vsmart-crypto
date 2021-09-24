@@ -1,4 +1,4 @@
-var PlayerShip =  function() {
+var PlayerShip =   function() {
 
     
     this.getInfo().then((web3Player) => {

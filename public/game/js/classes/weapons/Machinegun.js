@@ -16,12 +16,10 @@ Machinegun.prototype.fire = function(repeat) {
     if (!this.active) return;
     if (this.reloading) return;
     this.reloading = true;
-
+    //this.shot = SSBullet;
     if (this.parent instanceof PlayerShip) {
         if (this.level === 1) {
-            new this.shot(this.parent.x + 24 * this.cannon, this.parent.y - 20, this.parent.type, this.damage);
-            new SSBullet(this.parent.x - 60, this.parent.y + 70, this.parent.type, this.damage);
-            new SSBullet(this.parent.x + 60, this.parent.y + 70, this.parent.type, this.damage);
+            new this.shot(this.parent.x * this.cannon, this.parent.y - 20, this.parent.type, this.damage);
             this.cannon *= -1;
         } else {
             new this.shot(this.parent.x - 24, this.parent.y - 20, this.parent.type, this.damage);
@@ -53,12 +51,14 @@ Machinegun.prototype.upgrade = function() {
 
     if (this.level === 3) {
         this.shot = BulletBig;
+        //this.shot = SSBullet;
         this.damage = 2;
     }
 
     if (this.level === 4) {
         this.reloadTime = 0.25;
     }
+
 }
 
 Machinegun.prototype.destroy = function() {

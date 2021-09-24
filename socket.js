@@ -82,8 +82,8 @@ app.get("/layer/:tokenid", async (req, res) => {
 
         if(LoadDB != "" && LoadDB != undefined){
             data.Bullet = LoadDB.bulletCount;
-            data.Score = LoadDB.Score;
-            data.Lever = LoadDB.Lever;
+            //data.Score = LoadDB.Score;
+            //data.Lever = LoadDB.Lever;
         }
 
       });
@@ -173,6 +173,7 @@ app.get("/nft/:tokenid", async (req, res) => {
   res.send(data);
   res.end( data );
 });
+
 
 app.post("/nft", async (req, res) => {
   var tokenid = req.body.tokenid;
