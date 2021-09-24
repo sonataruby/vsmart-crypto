@@ -19,9 +19,12 @@ var PlayerShip =   function() {
         this.moveSpeed = web3Player.Speed > 2 ? web3Player.Speed : 7;
         this.tokenId = web3Player.tokenId;
         this.validateScore = web3Player.NextLeverScore;
-        
+
         this.leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
         this.rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+
+        this.upKey = game.input.keyboard.addKey(Phaser.Keyboard.UP);
+        this.downKey = game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
 
         this.shield = game.add.sprite(this.x, this.y, 'nftplayer', 'shield');
         this.shield.alpha = 0;
@@ -76,7 +79,11 @@ PlayerShip.prototype.update = function() {
     // movement
     var left = this.leftKey.isDown ? -1 : 0;
     var right = this.rightKey.isDown? 1 : 0;
+    var up = this.upKey.isDown ? -1 : 0;
+    var down = this.downKey.isDown? 1 : 0;
     var hsp = (left + right) * this.moveSpeed;
+
+    var hsp2 = (up + down) * this.moveSpeed;
 
     if (!game.device.desktop) {
         var left = this.touchLeft ? -1 : 0;
@@ -86,6 +93,9 @@ PlayerShip.prototype.update = function() {
 
     this.x += hsp;
     this.x = Phaser.Math.clamp(this.x, this.width/2, game.world.width - this.width/2);
+    this.y += hsp2;
+    this.y = Phaser.Math.clamp(this.y, this.height/2, game.world.height - this.height/2);
+
     this.shield.x = this.x;
     this.shield.y = this.y;
 

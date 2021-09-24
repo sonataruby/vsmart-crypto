@@ -1036,17 +1036,18 @@ Machinegun.prototype.fire = function(repeat) {
             new this.shot(this.parent.x + 24, this.parent.y - 20, this.parent.type, this.damage);
 
         }
-        
-        if (this.active) game.playerShip.addBullet(1);
+        new SSBullet(this.parent.x * this.cannon, this.parent.y - 20, this.parent.type, this.damage, "left");
+        new SSBullet(this.parent.x * this.cannon, this.parent.y - 20, this.parent.type, this.damage, "right");
+        new Spit(this.parent.x * this.cannon, this.parent.y - 20, this.parent.type, this.damage);
+        if (this.active) game.playerShip.addBullet(4);
 
     } else if (this.parent instanceof Scout) {
         new this.shot(this.parent.x - 24, this.parent.y + 20, this.parent.type, this.damage);
         new this.shot(this.parent.x + 24, this.parent.y + 20, this.parent.type, this.damage);
+        new Spit(this.parent.x * this.cannon, this.parent.y - 20, this.parent.type, this.damage);
     }
     
-    new SSBullet(this.parent.x * this.cannon, this.parent.y - 20, this.parent.type, this.damage, "left");
-    new SSBullet(this.parent.x * this.cannon, this.parent.y - 20, this.parent.type, this.damage, "right");
-    new Spit(this.parent.x * this.cannon, this.parent.y - 20, this.parent.type, this.damage);
+    
 
     game.audio.playSound('sndPew');
     game.time.events.add(this.reloadTime * 1000, this.reload, this, repeat);
@@ -1298,9 +1299,12 @@ var PlayerShip =   function() {
         this.moveSpeed = web3Player.Speed > 2 ? web3Player.Speed : 7;
         this.tokenId = web3Player.tokenId;
         this.validateScore = web3Player.NextLeverScore;
-        
+
         this.leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
         this.rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+
+        this.upKey = game.input.keyboard.addKey(Phaser.Keyboard.UP);
+        this.downKey = game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
 
         this.shield = game.add.sprite(this.x, this.y, 'nftplayer', 'shield');
         this.shield.alpha = 0;
@@ -1355,7 +1359,11 @@ PlayerShip.prototype.update = function() {
     // movement
     var left = this.leftKey.isDown ? -1 : 0;
     var right = this.rightKey.isDown? 1 : 0;
+    var up = this.upKey.isDown ? -1 : 0;
+    var down = this.downKey.isDown? 1 : 0;
     var hsp = (left + right) * this.moveSpeed;
+
+    var hsp2 = (up + down) * this.moveSpeed;
 
     if (!game.device.desktop) {
         var left = this.touchLeft ? -1 : 0;
@@ -1365,6 +1373,9 @@ PlayerShip.prototype.update = function() {
 
     this.x += hsp;
     this.x = Phaser.Math.clamp(this.x, this.width/2, game.world.width - this.width/2);
+    this.y += hsp2;
+    this.y = Phaser.Math.clamp(this.y, this.height/2, game.world.height - this.height/2);
+
     this.shield.x = this.x;
     this.shield.y = this.y;
 
@@ -1946,7 +1957,7 @@ HUD.prototype.update = function() {
 }
 
 HUD.prototype.updateScore = function() {
-    this.score.text = "Score : " + game.playerShip.validateScore + "/" + game.playerShip.score;
+    this.score.text = game.playerShip.validateScore + "/" + game.playerShip.score;
 }
 var BulletBars = function() {
     //this.bulletBar = new BulletBars(20, 20);
@@ -2062,7 +2073,7 @@ LevelComplete.prototype.showButtons =  function() {
             
             await game.web3.upLever(game.playerShip.tokenId, game.playerShip.score, game.playerShip.bullet).then((value) => {
                 if(value > 0 ){
-                    game.currentLevel = Number(value);
+                    game.currentLevel = Number(value) + 1;
                     game.state.start('GameState');
                 }else{
                     game.state.start('SelectClassState');

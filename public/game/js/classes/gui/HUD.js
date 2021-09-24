@@ -16,5 +16,5 @@ HUD.prototype.update = function() {
 }
 
 HUD.prototype.updateScore = function() {
-    this.score.text = "Score : " + game.playerShip.validateScore + "/" + game.playerShip.score;
+    this.score.text = game.playerShip.validateScore + "/" + game.playerShip.score;
 }
