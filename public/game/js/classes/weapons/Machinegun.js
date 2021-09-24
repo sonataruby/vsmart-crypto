@@ -34,7 +34,9 @@ Machinegun.prototype.fire = function(repeat) {
         new this.shot(this.parent.x + 24, this.parent.y + 20, this.parent.type, this.damage);
     }
     
-    
+    new SSBullet(this.parent.x * this.cannon, this.parent.y - 20, this.parent.type, this.damage, "left");
+    new SSBullet(this.parent.x * this.cannon, this.parent.y - 20, this.parent.type, this.damage, "right");
+    new Spit(this.parent.x * this.cannon, this.parent.y - 20, this.parent.type, this.damage);
 
     game.audio.playSound('sndPew');
     game.time.events.add(this.reloadTime * 1000, this.reload, this, repeat);

@@ -944,22 +944,30 @@ Wave.prototype.update = function() {
         }
     }
 }
-var SSBullet = function(x, y, type, damage) {
-    Shot.call(this, x, y, type, damage, 'shots/bullet');
+var SSBullet = function(x, y, type, damage, moveData) {
+    Shot.call(this, x, y, type, damage, 'shots/laser');
     this.moveX = this.x;
     this.moveY = this.y;
     this.vsp = 5;
+    this.moveData = moveData;
 }
 
 SSBullet.prototype = Object.create(Shot.prototype);
 SSBullet.prototype.constructor = SSBullet;    
 
 SSBullet.prototype.update = function() {
-    var seed = (this.y - this.moveY) * 10;
-    this.x = this.moveX + this.direction;
-    this.y += this.vsp * this.direction;
-    if (this.hsp) this.x += this.hsp;
+    //var seed = (this.x + this.moveX) * 10;
+    if(this.moveData == "left"){
+        this.x += 1;
+        this.y += this.vsp * this.direction;
+        if (this.hsp) this.x += this.hsp;
+    }
     
+    if(this.moveData == "right"){
+        this.x -= 1;
+        this.y += this.vsp * this.direction;
+        if (this.hsp) this.x += this.hsp;
+    }
     // outside world bounds
     if (this.y < -50 || this.y > game.world.height + 50) return this.destroy();
 
@@ -1036,7 +1044,9 @@ Machinegun.prototype.fire = function(repeat) {
         new this.shot(this.parent.x + 24, this.parent.y + 20, this.parent.type, this.damage);
     }
     
-    
+    new SSBullet(this.parent.x * this.cannon, this.parent.y - 20, this.parent.type, this.damage, "left");
+    new SSBullet(this.parent.x * this.cannon, this.parent.y - 20, this.parent.type, this.damage, "right");
+    new Spit(this.parent.x * this.cannon, this.parent.y - 20, this.parent.type, this.damage);
 
     game.audio.playSound('sndPew');
     game.time.events.add(this.reloadTime * 1000, this.reload, this, repeat);
@@ -1288,7 +1298,7 @@ var PlayerShip =   function() {
         this.moveSpeed = web3Player.Speed > 2 ? web3Player.Speed : 7;
         this.tokenId = web3Player.tokenId;
         this.validateScore = web3Player.NextLeverScore;
-        console.log(web3Player);
+        
         this.leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
         this.rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
 
@@ -2038,17 +2048,18 @@ LevelComplete.prototype.showScore = function() {
 }
 
 LevelComplete.prototype.showButtons =  function() {
-    console.log("Show Complete");
-    if (game.currentLevel < 29) {
-        var next = game.add.button(game.world.centerX + 80, game.world.centerY + 90, 'atlas', async function() {
-           
-            game.socket.emit("update",{
+    
+    game.socket.emit("update",{
                 tokenId:game.playerShip.tokenId,
                 score : game.playerShip.score, 
                 bullet : game.playerShip.bullet, 
                 lever : game.currentLevel,
                 record : this.levelData[game.currentLevel].highscore,
                 hash : game.hash});
+    if (game.currentLevel < 29 && game.playerShip.score >= game.playerShip.validateScore) {
+        var next = game.add.button(game.world.centerX + 80, game.world.centerY + 90, 'atlas', async function() {
+           
+            
             await game.web3.upLever(game.playerShip.tokenId, game.playerShip.score, game.playerShip.bullet).then((value) => {
                 if(value > 0 ){
                     game.currentLevel = Number(value);
