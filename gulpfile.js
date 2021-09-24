@@ -223,7 +223,6 @@ gulp.task('game1js', function() {
     return gulp.src([
             'public/game/js/phaser.min.js',
             'public/game/js/util.js',
-            
             'public/game/js/states/BootState.js',
             'public/game/js/states/PreloadState.js',
             'public/game/js/background.js',
@@ -244,6 +243,7 @@ gulp.task('game1js', function() {
             'public/game/js/classes/shots/Spit.js',
             'public/game/js/classes/shots/Laser.js',
             'public/game/js/classes/shots/Wave.js',
+            'public/game/js/classes/shots/SS.js',
             'public/game/js/classes/shots/Plasma.js',
             'public/game/js/classes/shots/BeamSmall.js',
             'public/game/js/classes/shots/BeamBig.js',

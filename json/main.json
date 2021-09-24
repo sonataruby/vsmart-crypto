@@ -415,13 +415,15 @@
 	"contact" : "",
 	"footer" : "",
 	"social" : {
-		"facebook" : "https://fb.com/CryptoCar.cc",
-		"twitter" : "https://twitter.com/CryptoCar_CC",
+		"facebook" : "https://fb.com/StarsBattle.co",
+		"twitter" : "https://twitter.com/StarsBattle_co",
 		"github" : "",
 		"youtube" : "",
 		"bitcoin" : "",
 		"medium" : "",
-		"telegram" : "https://t.me/Cryptocar_cc",
-		"telegram_channel" : "https://t.me/Cryptocar_cc"
+		"telegram" : "https://t.me/StarsBattle",
+		"telegram_channel" : "https://t.me/StarsBattleChannel",
+		"website" : "https://StarsBattle.co"
 	}
 }
+

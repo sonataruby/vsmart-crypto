@@ -16,6 +16,7 @@ var PreloadState = {
         game.load.atlasJSONHash('scene', '/dist/game/starsbattle/images/scene.png', '/dist/game/starsbattle/images/scene.json');
         game.load.atlasJSONHash('control', '/dist/game/starsbattle/images/control.png', '/dist/game/starsbattle/images/control.json');
         game.load.atlasJSONHash('bgroup', '/dist/game/starsbattle/images/background.png', '/dist/game/starsbattle/images/background.json');
+       
 
         // audio
         game.load.audio('sndPew', '/dist/game/starsbattle/audio/pew.mp3', '/dist/game/starsbattle/audio/pew.ogg');

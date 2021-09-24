@@ -5,6 +5,20 @@
 		"trimmed": false,
 		"spriteSourceSize": {"x":387,"y":0,"w":114,"h":152},
 		"sourceSize": {"w":114,"h":152}
+	},
+	"gui/shop_bg" : {
+		"frame": {"x":0,"y":0,"w":700,"h":600},
+		"rotated": false,
+		"trimmed": false,
+		"spriteSourceSize": {"x":0,"y":0,"w":700,"h":600},
+		"sourceSize": {"w":700,"h":600}
+	},
+	"gui/avatar" : {
+		"frame": {"x":0,"y":0,"w":700,"h":600},
+		"rotated": false,
+		"trimmed": false,
+		"spriteSourceSize": {"x":0,"y":0,"w":700,"h":600},
+		"sourceSize": {"w":700,"h":600}
 	}
 },
 "meta": {

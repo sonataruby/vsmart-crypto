@@ -1,14 +1,14 @@
 var BulletBars = function() {
     //this.bulletBar = new BulletBars(20, 20);
 
-    this.bulletCount = game.add.text(game.world.width - 120, 56, game.playerShip.bullet);
+    this.bulletCount = game.add.text(game.world.width - 180, 56, game.playerShip.bullet);
     this.bulletCount.anchor.setTo(0.5, 1);
     this.bulletCount.align = 'right';
     this.bulletCount.fill = '#fff';
     this.bulletCount.stroke = '#000';
     this.bulletCount.strokeThickness = 4;
     this.bulletCount.font = 'square';
-    this.bulletCount.fontSize = 40;
+    this.bulletCount.fontSize = 20;
 }
 
 BulletBars.prototype.update = function() {
@@ -16,5 +16,5 @@ BulletBars.prototype.update = function() {
 }
 
 BulletBars.prototype.updateBullet = function() {
-    this.bulletCount.text = game.playerShip.bullet;
+    this.bulletCount.text = "Bullet : "+ game.playerShip.bullet;
 }

@@ -16,6 +16,7 @@ Shot.prototype.constructor = Shot;
 
 Shot.prototype.update = function() {
     this.y += this.vsp * this.direction;
+    
     if (this.hsp) this.x += this.hsp;
     
     // outside world bounds

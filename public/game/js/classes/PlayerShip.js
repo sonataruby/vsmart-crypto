@@ -61,7 +61,7 @@ PlayerShip.prototype.onEndTouch = function(pointer) {
     } else if (pointer === this.touchRight) {
         this.touchRight = false;
     }
-    game.backgrounds.drawBackground(this);
+    //game.backgrounds.drawBackground(this); Set 3d
 }
 
 
@@ -70,6 +70,7 @@ PlayerShip.prototype.update = function() {
     if(this.bullet < 1) {
         this.weapon.destroy();
         this.bullet = 0;
+        this.alive = false;
     }
     // movement
     var left = this.leftKey.isDown ? -1 : 0;

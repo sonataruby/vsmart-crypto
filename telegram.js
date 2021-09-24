@@ -1,19 +1,31 @@
 const TelegramBot = require('node-telegram-bot-api');
+var bodyParser = require('body-parser');
+let fs = require('fs');
 const config = require('./config');
 var telegram = config.telegram;
-
+const cors = require('cors');
 const express = require("express");
-const app = express();
+let Web3 = require('web3');
+let web3 = new Web3(config.blockChianURL);
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", config.server.public); // update to match the domain you will make the request from
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+const app = express();
+let Address = JSON.parse(fs.readFileSync(__dirname + '/apps/abi/address.json', 'utf8'));
+let MainConfig = JSON.parse(fs.readFileSync(__dirname + '/json/main.json', 'utf8')).social;
+
+telegram.group = MainConfig.telegram;
+telegram.channel = MainConfig.telegram_channel;
+
+app.use(bodyParser.urlencoded({extended: true})) 
+app.use(bodyParser.json()) 
+
+
+telegram.group = '@8gpyMdhoPHhiNGFl'; //<== Test
+app.use(cors());
+app.options('*', cors());
 
 const bot = new TelegramBot(telegram.token, {polling: true});
-const img_url = 'https://cdn-images-1.medium.com/max/1200/1*b708XUPLvguJNmrpbg8oXg.jpeg'
-var contractAddress = '';
+const img_url = MainConfig.website+'/upload/banner.png';
+
 /*
 bot.onText(/\/start\/(.+)/, (msg,match) => {
     contractAddress = match[1];
@@ -69,8 +81,8 @@ const telegramJoin = async () => {
     var keyboardStr = JSON.stringify({
         inline_keyboard: [
           [
-              {text:'Join Telegram Group',url:'https://t.me/eraswap'},
-              {text:'Join Telegram Channel',url:'https://t.me/eraswap'},
+              {text:'Join Telegram Group',url:telegram.group},
+              {text:'Join Telegram Channel',url:telegram.channel},
               {text:'Next Step 3'}
           ]
         ]
@@ -82,25 +94,89 @@ const telegramJoin = async () => {
 var re = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/igm;
 /*
 bot.on('message', (msg) => {
-    var send_text = msg.from.text;
-   
-    var task = [
-        {text : "Join Start >>", callback : telegramJoin},
-        {text : "Step 2", callback : telegramJoin},
-        {text : "Step 3", callback : telegramJoin},
-        {text : "Step 4", callback : telegramJoin},
-        {text : "Step 5", callback : telegramJoin}
-        ];
-    
-    task.each(function (key, callback){
-        console.log(key);
-        if (send_text.toString().indexOf(step1_text) === 0) {
+    console.log(`${msg.from.username}:  ${msg.text} ${msg.location}`);
+    var send_text = msg.text;
+    var msg = "";
+    if(send_text == "!contract"){
+        msg = Address.AddressContractSmartToken;
+    }
+    if(msg != ""){
         
-        }
-    });
+        bot.sendMessage(telegram.group,msg);
+    }
     
 });
 */
+bot.on('channel_post', (msg) => {
+    console.log(msg);
+    var send_text = msg.text;
+    var msg = "";
+    if(send_text == "!contract"){
+        msg = Address.AddressContractSmartToken;
+    }
+    if(msg != ""){
+        
+        bot.sendMessage(telegram.group,msg);
+    }
+    
+});
+
+bot.on('message', (msg) => {
+    
+    var send_text = msg.text;
+    var isGroup = msg.chat.type;
+    var formUser = msg.from.username;
+    var firstName = msg.from.username;
+    var lastName = msg.from.username;
+    var typeComand = msg.entities != undefined ? msg.entities[0].type : "text";
+    var getRoomID = msg.chat.id;
+    var replyID = msg.message_id;
+    var msg = "";
+    var photoMsg = "";
+
+    if(send_text == "/contract"){
+        photoMsg = 'Testnet Contract : <a href="https://testnet.bscscan.com/address/'+Address.AddressContractSmartToken+'">'+Address.AddressContractSmartToken+'</a>';
+    }
+
+    if(send_text == "/airdrop"){
+        msg = '@'+formUser+' Check out : <a href="https://t.me/StarsBattleBot?token='+Address.AddressContractSmartToken+'">Airdrop Bot</a>';
+    }
+
+    if(send_text == "/game"){
+        msg = Address.AddressContractSmartToken;
+    }
+
+    if(send_text == "/chart"){
+        msg = Address.AddressContractSmartToken;
+    }
+
+    if(send_text == "/price"){
+        msg = Address.AddressContractSmartToken;
+    }
+
+    if(send_text == "/doc"){
+        photoMsg = 'View Full document <a href="https://doc.starsbattle.co/">https://doc.starsbattle.co/</a>';
+    }
+
+    if(msg != "" && typeComand == "bot_command"){
+        
+        bot.sendMessage(getRoomID,msg,{
+            reply_to_message_id: replyID,
+            parse_mode: 'HTML'
+        });
+    }
+    
+    if(photoMsg != "" && typeComand == "bot_command"){
+        
+        bot.sendPhoto(getRoomID,'https://starsbattle.co/upload/banner.png',{
+        caption : photoMsg,
+        reply_to_message_id : replyID,
+        parse_mode: 'HTML'
+        });
+    }
+
+});
+
 
 app.get("/", (req, res) => {
   var data = '{"ok": "200"}';

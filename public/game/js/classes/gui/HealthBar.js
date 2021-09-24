@@ -1,9 +1,20 @@
 var HealthBar = function(x, y) {
-    Phaser.Sprite.call(this, game, x, y, 'atlas', 'gui/health_bar_bg');
+    Phaser.Sprite.call(this, game, x + 60, y, 'atlas', 'gui/health_bar_bg');
 
-    this.fill = game.add.image(30, 27, 'atlas', 'gui/health_bar_fill');
+    this.fill = game.add.image(90, 27, 'atlas', 'gui/health_bar_fill');
 
     game.groups.gui.add(this);
+
+    game.add.image(30, 27, 'nftplayer', 'avatar');
+
+    lever = game.add.text(x+30, y+27, game.currentLevel);
+    lever.anchor.setTo(0.5, 1);
+    lever.align = 'right';
+    lever.fill = '#fff';
+    lever.stroke = '#000';
+    lever.strokeThickness = 4;
+    lever.font = 'square';
+    lever.fontSize = 20;
 }
 
 HealthBar.prototype = Object.create(Phaser.Sprite.prototype);

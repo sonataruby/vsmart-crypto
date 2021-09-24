@@ -25,11 +25,10 @@ var GameState = {
 
         game.socket = SmartApps.Blockchain.Socket();
 
-       
         new AudioSwitch({
             type: 'sound',
             group: game.groups.gui,
-            x: 160,
+            x: 200,
             y: 37,
             atlas: 'atlas',
             spriteOff: 'gui/icon_sound_off',
@@ -38,7 +37,7 @@ var GameState = {
         new AudioSwitch({
             type: 'music',
             group: game.groups.gui,
-            x: 215,
+            x: 255,
             y: 37,
             atlas: 'atlas',
             spriteOff: 'gui/icon_music_off',

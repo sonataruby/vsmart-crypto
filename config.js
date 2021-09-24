@@ -31,8 +31,10 @@ module.exports.db_config = db_config;
 module.exports.redirect = redirect;
 
 var telegram = {
-	token : "1962248837:AAGecDXTz2hnsdauDN--mOafqBYS5o-jQsg",
-	TelegramChannel : "@Cryptocar_Global"
+	token : "1974136642:AAHourQHQekMKcll0AIbhNhQAylppU3_bSc",
+	channel : "",
+	group : ""
+
 }
 module.exports.telegram = telegram;
 module.exports.blockChianURL = "https://data-seed-prebsc-1-s2.binance.org:8545";

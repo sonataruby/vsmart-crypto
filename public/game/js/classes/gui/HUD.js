@@ -8,7 +8,7 @@ var HUD = function() {
     this.score.stroke = '#000';
     this.score.strokeThickness = 4;
     this.score.font = 'square';
-    this.score.fontSize = 40;
+    this.score.fontSize = 20;
 }
 
 HUD.prototype.update = function() {
@@ -16,5 +16,5 @@ HUD.prototype.update = function() {
 }
 
 HUD.prototype.updateScore = function() {
-    this.score.text = game.playerShip.score;
+    this.score.text = "Score : " + game.playerShip.score;
 }

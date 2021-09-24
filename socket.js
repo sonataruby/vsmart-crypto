@@ -1,4 +1,4 @@
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
 const express = require("express");
 const socket = require("socket.io");
 const config = require('./config');

@@ -106,6 +106,7 @@ var PreloadState = {
         game.load.atlasJSONHash('scene', '/dist/game/starsbattle/images/scene.png', '/dist/game/starsbattle/images/scene.json');
         game.load.atlasJSONHash('control', '/dist/game/starsbattle/images/control.png', '/dist/game/starsbattle/images/control.json');
         game.load.atlasJSONHash('bgroup', '/dist/game/starsbattle/images/background.png', '/dist/game/starsbattle/images/background.json');
+       
 
         // audio
         game.load.audio('sndPew', '/dist/game/starsbattle/audio/pew.mp3', '/dist/game/starsbattle/audio/pew.ogg');
@@ -432,11 +433,10 @@ var GameState = {
 
         game.socket = SmartApps.Blockchain.Socket();
 
-       
         new AudioSwitch({
             type: 'sound',
             group: game.groups.gui,
-            x: 160,
+            x: 200,
             y: 37,
             atlas: 'atlas',
             spriteOff: 'gui/icon_sound_off',
@@ -445,7 +445,7 @@ var GameState = {
         new AudioSwitch({
             type: 'music',
             group: game.groups.gui,
-            x: 215,
+            x: 255,
             y: 37,
             atlas: 'atlas',
             spriteOff: 'gui/icon_music_off',
@@ -851,6 +851,7 @@ Shot.prototype.constructor = Shot;
 
 Shot.prototype.update = function() {
     this.y += this.vsp * this.direction;
+    
     if (this.hsp) this.x += this.hsp;
     
     // outside world bounds
@@ -944,6 +945,35 @@ Wave.prototype.update = function() {
         }
     }
 }
+var SSBullet = function(x, y, type, damage) {
+    Shot.call(this, x, y, type, damage, 'shots/laser');
+    this.moveX = this.x;
+    this.moveY = this.y;
+    this.vsp = 5;
+}
+
+SSBullet.prototype = Object.create(Shot.prototype);
+SSBullet.prototype.constructor = SSBullet;    
+
+SSBullet.prototype.update = function() {
+    var seed = (this.y - this.moveY) * 10;
+    this.x = this.moveX + this.direction;
+    this.y += this.vsp * this.direction;
+    if (this.hsp) this.x += this.hsp;
+    
+    // outside world bounds
+    if (this.y < -50 || this.y > game.world.height + 50) return this.destroy();
+
+    // collision w/enemies or player
+    for (var i = 0; i < this.vsGroup.children.length; i++) {
+        var object = this.vsGroup.children[i];
+        if (!object.invincible && checkOverlap(this, object)) {
+            object.getHit(this.damage);
+            this.die();
+            break;
+        }
+    }
+}
 var Plasma = function(x, y, type, damage) {
     Shot.call(this, x, y, type, damage, 'shots/plasma');
 
@@ -993,20 +1023,23 @@ Machinegun.prototype.fire = function(repeat) {
     if (this.parent instanceof PlayerShip) {
         if (this.level === 1) {
             new this.shot(this.parent.x + 24 * this.cannon, this.parent.y - 20, this.parent.type, this.damage);
-            //new this.shot(this.parent.x - 40, this.parent.y - 20, this.parent.type, this.damage);
-            //new this.shot(this.parent.x + 60, this.parent.y - 20, this.parent.type, this.damage);
+            new SSBullet(this.parent.x - 60, this.parent.y + 70, this.parent.type, this.damage);
+            new SSBullet(this.parent.x + 60, this.parent.y + 70, this.parent.type, this.damage);
             this.cannon *= -1;
         } else {
             new this.shot(this.parent.x - 24, this.parent.y - 20, this.parent.type, this.damage);
             new this.shot(this.parent.x + 24, this.parent.y - 20, this.parent.type, this.damage);
 
         }
+        
+        if (this.active) game.playerShip.addBullet(1);
+
     } else if (this.parent instanceof Scout) {
         new this.shot(this.parent.x - 24, this.parent.y + 20, this.parent.type, this.damage);
         new this.shot(this.parent.x + 24, this.parent.y + 20, this.parent.type, this.damage);
     }
     
-    if (this.active) game.playerShip.addBullet(1);
+    
 
     game.audio.playSound('sndPew');
     game.time.events.add(this.reloadTime * 1000, this.reload, this, repeat);
@@ -1298,7 +1331,7 @@ PlayerShip.prototype.onEndTouch = function(pointer) {
     } else if (pointer === this.touchRight) {
         this.touchRight = false;
     }
-    game.backgrounds.drawBackground(this);
+    //game.backgrounds.drawBackground(this); Set 3d
 }
 
 
@@ -1307,6 +1340,7 @@ PlayerShip.prototype.update = function() {
     if(this.bullet < 1) {
         this.weapon.destroy();
         this.bullet = 0;
+        this.alive = false;
     }
     // movement
     var left = this.leftKey.isDown ? -1 : 0;
@@ -1894,7 +1928,7 @@ var HUD = function() {
     this.score.stroke = '#000';
     this.score.strokeThickness = 4;
     this.score.font = 'square';
-    this.score.fontSize = 40;
+    this.score.fontSize = 20;
 }
 
 HUD.prototype.update = function() {
@@ -1902,19 +1936,19 @@ HUD.prototype.update = function() {
 }
 
 HUD.prototype.updateScore = function() {
-    this.score.text = game.playerShip.score;
+    this.score.text = "Score : " + game.playerShip.score;
 }
 var BulletBars = function() {
     //this.bulletBar = new BulletBars(20, 20);
 
-    this.bulletCount = game.add.text(game.world.width - 120, 56, game.playerShip.bullet);
+    this.bulletCount = game.add.text(game.world.width - 180, 56, game.playerShip.bullet);
     this.bulletCount.anchor.setTo(0.5, 1);
     this.bulletCount.align = 'right';
     this.bulletCount.fill = '#fff';
     this.bulletCount.stroke = '#000';
     this.bulletCount.strokeThickness = 4;
     this.bulletCount.font = 'square';
-    this.bulletCount.fontSize = 40;
+    this.bulletCount.fontSize = 20;
 }
 
 BulletBars.prototype.update = function() {
@@ -1922,14 +1956,25 @@ BulletBars.prototype.update = function() {
 }
 
 BulletBars.prototype.updateBullet = function() {
-    this.bulletCount.text = game.playerShip.bullet;
+    this.bulletCount.text = "Bullet : "+ game.playerShip.bullet;
 }
 var HealthBar = function(x, y) {
-    Phaser.Sprite.call(this, game, x, y, 'atlas', 'gui/health_bar_bg');
+    Phaser.Sprite.call(this, game, x + 60, y, 'atlas', 'gui/health_bar_bg');
 
-    this.fill = game.add.image(30, 27, 'atlas', 'gui/health_bar_fill');
+    this.fill = game.add.image(90, 27, 'atlas', 'gui/health_bar_fill');
 
     game.groups.gui.add(this);
+
+    game.add.image(30, 27, 'nftplayer', 'avatar');
+
+    lever = game.add.text(x+30, y+27, game.currentLevel);
+    lever.anchor.setTo(0.5, 1);
+    lever.align = 'right';
+    lever.fill = '#fff';
+    lever.stroke = '#000';
+    lever.strokeThickness = 4;
+    lever.font = 'square';
+    lever.fontSize = 20;
 }
 
 HealthBar.prototype = Object.create(Phaser.Sprite.prototype);
@@ -2004,12 +2049,11 @@ LevelComplete.prototype.showButtons =  function() {
                 hash : game.hash});
             await game.web3.upLever(game.playerShip.tokenId, game.playerShip.score, game.playerShip.bullet).then((value) => {
                 if(value > 0 ){
-                    game.currentLevel += 1;
+                    game.currentLevel = Number(value);
                     game.state.start('GameState');
                 }else{
                     game.state.start('SelectClassState');
                 }
-                
                 
             });
             

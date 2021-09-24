@@ -20,20 +20,23 @@ Machinegun.prototype.fire = function(repeat) {
     if (this.parent instanceof PlayerShip) {
         if (this.level === 1) {
             new this.shot(this.parent.x + 24 * this.cannon, this.parent.y - 20, this.parent.type, this.damage);
-            //new this.shot(this.parent.x - 40, this.parent.y - 20, this.parent.type, this.damage);
-            //new this.shot(this.parent.x + 60, this.parent.y - 20, this.parent.type, this.damage);
+            new SSBullet(this.parent.x - 60, this.parent.y + 70, this.parent.type, this.damage);
+            new SSBullet(this.parent.x + 60, this.parent.y + 70, this.parent.type, this.damage);
             this.cannon *= -1;
         } else {
             new this.shot(this.parent.x - 24, this.parent.y - 20, this.parent.type, this.damage);
             new this.shot(this.parent.x + 24, this.parent.y - 20, this.parent.type, this.damage);
 
         }
+        
+        if (this.active) game.playerShip.addBullet(1);
+
     } else if (this.parent instanceof Scout) {
         new this.shot(this.parent.x - 24, this.parent.y + 20, this.parent.type, this.damage);
         new this.shot(this.parent.x + 24, this.parent.y + 20, this.parent.type, this.damage);
     }
     
-    if (this.active) game.playerShip.addBullet(1);
+    
 
     game.audio.playSound('sndPew');
     game.time.events.add(this.reloadTime * 1000, this.reload, this, repeat);

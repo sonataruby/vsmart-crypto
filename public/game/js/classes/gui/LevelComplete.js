@@ -63,12 +63,11 @@ LevelComplete.prototype.showButtons =  function() {
                 hash : game.hash});
             await game.web3.upLever(game.playerShip.tokenId, game.playerShip.score, game.playerShip.bullet).then((value) => {
                 if(value > 0 ){
-                    game.currentLevel += 1;
+                    game.currentLevel = Number(value);
                     game.state.start('GameState');
                 }else{
                     game.state.start('SelectClassState');
                 }
-                
                 
             });
             

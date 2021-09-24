@@ -36,6 +36,7 @@ var scripts = [
     'game/js/classes/shots/Plasma.js',
     'game/js/classes/shots/BeamSmall.js',
     'game/js/classes/shots/BeamBig.js',
+    'game/js/classes/shots/SS.js',
     'game/js/classes/weapons/Machinegun.js',
     'game/js/classes/weapons/Pistol.js',
     'game/js/classes/weapons/Spitter.js',
