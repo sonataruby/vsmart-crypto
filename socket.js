@@ -66,17 +66,17 @@ app.get("/layer/:tokenid", async (req, res) => {
   var data = {};
   await loadGame1().then(async (pool) => {
       await pool.paramsOf(tokenid).call().then(async (info) => {
-        let nextLever = await pool.LeverOf(info.Lever+1).Score;
+        let nextLever = await pool.LeverOf(Number(info.Lever)+1).call();
         data = {
-            tokenId : tokenid,
+            tokenId : Number(tokenid),
             name : info.ClassName,
-            Class : info.Class,
-            Lever: info.Lever,
-            Bullet: info.Bullet,
+            Class : Number(info.Class),
+            Lever: Number(info.Lever),
+            Bullet: Number(info.Bullet),
             BulletClass: info.BulletClass,
-            Speed: info.Speed,
-            Score: info.Score,
-            NextLeverScore : nextLever
+            Speed: Number(info.Speed),
+            Score: Number(info.Score),
+            NextLeverScore : Number(nextLever.Score)
         }
 
         var LoadDB = await db.dbQuery("SELECT * FROM game_stars WHERE tokenId='"+tokenid+"'",true);
@@ -87,6 +87,7 @@ app.get("/layer/:tokenid", async (req, res) => {
             //data.Lever = LoadDB.Lever;
         }
 
+        console.log(data);
       });
   });
 

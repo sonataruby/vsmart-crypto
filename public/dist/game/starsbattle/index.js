@@ -430,7 +430,6 @@ var GameState = {
         game.spawner = new EnemySpawner();
         
         game.hash = game.web3.keccak256("https://starsbattle.co");
-
         game.socket = SmartApps.Blockchain.Socket();
 
         new AudioSwitch({
@@ -1288,7 +1287,7 @@ var PlayerShip =   function() {
         this.bullet = web3Player.Bullet;
         this.moveSpeed = web3Player.Speed > 2 ? web3Player.Speed : 7;
         this.tokenId = web3Player.tokenId;
-
+        this.validateScore = web3Player.NextLeverScore;
         this.leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
         this.rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
 
@@ -1936,7 +1935,7 @@ HUD.prototype.update = function() {
 }
 
 HUD.prototype.updateScore = function() {
-    this.score.text = "Score : " + game.playerShip.score;
+    this.score.text = "Score : " + game.validateScore + "/" + game.playerShip.score;
 }
 var BulletBars = function() {
     //this.bulletBar = new BulletBars(20, 20);
