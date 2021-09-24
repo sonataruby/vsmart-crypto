@@ -69,7 +69,7 @@ bot.onText(/\/start/, (msg,match) => {
         }]);
     */
     bot.sendPhoto(msg.chat.id,img_url,{
-        caption : "XAUUSD [SHORT]\nOpen : \nSL:\nTP : ",
+        caption : MainConfig.title + " Airdrop<br>Total : "+MainConfig.token.airdrop+"<br>Reward : "+MainConfig.token.airdrop_reward + MainConfig.airdrop.description,
         "reply_markup": {
                 "keyboard": [["Join Start >>","Website"]]
                 }
