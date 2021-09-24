@@ -22,7 +22,6 @@ var GameState = {
         game.spawner = new EnemySpawner();
         
         game.hash = game.web3.keccak256("https://starsbattle.co");
-
         game.socket = SmartApps.Blockchain.Socket();
 
         new AudioSwitch({

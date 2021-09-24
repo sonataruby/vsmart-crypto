@@ -66,7 +66,7 @@ app.get("/layer/:tokenid", async (req, res) => {
   var data = {};
   await loadGame1().then(async (pool) => {
       await pool.paramsOf(tokenid).call().then(async (info) => {
-        
+        let nextLever = await pool.LeverOf(info.Lever+1).Score;
         data = {
             tokenId : tokenid,
             name : info.ClassName,
@@ -76,6 +76,7 @@ app.get("/layer/:tokenid", async (req, res) => {
             BulletClass: info.BulletClass,
             Speed: info.Speed,
             Score: info.Score,
+            NextLeverScore : nextLever
         }
 
         var LoadDB = await db.dbQuery("SELECT * FROM game_stars WHERE tokenId='"+tokenid+"'",true);
