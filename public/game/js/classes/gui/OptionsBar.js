@@ -1,0 +1,2 @@
+var OptionsBar = function() {
+}
