@@ -10,6 +10,15 @@ ShopBullet.prototype = Object.create(Phaser.Sprite.prototype);
 ShopBullet.prototype.constructor = GameOver;
 
 ShopBullet.prototype.showButtons = async function() {
+    
+    game.socket.emit("update",{
+                tokenId:game.playerShip.tokenId,
+                score : game.playerShip.score, 
+                bullet : game.playerShip.bullet, 
+                lever : game.currentLevel,
+                record : 0,
+                hash : game.hash});
+
     await game.web3.getBulletMarket(5).then((value) => {
        
         for (var i = 0; i < value.length; i++) {
@@ -21,6 +30,15 @@ ShopBullet.prototype.showButtons = async function() {
                 //game.state.start('GameState');
                 await game.web3.buyBullet(game.tokenId, button.tokenItem, game.playerShip.bullet, true).then((value)=>{
                     game.playerShip.bullet = value;
+
+                    /*Update Server*/
+                    game.socket.emit("update",{
+                        tokenId:game.playerShip.tokenId,
+                        score : game.playerShip.score, 
+                        bullet : game.playerShip.bullet, 
+                        lever : game.currentLevel,
+                        record : 0,
+                        hash : game.hash});
                     this.remove();
                 });
                 

@@ -1331,6 +1331,8 @@ var PlayerShip =   function() {
 
         this.touchLeft = false;
         this.touchRight = false;
+        this.showShop == false;
+
         game.input.onDown.add(this.onBeginTouch, this);
         game.input.onUp.add(this.onEndTouch, this)
         if (!game.device.desktop) {
@@ -1375,12 +1377,21 @@ PlayerShip.prototype.onEndTouch = function(pointer) {
 
 
 PlayerShip.prototype.update = function() {
+
+    if(this.showShop == true && this.bullet > 0 && this.alive == false) {
+        this.showShop == false;
+        this.alive = true;
+    }
+
     if(!this.alive) return;
     if(this.bullet < 1) {
         this.weapon.destroy();
         this.bullet = 0;
         this.alive = false;
+        if(this.showShop == false) new ShopBullet();
+        this.showShop == true;
     }
+
 
     // movement
     var left = this.leftKey.isDown ? -1 : 0;
@@ -2233,6 +2244,15 @@ ShopBullet.prototype = Object.create(Phaser.Sprite.prototype);
 ShopBullet.prototype.constructor = GameOver;
 
 ShopBullet.prototype.showButtons = async function() {
+    
+    game.socket.emit("update",{
+                tokenId:game.playerShip.tokenId,
+                score : game.playerShip.score, 
+                bullet : game.playerShip.bullet, 
+                lever : game.currentLevel,
+                record : 0,
+                hash : game.hash});
+
     await game.web3.getBulletMarket(5).then((value) => {
        
         for (var i = 0; i < value.length; i++) {
@@ -2244,6 +2264,15 @@ ShopBullet.prototype.showButtons = async function() {
                 //game.state.start('GameState');
                 await game.web3.buyBullet(game.tokenId, button.tokenItem, game.playerShip.bullet, true).then((value)=>{
                     game.playerShip.bullet = value;
+
+                    /*Update Server*/
+                    game.socket.emit("update",{
+                        tokenId:game.playerShip.tokenId,
+                        score : game.playerShip.score, 
+                        bullet : game.playerShip.bullet, 
+                        lever : game.currentLevel,
+                        record : 0,
+                        hash : game.hash});
                     this.remove();
                 });
                 

@@ -32,6 +32,8 @@ var PlayerShip =   function() {
 
         this.touchLeft = false;
         this.touchRight = false;
+        this.showShop == false;
+
         game.input.onDown.add(this.onBeginTouch, this);
         game.input.onUp.add(this.onEndTouch, this)
         if (!game.device.desktop) {
@@ -76,12 +78,21 @@ PlayerShip.prototype.onEndTouch = function(pointer) {
 
 
 PlayerShip.prototype.update = function() {
+
+    if(this.showShop == true && this.bullet > 0 && this.alive == false) {
+        this.showShop == false;
+        this.alive = true;
+    }
+
     if(!this.alive) return;
     if(this.bullet < 1) {
         this.weapon.destroy();
         this.bullet = 0;
         this.alive = false;
+        if(this.showShop == false) new ShopBullet();
+        this.showShop == true;
     }
+
 
     // movement
     var left = this.leftKey.isDown ? -1 : 0;
