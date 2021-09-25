@@ -1,10 +1,11 @@
 var backgroundScreen;
+var backgroundScreenHome;
 var GameState = {
     create: async function () {
         game.stage.backgroundColor = '#333';
 
         game.groups = {};
-        var backgroundScreenHome = game.add.tileSprite(0, 0,game._width, game._height, "backgroundgame");
+        backgroundScreenHome = game.add.tileSprite(0, 0,game._width, game._height, "backgroundgame");
         backgroundScreenHome.anchor.setTo(0, 0);
         backgroundScreenHome.scale.set(1.5, 1.6);
         backgroundScreenHome.fixedToCamera = true;
@@ -43,12 +44,14 @@ var GameState = {
             spriteOn: 'gui/icon_music_on'
         });      
 
+        /*
         if (!game.device.desktop) {
             var left = game.add.image(0, game.world.height - 128, 'atlas', 'gui/touch_left');
             left.alpha = 0.2;
             var right = game.add.image(game.world.width - 128, game.world.height - 128, 'atlas', 'gui/touch_right');
             right.alpha = 0.2;
         }
+        */
 
         var canvas = document.querySelector('canvas');
         
@@ -68,7 +71,9 @@ var GameState = {
         //console.log(game.socket);
     },
     update : () => {
-        backgroundScreen.tilePosition.y +=2;
+        backgroundScreen.tilePosition.y -=2;
+        backgroundScreenHome.tilePosition.y +=0.5;
+        //backgroundScreenHome.tilePosition.x +=1;
     }
 };
 function initLevelData() {
