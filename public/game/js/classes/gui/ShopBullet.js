@@ -16,10 +16,13 @@ ShopBullet.prototype.showButtons = async function() {
             
             var button = game.add.button((game.world.centerX - 150) + (i % 3) * 160,  (game.world.centerY - 80) + Math.floor(i / 3) * 210, 'control', async function(button){
                 //game.add.tween(game.groups.shop).to({y: 1299}, 500, 'Bounce', true);
-                this.remove();
+                
                 //game.tween.removeFrom(ShopBullet)
                 //game.state.start('GameState');
-                //await game.web3.buyBullet(game.tokenId, button.tokenItem);
+                await game.web3.buyBullet(game.tokenId, button.tokenItem, game.playerShip.bullet, true).then((value)=>{
+                    game.playerShip.bullet = value;
+                    this.remove();
+                });
                 
             }, this, 'gui/bulletshop_bg', 'gui/bulletshop_bg');
             button.tokenItem = (i + 1);
