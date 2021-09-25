@@ -40,6 +40,13 @@
 		"trimmed": false,
 		"spriteSourceSize": {"x":732,"y":0,"w":40,"h":40},
 		"sourceSize": {"w":40,"h":40}
+	},
+	"bulletshop_close" : {
+		"frame": {"x":695,"y":54,"w":87,"h":95},
+		"rotated": false,
+		"trimmed": false,
+		"spriteSourceSize": {"x":695,"y":54,"w":87,"h":95},
+		"sourceSize": {"w":87,"h":95}
 	}
 },
 "meta": {

@@ -1388,7 +1388,9 @@ PlayerShip.prototype.update = function() {
         this.weapon.destroy();
         this.bullet = 0;
         this.alive = false;
-        if(this.showShop == false) new ShopBullet();
+        //if(this.showShop == false) {
+            new ShopBullet();
+        //}
         this.showShop == true;
     }
 
@@ -2244,7 +2246,13 @@ ShopBullet.prototype = Object.create(Phaser.Sprite.prototype);
 ShopBullet.prototype.constructor = GameOver;
 
 ShopBullet.prototype.showButtons = async function() {
+    var buttonClose = game.add.button((game.world.centerX + 284),  (game.world.centerY - 250), 'control', async function(button){
+        this.remove();
+    }, this, 'bulletshop_close', 'bulletshop_close');
     
+
+    buttonClose.anchor.setTo(0.5);
+    this.childGroup.add(buttonClose);
     game.socket.emit("update",{
                 tokenId:game.playerShip.tokenId,
                 score : game.playerShip.score, 
@@ -2254,7 +2262,7 @@ ShopBullet.prototype.showButtons = async function() {
                 hash : game.hash});
 
     await game.web3.getBulletMarket(5).then((value) => {
-       
+        
         for (var i = 0; i < value.length; i++) {
             
             var button = game.add.button((game.world.centerX - 150) + (i % 3) * 160,  (game.world.centerY - 80) + Math.floor(i / 3) * 210, 'control', async function(button){
@@ -2279,6 +2287,7 @@ ShopBullet.prototype.showButtons = async function() {
             }, this, 'gui/bulletshop_bg', 'gui/bulletshop_bg');
             button.tokenItem = (i + 1);
             button.anchor.setTo(0.5);
+
             var PlayerImage = game.add.image(button.x + 50, button.y, 'nftplayer','player_'+(i+1));
             PlayerImage.anchor.setTo(0.9);
 
