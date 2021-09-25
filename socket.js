@@ -85,6 +85,8 @@ app.get("/layer/:tokenid", async (req, res) => {
             data.Bullet = LoadDB.bulletCount;
             //data.Score = LoadDB.Score;
             //data.Lever = LoadDB.Lever;
+        }else{
+
         }
 
       });
@@ -161,8 +163,8 @@ app.get("/nft/:tokenid", async (req, res) => {
             player.Bullet = LoadDB.bulletCount;
             player.Score = LoadDB.Score;
             //player.Lever = LoadDB.Lever;
-
-            
+        }else{
+          db.dbQuery("INSERT INTO `game_stars` (`tokenId`, `bulletCount`, `Score`, `Lever`, `Record`) VALUES ('"+tokenid+"', '"+Number(info.Bullet)+"', '"+Number(info.Score)+"', '"+Number(info.Lever)+"', '0);");
         }
         player.status = "200";
         data.push(player);
@@ -180,7 +182,7 @@ app.post("/nft", async (req, res) => {
   var tokenid = req.body.tokenid;
    await loadGame1().then(async (pool) => {
       await pool.paramsOf(tokenid).call().then(async (info) => {
-        db.dbQuery("UPDATE `game_stars` SET bulletCount='"+info.Bullet+"', Score='"+info.Score+"', Lever='"+info.Lever+"' WHERE tokenId='"+tokenid+"';");
+        db.dbQuery("UPDATE `game_stars` SET bulletCount='"+Number(info.Bullet)+"', Score='"+info.Score+"', Lever='"+info.Lever+"' WHERE tokenId='"+tokenid+"';");
       });
     });
   var data = {};
@@ -211,7 +213,7 @@ io.on("connection", function (socket) {
       let tokenid = data.tokenId;
       await loadGame1().then(async (pool) => {
         await pool.paramsOf(tokenid).call().then(async (info) => {
-          db.dbQuery("UPDATE `game_stars` SET bulletCount='"+info.Bullet+"', Score='"+info.Score+"', Lever='"+info.Lever+"' WHERE tokenId='"+tokenid+"';");
+          db.dbQuery("UPDATE `game_stars` SET bulletCount='"+Number(info.Bullet)+"', Score='"+info.Score+"', Lever='"+info.Lever+"' WHERE tokenId='"+tokenid+"';");
         });
       });
   });
@@ -231,7 +233,7 @@ io.on("connection", function (socket) {
         db.dbQuery("INSERT INTO `game_stars` (`tokenId`, `bulletCount`, `Score`, `Lever`, `Record`) VALUES ('"+tokenid+"', '"+bulletCount+"', '"+Score+"', '"+Lever+"', '"+record+"');");
     }else{
       
-      db.dbQuery("UPDATE `game_stars` SET bulletCount='"+bulletCount+"' WHERE tokenId='"+tokenid+"';");
+      db.dbQuery("UPDATE `game_stars` SET bulletCount='"+Number(bulletCount)+"' WHERE tokenId='"+tokenid+"';");
     }
 
     io.emit("user update", socket.userId);
