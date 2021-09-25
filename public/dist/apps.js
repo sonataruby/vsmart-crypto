@@ -8469,7 +8469,7 @@ SmartApps = (function (SmartApps, $, window) {
     
 
     SmartApps.Blockchain.Socket = () => {
-    	var socket = io.connect('https://api.starsbattle.co', {reconnect: true});
+    	var socket = io.connect('https://api.starsbattle.co', {transports : ['polling'],reconnect: true});
     	return socket;
     }
 
