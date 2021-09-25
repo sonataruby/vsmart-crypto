@@ -1340,6 +1340,7 @@ var PlayerShip =   function() {
         }
         game.groups.player.add(this);
         
+        
 
         //console.log(pointer);
         

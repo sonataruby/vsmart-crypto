@@ -207,6 +207,15 @@ io.on("connection", function (socket) {
     io.emit("new user", [...activeUsers]);
   });
 
+  socket.on("sync", async (data) => {
+      let tokenid = data.tokenId;
+      await loadGame1().then(async (pool) => {
+        await pool.paramsOf(tokenid).call().then(async (info) => {
+          db.dbQuery("UPDATE `game_stars` SET bulletCount='"+info.Bullet+"', Score='"+info.Score+"', Lever='"+info.Lever+"' WHERE tokenId='"+tokenid+"';");
+        });
+      });
+  });
+
   socket.on("update", async (data) => {
     
     let tokenid = data.tokenId;
