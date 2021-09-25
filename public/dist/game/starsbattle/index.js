@@ -370,7 +370,7 @@ var SelectClassState = {
 
         for (var i = 0; i < batllat.length; i++) {
             
-            var button = game.add.button(50 + i % 5 * 156, 190 + Math.floor(i / 5) * 156, 'bgroup', function(button){
+            var button = game.add.button(25 + i % 3 * 156, 190 + Math.floor(i / 3) * 156, 'bgroup', function(button){
                 game.currentLevel = button.lever;
                 game.currentClass = button.class;
                 game.tokenId      = button.tokenId;
@@ -379,9 +379,10 @@ var SelectClassState = {
             button.class = batllat[i].Class;
             button.lever = batllat[i].Lever;
             button.tokenId = batllat[i].tokenId;
-            
+            //button.anchor.setTo(0.5);
 
             var PlayerImage = game.add.image(button.x + 20, button.y + 15, 'nftplayer','player_'+batllat[i].Class);
+            //PlayerImage.anchor.setTo(0.5);
 
             var txt = game.add.text(button.x + 41, button.y + 36, batllat[i].Lever);
                 txt.font = 'square';
@@ -391,6 +392,17 @@ var SelectClassState = {
                 txt.fill = '#fff';
                 txt.stroke = '#000';
                 txt.strokeThickness = 4;
+            
+
+            var txtBulet = game.add.text(button.x + 41, button.y + 72, batllat[i].Bullet);
+                txtBulet.font = 'square';
+                txtBulet.anchor.setTo(0.5);
+                txtBulet.align = 'center';
+                txtBulet.fontSize = 12;
+                txtBulet.fill = '#fff';
+                txtBulet.stroke = '#000';
+                txtBulet.strokeThickness = 4;
+                
 
             //PlayerImage.alpha = 0.5;
         }
@@ -419,7 +431,7 @@ var GameState = {
         backgroundScreenHome.fixedToCamera = true;
 
         backgroundScreen = game.add.tileSprite(0, 0,game._width, game._height, "skys");
-        var groups = ['bg', 'enemies', 'player', 'collectibles', 'shots', 'vfx', 'gui'];
+        var groups = ['bg', 'enemies', 'player', 'collectibles', 'shots', 'vfx', 'gui',"shop"];
         groups.forEach(function(item) {
             game.groups[item] = game.add.group();
         });
@@ -433,6 +445,8 @@ var GameState = {
         game.hash = game.web3.keccak256("https://starsbattle.co");
         game.socket = SmartApps.Blockchain.Socket();
 
+        new OptionsBar();
+        /*
         new AudioSwitch({
             type: 'sound',
             group: game.groups.gui,
@@ -451,7 +465,7 @@ var GameState = {
             spriteOff: 'gui/icon_music_off',
             spriteOn: 'gui/icon_music_on'
         });      
-
+        */
         /*
         if (!game.device.desktop) {
             var left = game.add.image(0, game.world.height - 128, 'atlas', 'gui/touch_left');
@@ -2015,9 +2029,9 @@ var HealthBar = function(x, y) {
 
     game.groups.gui.add(this);
 
-    game.add.image(30, 27, 'nftplayer', 'avatar');
+    game.add.image(30, 18, 'control', 'gui/avatar');
 
-    lever = game.add.text(x+30, y+27, game.currentLevel);
+    lever = game.add.text(x+25, y+33, game.currentLevel);
     lever.anchor.setTo(0.5, 1);
     lever.align = 'right';
     lever.fill = '#fff';
@@ -2160,6 +2174,117 @@ GameOver.prototype.showButtons = function() {
         game.state.start('GameState');
     }, this, 'gui/icon_replay_on', 'gui/icon_replay_off', 'gui/icon_replay_off');
     replay.anchor.setTo(0.5);      
+}
+var OptionsBar = function() {
+	//Phaser.Sprite.call(this, game, 120, 37, 'control', 'gui/health_bar_bg');
+	var options = game.add.button(190, 18, 'control', function(button){
+		new GameOptions();
+	},this,'options','options');
+    game.add.image(190, 18, 'control', 'options');
+
+    var options = game.add.button(231, 18, 'control', function(button){
+		new ShopBullet();
+	},this,'shopbullet','shopbullet');
+    game.add.image(231, 18, 'control', 'shopbullet');
+
+}
+OptionsBar.prototype = Object.create(Phaser.Sprite.prototype);
+OptionsBar.prototype.constructor = OptionsBar;
+OptionsBar.prototype.update = function(data){
+	console.log(data);
+}
+var GameOptions = function() {
+    Phaser.Sprite.call(this, game, game.world.centerX, game.world.centerY + 1000, 'atlas', 'gui/game_over_bg');
+    game.groups.gui.add(this);
+    this.anchor.setTo(0.5);
+    game.add.tween(this).to({y: '-1000'}, 500, 'Bounce', true).onComplete.add(this.showButtons, this);
+}
+
+GameOptions.prototype = Object.create(Phaser.Sprite.prototype);
+GameOptions.prototype.constructor = GameOver;
+
+GameOptions.prototype.showButtons = function() {
+
+    var levels = game.add.button(game.world.centerX - 80, game.world.centerY + 30, 'atlas', function() {
+        
+        game.state.start('SelectClassState');
+    }, this, 'gui/icon_levels_on', 'gui/icon_levels_off', 'gui/icon_levels_off');
+    levels.anchor.setTo(0.5);
+
+    var home = game.add.button(game.world.centerX, game.world.centerY + 30, 'atlas', function() {
+        game.state.start('MainMenuState');
+    }, this, 'gui/icon_home_on', 'gui/icon_home_off', 'gui/icon_home_off');
+    home.anchor.setTo(0.5);    
+
+    var replay = game.add.button(game.world.centerX + 80, game.world.centerY + 30, 'atlas', function() {
+        game.state.start('GameState');
+    }, this, 'gui/icon_replay_on', 'gui/icon_replay_off', 'gui/icon_replay_off');
+    replay.anchor.setTo(0.5);      
+}
+var ShopBullet = function() {
+    Phaser.Sprite.call(this, game, game.world.centerX, game.world.centerY + 1000, 'control', 'gui/shop_bg');
+    game.groups.shop.add(this);
+    this.anchor.setTo(0.5);
+    game.add.tween(this).to({y: '-1000'}, 500, 'Bounce', true).onComplete.add(this.showButtons, this);
+    this.childGroup = game.add.group();
+}
+
+ShopBullet.prototype = Object.create(Phaser.Sprite.prototype);
+ShopBullet.prototype.constructor = GameOver;
+
+ShopBullet.prototype.showButtons = async function() {
+    await game.web3.getBulletMarket(5).then((value) => {
+       
+        for (var i = 0; i < value.length; i++) {
+            
+            var button = game.add.button((game.world.centerX - 150) + (i % 3) * 160,  (game.world.centerY - 80) + Math.floor(i / 3) * 210, 'control', async function(button){
+                //game.add.tween(game.groups.shop).to({y: 1299}, 500, 'Bounce', true);
+                this.remove();
+                //game.tween.removeFrom(ShopBullet)
+                //game.state.start('GameState');
+                //await game.web3.buyBullet(game.tokenId, button.tokenItem);
+                
+            }, this, 'gui/bulletshop_bg', 'gui/bulletshop_bg');
+            button.tokenItem = (i + 1);
+            button.anchor.setTo(0.5);
+            var PlayerImage = game.add.image(button.x + 50, button.y, 'nftplayer','player_'+(i+1));
+            PlayerImage.anchor.setTo(0.9);
+
+            var txt = game.add.text(button.x + 10, button.y + 25, value[i].price + " Stars");
+            txt.font = 'square';
+            txt.anchor.setTo(0.5);
+            txt.align = 'right';
+            txt.fontSize = 18;
+            txt.fill = '#fff';
+            txt.stroke = '#000';
+            txt.strokeThickness = 4;
+
+            var txtBullet = game.add.text(button.x + 10, button.y + 50, value[i].bullet);
+            txtBullet.font = 'square';
+            txtBullet.anchor.setTo(0.5);
+            txtBullet.align = 'right';
+            txtBullet.fontSize = 18;
+            txtBullet.fill = '#fff';
+            txtBullet.stroke = '#000';
+            txtBullet.strokeThickness = 4;
+
+            this.childGroup.add(button);
+            this.childGroup.add(txt);
+            this.childGroup.add(txtBullet);
+            this.childGroup.add(PlayerImage);
+        }
+    });
+    
+    
+}
+ShopBullet.prototype.update = function() {
+    //console.log(this.x);
+    //this.destroy();
+}
+ShopBullet.prototype.remove = function() {
+    //console.log(this.x);
+    this.destroy();
+    this.childGroup.destroy();
 }
 var levelData = [
     // level 1

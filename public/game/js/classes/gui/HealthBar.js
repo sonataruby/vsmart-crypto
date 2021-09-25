@@ -5,9 +5,9 @@ var HealthBar = function(x, y) {
 
     game.groups.gui.add(this);
 
-    game.add.image(30, 27, 'nftplayer', 'avatar');
+    game.add.image(30, 18, 'control', 'gui/avatar');
 
-    lever = game.add.text(x+30, y+27, game.currentLevel);
+    lever = game.add.text(x+25, y+33, game.currentLevel);
     lever.anchor.setTo(0.5, 1);
     lever.align = 'right';
     lever.fill = '#fff';

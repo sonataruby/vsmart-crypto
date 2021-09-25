@@ -11,7 +11,7 @@ var GameState = {
         backgroundScreenHome.fixedToCamera = true;
 
         backgroundScreen = game.add.tileSprite(0, 0,game._width, game._height, "skys");
-        var groups = ['bg', 'enemies', 'player', 'collectibles', 'shots', 'vfx', 'gui'];
+        var groups = ['bg', 'enemies', 'player', 'collectibles', 'shots', 'vfx', 'gui',"shop"];
         groups.forEach(function(item) {
             game.groups[item] = game.add.group();
         });
@@ -25,6 +25,8 @@ var GameState = {
         game.hash = game.web3.keccak256("https://starsbattle.co");
         game.socket = SmartApps.Blockchain.Socket();
 
+        new OptionsBar();
+        /*
         new AudioSwitch({
             type: 'sound',
             group: game.groups.gui,
@@ -43,7 +45,7 @@ var GameState = {
             spriteOff: 'gui/icon_music_off',
             spriteOn: 'gui/icon_music_on'
         });      
-
+        */
         /*
         if (!game.device.desktop) {
             var left = game.add.image(0, game.world.height - 128, 'atlas', 'gui/touch_left');

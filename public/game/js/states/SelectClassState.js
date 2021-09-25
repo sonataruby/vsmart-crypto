@@ -38,7 +38,7 @@ var SelectClassState = {
 
         for (var i = 0; i < batllat.length; i++) {
             
-            var button = game.add.button(50 + i % 5 * 156, 190 + Math.floor(i / 5) * 156, 'bgroup', function(button){
+            var button = game.add.button(25 + i % 3 * 156, 190 + Math.floor(i / 3) * 156, 'bgroup', function(button){
                 game.currentLevel = button.lever;
                 game.currentClass = button.class;
                 game.tokenId      = button.tokenId;
@@ -47,9 +47,10 @@ var SelectClassState = {
             button.class = batllat[i].Class;
             button.lever = batllat[i].Lever;
             button.tokenId = batllat[i].tokenId;
-            
+            //button.anchor.setTo(0.5);
 
             var PlayerImage = game.add.image(button.x + 20, button.y + 15, 'nftplayer','player_'+batllat[i].Class);
+            //PlayerImage.anchor.setTo(0.5);
 
             var txt = game.add.text(button.x + 41, button.y + 36, batllat[i].Lever);
                 txt.font = 'square';
@@ -59,6 +60,17 @@ var SelectClassState = {
                 txt.fill = '#fff';
                 txt.stroke = '#000';
                 txt.strokeThickness = 4;
+            
+
+            var txtBulet = game.add.text(button.x + 41, button.y + 72, batllat[i].Bullet);
+                txtBulet.font = 'square';
+                txtBulet.anchor.setTo(0.5);
+                txtBulet.align = 'center';
+                txtBulet.fontSize = 12;
+                txtBulet.fill = '#fff';
+                txtBulet.stroke = '#000';
+                txtBulet.strokeThickness = 4;
+                
 
             //PlayerImage.alpha = 0.5;
         }

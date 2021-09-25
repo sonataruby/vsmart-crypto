@@ -274,6 +274,10 @@ gulp.task('game1js', function() {
             'public/game/js/classes/gui/HealthBar.js',
             'public/game/js/classes/gui/LevelComplete.js',
             'public/game/js/classes/gui/GameOver.js',
+            'public/game/js/classes/gui/OptionsBar.js',
+            'public/game/js/classes/gui/GameOptions.js',
+            'public/game/js/classes/gui/ShopBullet.js',
+          //  'public/game/js/classes/gui/ShopBallet.js',
             'public/game/js/levels.js'
         ])
         .pipe(concat('index.js'))
