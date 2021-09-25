@@ -34,7 +34,7 @@ ShopBullet.prototype.showButtons = async function() {
                 
                 //game.tween.removeFrom(ShopBullet)
                 //game.state.start('GameState');
-                await game.web3.buyBullet(game.tokenId, button.tokenItem, game.playerShip.bullet, true).then((value)=>{
+                await game.web3.buyBullet(game.tokenId, button.tokenItem, true).then((value)=>{
                     game.playerShip.bullet = value;
 
                     /*Update Server*/
