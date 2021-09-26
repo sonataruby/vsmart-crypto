@@ -1,7 +1,7 @@
 #game{
 	position: fixed;
 	top: 0;
-	left: 130px;
+	left: 0;
 }
 @media (max-width: 500px) {
 	#game{
@@ -15,7 +15,7 @@
 .classCard{
 	
 	min-height: 240px;
-	background-image: url(game/case.png);
+	background-image: url(game/starsbattle/images/bg2.png);
 	background-size: contain;
 	width: 180px;
 	background-repeat: no-repeat;

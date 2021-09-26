@@ -1,8 +1,8 @@
-<h1 class="title title-s2 text-white">MarketPlace Battlet</h1>
-<div class="card" style="max-width:650px;">
-<div class="card-body">
+<h1 class="title title-s2 text-white">MarketPlace Battle</h1>
+<div style="max-width:650px;">
+
 <div class="row" id="LoadItem"></div>
-</div>
+
 </div>
 
 
@@ -19,7 +19,7 @@ $(document).ready(async function(){
           var id = data[i].id;
           var bullet = data[i].bullet;
           var price = data[i].price;
-          html += '<div class="col-md-4 mb-3"><div class="card"><div class="card-body"><img src="/nfts/'+img+'.png" style="width:100px;"><br>1 NFT<br>'+bullet+' Bullet<br>'+price+' <%=token.name%><br><button class="btn btn-sm btn-outline-info btnMint" data-id="'+id+'">BUY</button> </div></div></div>';
+          html += '<div class="col-md-4 mb-3 col-6"><div class="card-theme"><div class="card-body"><img src="/nfts/'+img+'.png" style="width:100px;"><br>1 NFT<br>'+bullet+' Bullet<br>'+price+' <%=token.name%><br><button class="btn btn-sm btn-round btn-outline btn-outline-info btnMint" data-id="'+id+'">BUY</button> </div></div></div>';
         }
         
 
