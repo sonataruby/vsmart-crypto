@@ -1,3 +1,16 @@
+<div class="banner-social-wrap text-center">
+    <ul class="banner-social banner-social-vertical">
+        <%if(social.facebook){ %><li><a href="<%- social.facebook %>"  target="_bank"><em class="fab fa-facebook-f"></em></a></li><%}%>
+        <%if(social.twitter){ %><li><a href="<%- social.twitter %>"  target="_bank"><em class="fab fa-twitter"></em></a></li><%}%>
+        <%if(social.youtube){ %><li><a href="<%- social.youtube %>"  target="_bank"><em class="fab fa-youtube"></em></a></li><%}%>
+        <%if(social.github){ %><li><a href="<%- social.github %>"  target="_bank"><em class="fab fa-github"></em></a></li><%}%>
+        <%if(social.bitcoin){ %><li><a href="<%- social.bitcoin %>"  target="_bank"><em class="fab fa-bitcoin"></em></a></li><%}%>
+        <%if(social.medium){ %><li><a href="<%- social.medium %>"  target="_bank"><em class="fab fa-medium-m"></em></a></li><%}%>
+        <%if(social.telegram){ %><li><a href="<%= social.telegram%>" target="_bank"><em class="social-icon fab fa-telegram"></em></a></li><%}%>
+    	<%if(social.telegram_channel){ %><li><a href="<%= social.telegram_channel%>" target="_bank"><em class="social-icon fab fa-telegram"></em></a></li><%}%>
+
+    </ul>
+</div>
 <h1 class="title title-s2 text-white">Welcome to Start War</h1>
 <div style="min-width:650px">
 	<div class="row text-start">
@@ -24,6 +37,7 @@
 			<div class="card">
 					<div class="card-body">
 					Support
+					
 					</div>
 				</div>
 			
