@@ -25,20 +25,13 @@ var SelectClassState = {
           this.backgrounds.push(bg);
         }
         */
-        this.title = game.add.text(game.world.centerX, 100, 'Select Class');
-        this.title.font = 'square';
-        this.title.anchor.setTo(0.5);
-        this.title.align = 'center';
-        this.title.fill = '#fff';
-        this.title.fontSize = 60;
-        this.title.stroke = '#000';
-        this.title.strokeThickness = 8;
+        
         let batllat = await game.web3.getBalt();
         //await game.web3.mint(3);
 
         for (var i = 0; i < batllat.length; i++) {
             
-            var button = game.add.button(25 + i % 3 * 156, 190 + Math.floor(i / 3) * 156, 'bgroup', function(button){
+            var button = game.add.button(55 + i % 3 * 156, 190 + Math.floor(i / 3) * 156, 'bgroup', function(button){
                 game.currentLevel = button.lever;
                 game.currentClass = button.class;
                 game.tokenId      = button.tokenId;
