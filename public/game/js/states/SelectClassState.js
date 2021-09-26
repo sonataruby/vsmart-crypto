@@ -31,7 +31,7 @@ var SelectClassState = {
 
         for (var i = 0; i < batllat.length; i++) {
             
-            var button = game.add.button(55 + i % 3 * 156, 190 + Math.floor(i / 3) * 156, 'bgroup', function(button){
+            var button = game.add.button((game.work.X + 55) + i % 3 * 156, 190 + Math.floor(i / 3) * 156, 'bgroup', function(button){
                 game.currentLevel = button.lever;
                 game.currentClass = button.class;
                 game.tokenId      = button.tokenId;
