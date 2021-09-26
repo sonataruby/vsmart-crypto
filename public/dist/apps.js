@@ -8551,7 +8551,7 @@ SmartApps = (function (SmartApps, $, window) {
 	    };
 	SmartApps.Blockchain.notifyWait = function(msg){
 			$("body #notifyWait").remove();
-	      $("body").append('<div id="notifyWait"><div class="preloader"><h7 class="text-center">'+msg+'</h7><span class="spinner spinner-round"></span></div></div>');
+	        $("body").append('<div id="notifyWait"><div class="preloader"><span class="spinner spinner-round"></span></div></div>');
 	    };
 	SmartApps.Blockchain.getLoginWallet = async () => {
 			return loginWallet;

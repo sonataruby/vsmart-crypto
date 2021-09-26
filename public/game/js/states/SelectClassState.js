@@ -25,7 +25,7 @@ var SelectClassState = {
           this.backgrounds.push(bg);
         }
         */
-        
+        $("body").append('<div id="LoaddingGame"><div class="preloader"><span class="spinner spinner-round"></span></div></div>');
         let batllat = await game.web3.getBalt();
         //await game.web3.mint(3);
 
@@ -69,7 +69,7 @@ var SelectClassState = {
         }
 
 
-
+        $("body #LoaddingGame").remove();
         //game.state.start('GameState');
     },
     update : () => {

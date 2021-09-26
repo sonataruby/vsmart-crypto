@@ -71,6 +71,7 @@ var GameState = {
             game.backgrounds.initStars();
         }
         //console.log(game.socket);
+        $("body #header").remove();
     },
     update : () => {
         backgroundScreen.tilePosition.y -=2;
