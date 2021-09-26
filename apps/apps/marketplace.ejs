@@ -27,7 +27,7 @@ $(document).ready(async function(){
         var data = await SmartApps.tokenGame1.getMarketPlate(6);
         
         for(var i =0;i<data.length;i++){
-          var img = i + 1;//data[i].class;
+          var img = data[i].class;
           var id = data[i].id;
           var bullet = data[i].bullet;
           var price = data[i].price;
