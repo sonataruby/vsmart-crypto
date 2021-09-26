@@ -125,7 +125,7 @@ SmartApps = (function (SmartApps, $, window) {
 	//let _des = "gwei"; //Des = 9
 	var loginWallet = null;
 	var isConnect;
-	let ContractAddress = JSON.parse("{\"AddressContractPresell\" : \"\",\"AddressContractAirdrop\" : \"\",\"AddressContractIDO\" : \"\",\"AddressContractSmartToken\" : \"0x24b3579213e40da8014541d00a49be1cc212a1ba\",\"MasterIDOWallet\" : \"\",\"AddressContractSmartNFT\" : \"\",\"AddressContractNFTFactory\" : \"0xfc4ff58d8880dc4674475df111d18b128460ee7c\",\"AddressContractNFTMarket\" : \"\",\"AddressContractLPCAKE\" : \"\",\"AddressContractFarm\" : \"\",\"AddressContractNFTGame\" : \"\",\"AddressContractStaking\" : \"\",\"AddressContractNFTItem\" : \"\",\"AddressContractGame1\" : \"0x4ca2d3c4281d6d9a317a372f67c50c647b65136d\"}");
+	let ContractAddress = JSON.parse("{\"AddressContractPresell\" : \"\",\"AddressContractAirdrop\" : \"\",\"AddressContractIDO\" : \"\",\"AddressContractSmartToken\" : \"0x24b3579213e40da8014541d00a49be1cc212a1ba\",\"MasterIDOWallet\" : \"\",\"AddressContractSmartNFT\" : \"\",\"AddressContractNFTFactory\" : \"0xfc4ff58d8880dc4674475df111d18b128460ee7c\",\"AddressContractNFTMarket\" : \"\",\"AddressContractLPCAKE\" : \"\",\"AddressContractFarm\" : \"0xc5779e0518699d289e6f135b8e18d44543016856\",\"AddressContractNFTGame\" : \"\",\"AddressContractStaking\" : \"\",\"AddressContractNFTItem\" : \"\",\"AddressContractGame1\" : \"0x4ca2d3c4281d6d9a317a372f67c50c647b65136d\"}");
 	const Web3Modal = window.Web3Modal.default;
 	const providerOptions = {
 	  /* See Provider Options Section */
