@@ -34,17 +34,17 @@ ShopBullet.prototype.showButtons = async function() {
                 
                 //game.tween.removeFrom(ShopBullet)
                 //game.state.start('GameState');
-                await game.web3.buyBullet(game.tokenId, button.tokenItem, true).then((value)=>{
-                    game.playerShip.bullet = value;
+                await game.web3.buyBullet(game.tokenId, button.tokenItem, true).then(async (value)=>{
+
+                    
 
                     /*Update Server*/
-                    game.socket.emit("update",{
-                        tokenId:game.playerShip.tokenId,
-                        score : game.playerShip.score, 
-                        bullet : game.playerShip.bullet, 
-                        lever : game.currentLevel,
-                        record : 0,
-                        hash : game.hash});
+                    game.socket.emit("sync",{
+                        tokenId:game.playerShip.tokenId});
+                    await game.web3.getPlayer(game.playerShip.tokenId).then((value) => {
+                        console.log(value);
+                        game.playerShip.bullet = value.Bullet;
+                    });
                     this.remove();
                 });
                 

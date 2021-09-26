@@ -16,5 +16,5 @@ BulletBars.prototype.update = function() {
 }
 
 BulletBars.prototype.updateBullet = function() {
-    this.bulletCount.text = "Bullet : "+ game.playerShip.bullet;
+    this.bulletCount.text = "Bullet : "+ Number(game.playerShip.bullet);
 }
