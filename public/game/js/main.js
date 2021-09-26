@@ -6,7 +6,7 @@ var height = window.innerHeight
 || document.documentElement.clientHeight
 || document.body.clientHeight;
 var Phaser = Phaser || {};
-var gameWidth = width > 500 ? width - 130 : width + 130;
+var gameWidth = width;
 var gameHeight = height;
 
 

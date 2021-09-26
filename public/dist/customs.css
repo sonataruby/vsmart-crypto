@@ -19,12 +19,13 @@
 .classCard{
 	
 	min-height: 240px;
-	background-image: url(game/starsbattle/images/bg2.png);
+	
 	background-size: contain;
-	width: 180px;
+	
 	background-repeat: no-repeat;
 	padding: 6px;
 	position: relative;
+	color: #FFF;
 
 }
 .classCard .child{
