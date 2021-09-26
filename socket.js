@@ -63,6 +63,7 @@ app.get("/", (req, res) => {
 
 app.get("/layer/:tokenid", async (req, res) => {
   var tokenid = req.params.tokenid;
+  
   var data = {};
   await loadGame1().then(async (pool) => {
       await pool.paramsOf(tokenid).call().then(async (info) => {

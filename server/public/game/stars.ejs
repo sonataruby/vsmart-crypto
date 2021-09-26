@@ -157,6 +157,7 @@
 		var loadBat = async () => {
 			await SmartApps.tokenGame1.Init();
 			var data = await SmartApps.tokenGame1.getMarketPlate(6);
+			console.log(data);
 			var html = '';
 			for(var i =0;i<data.length;i++){
 	          var img = data[i].Class;
