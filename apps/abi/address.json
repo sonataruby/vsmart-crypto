@@ -5,12 +5,12 @@
 	"AddressContractSmartToken" : "0x24b3579213e40da8014541d00a49be1cc212a1ba",
 	"MasterIDOWallet" : "",
 	"AddressContractSmartNFT" : "",
-	"AddressContractNFTFactory" : "0xfc4ff58d8880dc4674475df111d18b128460ee7c",
+	"AddressContractNFTFactory" : "0xcffec5cbbde3c57bef0e2372b2b0310e4e168a5b",
 	"AddressContractNFTMarket" : "",
 	"AddressContractLPCAKE" : "",
 	"AddressContractFarm" : "0xc5779e0518699d289e6f135b8e18d44543016856",
 	"AddressContractNFTGame" : "",
 	"AddressContractStaking" : "",
 	"AddressContractNFTItem" : "",
-	"AddressContractGame1" : "0x4ca2d3c4281d6d9a317a372f67c50c647b65136d"
+	"AddressContractGame1" : "0xa855ce2da6669aa7334048327305a0a50012d74b"
 }

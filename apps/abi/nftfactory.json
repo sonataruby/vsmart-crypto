@@ -143,6 +143,11 @@
 				"internalType": "uint256",
 				"name": "_itemID",
 				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_gamebullet",
+				"type": "uint256"
 			}
 		],
 		"name": "buyBullet",
