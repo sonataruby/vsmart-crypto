@@ -27,14 +27,14 @@ $(document).ready(async function(){
         var data = await SmartApps.tokenGame1.getMarketPlate(6);
         
         for(var i =0;i<data.length;i++){
-          var img = data[i].class;
+          var img = i + 1;//data[i].class;
           var id = data[i].id;
           var bullet = data[i].bullet;
           var price = data[i].price;
           html += '<div class="col-md-4 mb-3 col-6"><div class="card-theme btnMint"  data-id="'+id+'"><div class="card-body"><img src="/nfts/'+img+'.png" style="width:100px;"><br>1 NFT<br>'+bullet+' Bullet<br>'+price+' <%=token.name%></div></div></div>';
         }
         
-        
+
         $("#LoadItem").html(html);
     };
     await LoadClass();
