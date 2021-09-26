@@ -15,6 +15,7 @@
 </div>
 
 
+
 <script>
 $(document).ready(async function(){
     
@@ -28,7 +29,7 @@ $(document).ready(async function(){
           var id = data[i].id;
           var bullet = data[i].bullet;
           var price = data[i].price;
-          html += '<div class="col-md-4 mb-3 col-6"><div class="card-theme"><div class="card-body"><img src="/nfts/'+img+'.png" style="width:100px;"><br>1 NFT<br>'+bullet+' Bullet<br>'+price+' <%=token.name%><br><button class="btn btn-sm btn-round btn-outline btn-outline-info btnMint" data-id="'+id+'">BUY</button> </div></div></div>';
+          html += '<div class="col-md-4 mb-3 col-6"><div class="card-theme btnMint"  data-id="'+id+'"><div class="card-body"><img src="/nfts/'+img+'.png" style="width:100px;"><br>1 NFT<br>'+bullet+' Bullet<br>'+price+' <%=token.name%></div></div></div>';
         }
         
 
