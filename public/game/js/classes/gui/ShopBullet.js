@@ -42,8 +42,7 @@ ShopBullet.prototype.showButtons = async function() {
                     game.socket.emit("sync",{
                         tokenId:game.playerShip.tokenId});
                     await game.web3.getPlayer(game.playerShip.tokenId).then((value) => {
-                        console.log(value);
-                        game.playerShip.bullet = value.Bullet;
+                        game.playerShip.bullet = Number(value.Bullet);
                     });
                     this.remove();
                 });
