@@ -55,10 +55,12 @@ $(document).ready(async function(){
         var html = '';
         var data = await SmartApps.tokenGame1.getBalt();
         for(var i =0;i<data.length;i++){
+        
+       
           var img = data[i].Class;
           html += '<div class="col-md-4 mb-3 col-6">';
           html += '          <div class="card">';
-          html += '            <div class="card-body updateVup" data-tokenid="'+data[i].id+'">';
+          html += '            <div class="card-body updateVup" data-tokenid="'+data[i].tokenId+'">';
           html += '              <img src="/nfts/'+img+'.png" style="width:120px;height:120px;">';
           html += '              <b>'+data[i].name+'</b><br>';
           html += '              Lever : '+data[i].Lever+'<br>';
