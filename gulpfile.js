@@ -77,7 +77,7 @@ gulp.task('game', function() {
             'dev/game_1.js'
         ])
         .pipe(concat('game_1.js'))
-        //.pipe(uglify())
+        .pipe(uglify())
         .pipe(gulp.dest("public/dist"))
         .pipe(browserSync.stream());
     
@@ -100,7 +100,7 @@ gulp.task('web3', function() {
             //'dev/client.js'
         ])
         .pipe(concat('apps.js'))
-        //.pipe(uglify())
+        .pipe(uglify())
         .pipe(gulp.dest("public/dist"))
         .pipe(browserSync.stream());
     
@@ -281,7 +281,7 @@ gulp.task('game1js', function() {
             'public/game/js/levels.js'
         ])
         .pipe(concat('index.js'))
-       // .pipe(uglify())
+        .pipe(uglify())
         .pipe(gulp.dest("public/dist/game/starsbattle"))
         .pipe(browserSync.stream());
 });
