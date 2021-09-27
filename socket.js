@@ -276,7 +276,10 @@ io.on("connection", function (socket) {
   });
 
   socket.on("disconnect", () => {
-    db.dbQuery("UPDATE `game_stars` SET bulletCount='"+Number(socket.userId.bullet)+"' WHERE tokenId='"+socket.userId.tokenId+"';");
+    if(socket.userId != undefined ){
+      db.dbQuery("UPDATE `game_stars` SET bulletCount='"+Number(socket.userId.bullet)+"' WHERE tokenId='"+socket.userId.tokenId+"';");
+    }
+    
     activeUsers.delete(socket.userId);
     console.log(socket.userId," Disconnect");
 
