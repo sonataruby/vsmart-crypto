@@ -74,7 +74,7 @@ PlayerShip.prototype.onEndTouch = function(pointer) {
         this.touchRight = false;
     }
     
-    game.backgrounds.drawBackground(this);// Set 3d
+    //game.backgrounds.drawBackground(this);// Set 3d
 }
 
 
@@ -85,7 +85,7 @@ PlayerShip.prototype.update = function() {
         this.alive = true;
     }
 
-    if(!this.alive) return;
+    if(!this.alive || game.pause == true) return;
     if(this.bullet < 1) {
         //this.weapon.destroy();
         this.bullet = 0;

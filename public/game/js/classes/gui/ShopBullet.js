@@ -10,7 +10,7 @@ ShopBullet.prototype = Object.create(Phaser.Sprite.prototype);
 ShopBullet.prototype.constructor = GameOver;
 
 ShopBullet.prototype.showButtons = async function() {
-    game.playerShip.alive = false;
+    game.pause = true;
    
     
     game.socket.emit("update",{
@@ -44,7 +44,8 @@ ShopBullet.prototype.showButtons = async function() {
             game.socket.emit("sync",{tokenId:game.playerShip.tokenId}, function(data){
                 game.playerShip.bullet = data.Bullet;
                 game.currentLevel = data.Lever;
-                game.playerShip.alive = true;
+                game.pause = false;
+
             });
             
             

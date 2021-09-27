@@ -24,24 +24,45 @@ var GameState = {
             });
             game.gameWidth = canvas.width;
             game.gameHeight = canvas.height;
+            /*
             game.backgrounds = new Backgroun3d({
                 width   : canvas.width,
                 height  : canvas.height,
                 ctx     : ctx
             });
             game.backgrounds.initStars();
+            */
         }
 
         game.hash = game.web3.keccak256("https://starsbattle.co");
         game.socket = SmartApps.Blockchain.Socket();
-
+        game.pause = false;
         game.playerShip = new PlayerShip();
         game.parallax = new Parallax();
         game.hud = new HUD();
         game.bulletBar = new BulletBars();
         game.spawner = new EnemySpawner();
         
-        
+        game.socket.on("disconnect", function(){
+            console.log("Disconnect Client");
+            SmartApps.Blockchain.notify("Server connect error");
+        });
+        window.addEventListener("beforeunload", function (e) {
+            var SubmitData = {
+                tokenId:game.playerShip.tokenId,
+                score : game.playerShip.score, 
+                bullet : game.playerShip.bullet, 
+                lever : game.currentLevel,
+                record : 0,
+                hash : game.hash};
+            console.log(SubmitData);
+            game.socket.emit("update",SubmitData);
+          var confirmationMessage = "\o/";
+
+          (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+          return confirmationMessage;                            //Webkit, Safari, Chrome
+        });
+
         
         new OptionsBar();
         /*

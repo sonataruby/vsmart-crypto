@@ -448,24 +448,45 @@ var GameState = {
             });
             game.gameWidth = canvas.width;
             game.gameHeight = canvas.height;
+            /*
             game.backgrounds = new Backgroun3d({
                 width   : canvas.width,
                 height  : canvas.height,
                 ctx     : ctx
             });
             game.backgrounds.initStars();
+            */
         }
 
         game.hash = game.web3.keccak256("https://starsbattle.co");
         game.socket = SmartApps.Blockchain.Socket();
-
+        game.pause = false;
         game.playerShip = new PlayerShip();
         game.parallax = new Parallax();
         game.hud = new HUD();
         game.bulletBar = new BulletBars();
         game.spawner = new EnemySpawner();
         
-        
+        game.socket.on("disconnect", function(){
+            console.log("Disconnect Client");
+            SmartApps.Blockchain.notify("Server connect error");
+        });
+        window.addEventListener("beforeunload", function (e) {
+            var SubmitData = {
+                tokenId:game.playerShip.tokenId,
+                score : game.playerShip.score, 
+                bullet : game.playerShip.bullet, 
+                lever : game.currentLevel,
+                record : 0,
+                hash : game.hash};
+            console.log(SubmitData);
+            game.socket.emit("update",SubmitData);
+          var confirmationMessage = "\o/";
+
+          (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+          return confirmationMessage;                            //Webkit, Safari, Chrome
+        });
+
         
         new OptionsBar();
         /*
@@ -1396,7 +1417,7 @@ PlayerShip.prototype.onEndTouch = function(pointer) {
         this.touchRight = false;
     }
     
-    game.backgrounds.drawBackground(this);// Set 3d
+    //game.backgrounds.drawBackground(this);// Set 3d
 }
 
 
@@ -1407,7 +1428,7 @@ PlayerShip.prototype.update = function() {
         this.alive = true;
     }
 
-    if(!this.alive) return;
+    if(!this.alive || game.pause == true) return;
     if(this.bullet < 1) {
         //this.weapon.destroy();
         this.bullet = 0;
@@ -2283,7 +2304,7 @@ ShopBullet.prototype = Object.create(Phaser.Sprite.prototype);
 ShopBullet.prototype.constructor = GameOver;
 
 ShopBullet.prototype.showButtons = async function() {
-    game.playerShip.alive = false;
+    game.pause = true;
    
     
     game.socket.emit("update",{
@@ -2317,7 +2338,8 @@ ShopBullet.prototype.showButtons = async function() {
             game.socket.emit("sync",{tokenId:game.playerShip.tokenId}, function(data){
                 game.playerShip.bullet = data.Bullet;
                 game.currentLevel = data.Lever;
-                game.playerShip.alive = true;
+                game.pause = false;
+
             });
             
             

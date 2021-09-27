@@ -265,13 +265,14 @@ io.on("connection", function (socket) {
       db.dbQuery("UPDATE `game_stars` SET bulletCount='"+Number(bulletCount)+"' WHERE tokenId='"+tokenid+"';");
     }
 
-    io.emit("user update", socket.userId);
+    //io.emit("user update", socket.userId);
 
   });
 
   socket.on("disconnect", () => {
     activeUsers.delete(socket.userId);
-    io.emit("user disconnected", socket.userId);
+    console.log(socket.userId," Disconnect");
+    io.emit("disconnected", socket.userId);
   });
 
   socket.on("chat message", function (data) {
