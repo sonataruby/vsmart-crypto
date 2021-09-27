@@ -208,7 +208,7 @@ io.on("connection", function (socket) {
     socket.userId = data;
     activeUsers.add(data);
     io.emit("join", [...activeUsers]);
-    console.log("User Join",socket.userId);
+    console.log("User Join",activeUsers);
   });
   socket.on("sign", function (data) {
     socket.userId = data;
