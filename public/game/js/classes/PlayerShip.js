@@ -40,6 +40,7 @@ var PlayerShip =   function() {
             this.activePointer = game.input.activePointer;
         }
 
+        game.socket.emit('join',{tokenId : game.playerShip.tokenId, bullet : game.playerShip.bullet});
        // game.socket.emit("join",{tokenid : this.tokenId));
         game.groups.player.add(this);
         

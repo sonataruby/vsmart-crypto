@@ -467,13 +467,29 @@ var GameState = {
         game.bulletBar = new BulletBars();
         game.spawner = new EnemySpawner();
         
-        game.socket.emit('join',{tokenId : game.playerShip.tokenId, bullet : game.playerShip.bullet});
+        
         game.socket.on("disconnect", function(){
             console.log("Disconnect Client");
             SmartApps.Blockchain.notify("Server connect error");
         });
         
+        /*
+        window.addEventListener("beforeunload", function (e) {
+            var SubmitData = {
+                tokenId:game.playerShip.tokenId,
+                score : game.playerShip.score, 
+                bullet : game.playerShip.bullet, 
+                lever : game.currentLevel,
+                record : 0,
+                hash : game.hash};
+            
+            game.socket.emit("update",SubmitData);
+          var confirmationMessage = "\o/";
 
+          (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+          return confirmationMessage;                            //Webkit, Safari, Chrome
+        });
+        */
         
         new OptionsBar();
         /*
@@ -1371,6 +1387,7 @@ var PlayerShip =   function() {
             this.activePointer = game.input.activePointer;
         }
 
+        game.socket.emit('join',{tokenId : game.playerShip.tokenId, bullet : game.playerShip.bullet});
        // game.socket.emit("join",{tokenid : this.tokenId));
         game.groups.player.add(this);
         
