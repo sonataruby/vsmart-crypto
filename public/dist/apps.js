@@ -8700,6 +8700,7 @@ SmartApps = (function (SmartApps, $, window) {
 				console.log("receipt", error);
 			});
 			
+			
 		}else{
 			window.ethereum.on('accountsChanged', () => window.location.reload());
       		window.ethereum.on('chainChanged', () => window.location.reload());
@@ -8780,14 +8781,21 @@ SmartApps = (function (SmartApps, $, window) {
             console.error(e);
             return false;
         } 
-
+        let appoveAmount = await contractToken.allowance(wallet,login_wallet).call();
+        if(appoveAmount > depositAmount) return true;
        //await contractToken.allowance(wallet,login_wallet).call().then(async (value) => {
             
         //    if(value < amount){
+            try {
                 await contractToken.approve(wallet,amount).send({from: login_wallet, gasPrice: gasPrice, gas: approveGasEstimate * 3}).then(async (value) => {
                     
                     SmartApps.Blockchain.notify("Approve success. You can deposit start");
                 });
+            } catch(e) {
+                $("body #LoaddingGame").remove();
+                SmartApps.Blockchain.notify("Could not get a wallet connection");
+                return false;
+            }
             //}
             
         //});

@@ -10,7 +10,7 @@ ShopBullet.prototype = Object.create(Phaser.Sprite.prototype);
 ShopBullet.prototype.constructor = GameOver;
 
 ShopBullet.prototype.showButtons = async function() {
-    game.playerShip.alive = false;
+    //game.playerShip.alive = false;
    
     
     game.socket.emit("update",{
@@ -21,8 +21,18 @@ ShopBullet.prototype.showButtons = async function() {
                 record : 0,
                 hash : game.hash});
 
+    var dataBullet = await game.web3.getBulletMarket(6);
+    
+    var html = '';
+    for(var i =0;i<dataBullet.length;i++){
+        var id = Number(dataBullet[i].id);
+        html += '<div class="col-4 btnBuyBulletExe" data-itemid="'+id+'"><img src="/nfts/bullet/'+id+'.gif" style="width:100%"><b>'+dataBullet[i].name+'</b><br>'+dataBullet[i].price+' STARTS<br>Bullet : '+dataBullet[i].bullet+'</div>';
+    }
+    $(".modal-body .row").html(html);
+
     $('#BulletModal').attr("data-tokenid",game.playerShip.tokenId);
     $('#BulletModal').modal('show');
+
     $(".btnBuyBulletExe").on("click", async function(){
         $("body").append('<div id="LoaddingGame"><div class="preloader"><span class="spinner spinner-round"></span></div></div>');
         var tokenid = $("#BulletModal").data("tokenid");
@@ -33,7 +43,7 @@ ShopBullet.prototype.showButtons = async function() {
             let DataNew = await game.web3.getPlayer(game.playerShip.tokenId);
             game.playerShip.bullet = DataNew.Bullet;
             $('#BulletModal').modal('hide');
-            game.playerShip.alive = true;
+            
             $("body #LoaddingGame").remove();
         });
     });
