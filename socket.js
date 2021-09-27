@@ -208,7 +208,13 @@ io.on("connection", function (socket) {
     socket.userId = data;
     activeUsers.add(data);
     io.emit("join", [...activeUsers]);
+    console.log("User Join",socket.userId);
   });
+  socket.on("sign", function (data) {
+    socket.userId = data;
+    console.log(data);
+  });
+  
 
   socket.on("sync", async (data,callback) => {
       let tokenid = data.tokenId;

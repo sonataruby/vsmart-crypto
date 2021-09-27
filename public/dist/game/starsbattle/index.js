@@ -467,6 +467,7 @@ var GameState = {
         game.bulletBar = new BulletBars();
         game.spawner = new EnemySpawner();
         
+        game.socket.emit('join',{tokenId : game.playerShip.tokenId, bullet : game.playerShip.bullet});
         game.socket.on("disconnect", function(){
             console.log("Disconnect Client");
             SmartApps.Blockchain.notify("Server connect error");
@@ -525,6 +526,7 @@ var GameState = {
     update : () => {
         backgroundScreen.tilePosition.y -=2;
         backgroundScreenHome.tilePosition.y +=0.5;
+        game.socket.emit('sign',{tokenId : game.playerShip.tokenId, bullet : game.playerShip.bullet});
         //backgroundScreenHome.tilePosition.x +=1;
     }
 };
