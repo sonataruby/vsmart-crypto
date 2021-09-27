@@ -10,7 +10,7 @@ ShopBullet.prototype = Object.create(Phaser.Sprite.prototype);
 ShopBullet.prototype.constructor = GameOver;
 
 ShopBullet.prototype.showButtons = async function() {
-    //game.playerShip.alive = false;
+    game.playerShip.alive = false;
    
     
     game.socket.emit("update",{
@@ -24,7 +24,7 @@ ShopBullet.prototype.showButtons = async function() {
     var dataBullet = await game.web3.getBulletMarket(6);
     var CreateObjectID = "Object"+Math.floor(Math.random() * 9999999999999);
 
-    
+
     var html = '';
     for(var i =0;i<dataBullet.length;i++){
         var id = Number(dataBullet[i].id);
@@ -44,6 +44,7 @@ ShopBullet.prototype.showButtons = async function() {
             game.socket.emit("sync",{tokenId:game.playerShip.tokenId}, function(data){
                 game.playerShip.bullet = data.Bullet;
                 game.currentLevel = data.Lever;
+                game.playerShip.alive = true;
             });
             
             
