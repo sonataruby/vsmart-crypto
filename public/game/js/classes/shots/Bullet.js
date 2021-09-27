@@ -1,5 +1,5 @@
 var Bullet = function(x, y, type, damage) {
-    Shot.call(this, x, y, type, damage, 'shots/spit');
+    Shot.call(this, x, y, type, damage, 'shots/laser');
 
     this.vsp = 25;
 }

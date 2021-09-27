@@ -1,5 +1,5 @@
 var SSBullet = function(x, y, type, damage, moveData, dist) {
-    Shot.call(this, x, y, type, damage, 'shots/spit');
+    Shot.call(this, x, y, type, damage, 'shots/laser');
     this.moveX = this.x;
     this.moveY = this.y;
     this.vsp = 25;
