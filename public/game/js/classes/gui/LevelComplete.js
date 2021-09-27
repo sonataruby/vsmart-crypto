@@ -67,9 +67,14 @@ LevelComplete.prototype.showButtons =  function() {
             await game.web3.upLever(game.playerShip.tokenId, game.playerShip.score, game.playerShip.bullet).then((value) => {
                 if(value > 0 ){
                     game.socket.emit("sync",{
-                tokenId:game.playerShip.tokenId});
-                    game.currentLevel = Number(game.currentLevel) + Number(value);
-                    game.state.start('GameState');
+                            tokenId:game.playerShip.tokenId
+                        }, function(data){
+                            
+                            game.currentLevel = data.Lever;
+                            game.validateScore = data.NextLeverScore;
+                            game.state.start('GameState');
+                    });
+                    
                 }else{
                     game.state.start('SelectClassState');
                 }

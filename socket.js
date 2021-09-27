@@ -210,16 +210,41 @@ io.on("connection", function (socket) {
     io.emit("join", [...activeUsers]);
   });
 
-  socket.on("sync", async (data) => {
+  socket.on("sync", async (data,callback) => {
       let tokenid = data.tokenId;
 
       await loadGame1().then(async (pool) => {
         await pool.paramsOf(tokenid).call().then(async (info) => {
           db.dbQuery("UPDATE `game_stars` SET bulletCount='"+Number(info.Bullet)+"', Score='"+info.Score+"', Lever='"+info.Lever+"' WHERE tokenId='"+tokenid+"';");
-        });
+        
+
+
+        let nextLever = await pool.LeverOf(Number(info.Lever)+1).call();
+        data = {
+            tokenId : Number(tokenid),
+            name : info.ClassName,
+            Class : Number(info.Class),
+            Lever: Number(info.Lever),
+            Bullet: Number(info.Bullet),
+            BulletClass: info.BulletClass,
+            Speed: Number(info.Speed),
+            Score: Number(info.Score),
+            NextLeverScore : Number(nextLever.Score)
+        }
+
+        var LoadDB = await db.dbQuery("SELECT * FROM game_stars WHERE tokenId='"+tokenid+"'",true);
+
+        if(LoadDB != "" && LoadDB != undefined){
+            data.Bullet = LoadDB.bulletCount;
+            //data.Score = LoadDB.Score;
+            //data.Lever = LoadDB.Lever;
+        }
+        callback(data);
         //io.emit("join", [...activeUsers]);
-        io.to(`${socket.userId}`).emit('update', 'I just met you');
+        //io.to(`${socket.userId}`).emit('update', 'I just met you');
+        });
       });
+      
   });
 
   socket.on("update", async (data) => {
