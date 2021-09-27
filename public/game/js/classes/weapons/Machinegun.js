@@ -21,16 +21,16 @@ Machinegun.prototype.fire = function(repeat) {
         if (this.level === 1) {
             new this.shot(this.parent.x * this.cannon, this.parent.y - 20, this.parent.type, this.damage);
             this.cannon *= -1;
-            if (this.active) game.playerShip.addBullet(1);
+            
         } else {
             new this.shot(this.parent.x - 24, this.parent.y - 20, this.parent.type, this.damage);
             new this.shot(this.parent.x + 24, this.parent.y - 20, this.parent.type, this.damage);
-            if (this.active) game.playerShip.addBullet(2);
+           
         }
-        //new SSBullet(this.parent.x * this.cannon, this.parent.y - 20, this.parent.type, this.damage, "left");
-        //new SSBullet(this.parent.x * this.cannon, this.parent.y - 20, this.parent.type, this.damage, "right");
+        new SSBullet(this.parent.x * this.cannon, this.parent.y - 20, this.parent.type, this.damage, "left");
+        new SSBullet(this.parent.x * this.cannon, this.parent.y - 20, this.parent.type, this.damage, "right");
         //new Spit(this.parent.x * this.cannon, this.parent.y - 20, this.parent.type, this.damage);
-        
+        if (this.active) game.playerShip.addBullet(3);
 
     } else if (this.parent instanceof Scout) {
         new this.shot(this.parent.x - 24, this.parent.y + 20, this.parent.type, this.damage);
@@ -54,7 +54,7 @@ Machinegun.prototype.upgrade = function() {
     this.level += 1;
 
     if (this.level === 3) {
-        this.shot = BulletBig;
+        //this.shot = BulletBig;
         //this.shot = SSBullet;
         this.damage = 2;
     }

@@ -1,8 +1,8 @@
 var SSBullet = function(x, y, type, damage, moveData) {
-    Shot.call(this, x, y, type, damage, 'shots/laser');
+    Shot.call(this, x, y, type, damage, 'shots/spit');
     this.moveX = this.x;
     this.moveY = this.y;
-    this.vsp = 5;
+    this.vsp = 30;
     this.moveData = moveData;
 }
 
@@ -12,13 +12,17 @@ SSBullet.prototype.constructor = SSBullet;
 SSBullet.prototype.update = function() {
     //var seed = (this.x + this.moveX) * 10;
     if(this.moveData == "left"){
-        this.x += 1;
+        this.x += 2;
         this.y += this.vsp * this.direction;
         if (this.hsp) this.x += this.hsp;
     }
     
     if(this.moveData == "right"){
-        this.x -= 1;
+        this.x -= 2;
+        this.y += this.vsp * this.direction;
+        if (this.hsp) this.x += this.hsp;
+    }
+    if(this.moveData == "center"){
         this.y += this.vsp * this.direction;
         if (this.hsp) this.x += this.hsp;
     }
@@ -34,4 +38,7 @@ SSBullet.prototype.update = function() {
             break;
         }
     }
+}
+Shot.prototype.die = function() {
+    this.destroy();
 }

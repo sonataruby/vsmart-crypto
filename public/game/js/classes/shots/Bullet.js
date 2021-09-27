@@ -1,7 +1,7 @@
 var Bullet = function(x, y, type, damage) {
-    Shot.call(this, x, y, type, damage, 'shots/bullet');
+    Shot.call(this, x, y, type, damage, 'shots/spit');
 
-    this.vsp = 20;
+    this.vsp = 30;
 }
 
 Bullet.prototype = Object.create(Shot.prototype);

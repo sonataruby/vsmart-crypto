@@ -51,11 +51,11 @@
 	},
 	"shield":
 	{
-		"frame": {"x":782.5,"y":82,"w":160,"h":160},
+		"frame": {"x":698,"y":0,"w":165,"h":165},
 		"rotated": false,
 		"trimmed": false,
-		"spriteSourceSize": {"x":0,"y":0,"w":160,"h":160},
-		"sourceSize": {"w":160,"h":160}
+		"spriteSourceSize": {"x":0,"y":0,"w":165,"h":165},
+		"sourceSize": {"w":165,"h":165}
 	}
 },
 "meta": {
