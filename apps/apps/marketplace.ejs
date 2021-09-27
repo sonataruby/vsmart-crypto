@@ -58,7 +58,7 @@ $(document).ready(async function(){
           var img = data[i].Class;
           html += '<div class="col-md-4 mb-3 col-6">';
           html += '          <div class="card">';
-          html += '            <div class="card-body" data-tokenid="'+data[i].id+'">';
+          html += '            <div class="card-body updateVup" data-tokenid="'+data[i].id+'">';
           html += '              <img src="/nfts/'+img+'.png" style="width:120px;height:120px;">';
           html += '              <b>'+data[i].name+'</b><br>';
           html += '              Lever : '+data[i].Lever+'<br>';
@@ -70,6 +70,8 @@ $(document).ready(async function(){
         }
         
         $("#VipModelModal .modal-body").html(html);
+
+        
     };
     await LoadClassSelectVip();
 
@@ -79,11 +81,13 @@ $(document).ready(async function(){
         $("#VipModelModal .modal-title").html('Sellect Ballet Class Up VIP : '+isVip);
     });
 
-    $("#VipModelModal .card-body").on("click", function(){
+    $("#VipModelModal .updateVup").on("click", function(){
         var tokenID = $(this).data("tokenid");
         var VipID = $("#VipModelModal").attr("data-vip");
         SmartApps.tokenGame1.buyVip(tokenID,VipID);
+        return;
     });
+    
 
   	
 });
