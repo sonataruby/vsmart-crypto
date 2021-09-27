@@ -43,5 +43,25 @@ router.get(prefix + "/marketplace", (req, res) => {
 });
 
 
+router.get(prefix + "/dailystask", (req, res) => {
+	 const dataMain = fsFile.readJSONFile('main.json');
+	 app.set('layout', config.layout.dir + "/apps");
+	 dataMain.loadJS = ["game1.js"];
+	 res.render("apps/dailystask",dataMain);
+});
+router.get(prefix + "/market", (req, res) => {
+	 const dataMain = fsFile.readJSONFile('main.json');
+	 app.set('layout', config.layout.dir + "/apps");
+	 dataMain.loadJS = ["game1.js"];
+	 res.render("apps/market",dataMain);
+});
+
+router.get(prefix + "/farm", (req, res) => {
+	 const dataMain = fsFile.readJSONFile('main.json');
+	 app.set('layout', config.layout.dir + "/apps");
+	 dataMain.loadJS = ["game1.js"];
+	 res.render("apps/farm",dataMain);
+});
+
 app.use(router);
 module.exports.app = app;
