@@ -28,7 +28,7 @@ ShopBullet.prototype.showButtons = async function() {
         var id = Number(dataBullet[i].id);
         html += '<div class="col-4 btnBuyBulletExe" data-itemid="'+id+'"><img src="/nfts/bullet/'+id+'.gif" style="width:100%"><b>'+dataBullet[i].name+'</b><br>'+dataBullet[i].price+' STARTS<br>Bullet : '+dataBullet[i].bullet+'</div>';
     }
-    $(".modal-body .row").html(html);
+    $("#BulletModal .modal-body .row").html(html);
 
     $('#BulletModal').attr("data-tokenid",game.playerShip.tokenId);
     $('#BulletModal').modal('show');
@@ -41,6 +41,7 @@ ShopBullet.prototype.showButtons = async function() {
         await game.web3.buyBullet(tokenid,itemid,game.playerShip.bullet, true).then(async (value) => {
             game.socket.emit("sync",{tokenId:game.playerShip.tokenId}, function(data){
                 game.playerShip.bullet = data.Bullet;
+                game.currentLevel = data.Lever;
             });
             
             

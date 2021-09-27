@@ -25,49 +25,60 @@ var SelectClassState = {
           this.backgrounds.push(bg);
         }
         */
+
+        var CreateObjectID = "Object"+Math.floor(Math.random() * 9999999999999);
         $("body").append('<div id="LoaddingGame"><div class="preloader"><span class="spinner spinner-round"></span></div></div>');
+
+        $('body').append('<div class="modal fade" id="'+CreateObjectID+'" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">'+
+                '<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">'+
+                    '<div class="modal-content">'+
+      
+                    '<div class="modal-body">'+
+                    '<div class="row"></div>'+
+                '</div>'+
+      
+                '</div>'+
+            '</div>'+
+        '</div>');
         let batllat = await game.web3.getBalt();
         //await game.web3.mint(3);
-
+        var html = '';
         for (var i = 0; i < batllat.length; i++) {
             
-            var button = game.add.button((game.world.centerX - 156) + i % 3 * 156, 190 + Math.floor(i / 3) * 156, 'bgroup', function(button){
-                game.currentLevel = button.lever;
-                game.currentClass = button.class;
-                game.tokenId      = button.tokenId;
-                game.state.start('GameState');
-            }, this, 'gui/level_bg', 'gui/level_bg');
-            button.class = batllat[i].Class;
-            button.lever = batllat[i].Lever;
-            button.tokenId = batllat[i].tokenId;
-            //button.anchor.setTo(0.5);
-
-            var PlayerImage = game.add.image(button.x + 20, button.y + 15, 'nftplayer','player_'+batllat[i].Class);
-            //PlayerImage.anchor.setTo(0.5);
-
-            var txt = game.add.text(button.x + 41, button.y + 36, batllat[i].Lever);
-                txt.font = 'square';
-                txt.anchor.setTo(0.5);
-                txt.align = 'center';
-                txt.fontSize = 36;
-                txt.fill = '#fff';
-                txt.stroke = '#000';
-                txt.strokeThickness = 4;
-            
-
-            var txtBulet = game.add.text(button.x + 41, button.y + 72, batllat[i].Bullet);
-                txtBulet.font = 'square';
-                txtBulet.anchor.setTo(0.5);
-                txtBulet.align = 'center';
-                txtBulet.fontSize = 12;
-                txtBulet.fill = '#fff';
-                txtBulet.stroke = '#000';
-                txtBulet.strokeThickness = 4;
+          var tokenId =  batllat[i].tokenId;
+          var lever =  batllat[i].Lever;
+          var img = batllat[i].Class;
+          html += '<div class="col-sm-4 col-6 mb-4">';
+          html += '          <div class="card">';
+          html += '            <div class="card-body playItems" data-tokenid="'+tokenId+'" data-level="'+lever+'">';
+          html += '              ID : '+tokenId+'<br>';
+          html += '              <img src="/nfts/'+img+'.png" style="width:100%; height:120px;">';
+          html += '              <b>'+batllat[i].name+'</b><br>';
+          html += '              Lever : '+batllat[i].Lever+'<br>';
+          html += '              Bullet : '+batllat[i].Bullet+'<br>';
+          html += '            </div>';
+          html += '          </div>';
+          html += '</div>';
+        
                 
 
             //PlayerImage.alpha = 0.5;
         }
+        $("#"+CreateObjectID+" .modal-body .row").html(html);
 
+        //$('#BulletModal').attr("data-tokenid",game.playerShip.tokenId);
+        $("#"+CreateObjectID).modal('show');
+
+        $('.playItems').on("click", function(){
+            var tokenPlay = $(this).data("tokenid");
+            var currentLevel = $(this).data("level");
+            game.tokenId = tokenPlay;
+            game.currentLevel = Number(currentLevel);
+           // console.log(game.currentLevel);
+           // game.currentLevel = 
+           $("#"+CreateObjectID).modal('hide');
+            game.state.start('GameState');
+        });
 
         $("body #LoaddingGame").remove();
         //game.state.start('GameState');

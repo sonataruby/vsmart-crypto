@@ -8,7 +8,7 @@ var GameState = {
         backgroundScreenHome = game.add.tileSprite(0, 0,game._width, game._height, "backgroundgame");
         backgroundScreenHome.anchor.setTo(0, 0);
         backgroundScreenHome.scale.set(1.5, 1.6);
-        backgroundScreenHome.fixedToCamera = true;
+        backgroundScreenHome.fixedToCamera = false;
 
         backgroundScreen = game.add.tileSprite(0, 0,game._width, game._height, "skys");
         var groups = ['bg', 'enemies', 'player', 'collectibles', 'shots', 'vfx', 'gui',"shop"];
@@ -16,14 +16,32 @@ var GameState = {
             game.groups[item] = game.add.group();
         });
         initLevelData();
+        var canvas = document.querySelector('canvas');
+        
+        if(canvas.getContext) {
+            var ctx = canvas.getContext('2d', {
+            alpha: false,
+            });
+            game.gameWidth = canvas.width;
+            game.gameHeight = canvas.height;
+            game.backgrounds = new Backgroun3d({
+                width   : canvas.width,
+                height  : canvas.height,
+                ctx     : ctx
+            });
+            game.backgrounds.initStars();
+        }
+
+        game.hash = game.web3.keccak256("https://starsbattle.co");
+        game.socket = SmartApps.Blockchain.Socket();
+
         game.playerShip = new PlayerShip();
         game.parallax = new Parallax();
         game.hud = new HUD();
         game.bulletBar = new BulletBars();
         game.spawner = new EnemySpawner();
         
-        game.hash = game.web3.keccak256("https://starsbattle.co");
-        game.socket = SmartApps.Blockchain.Socket();
+        
         
         new OptionsBar();
         /*
@@ -55,21 +73,7 @@ var GameState = {
         }
         */
 
-        var canvas = document.querySelector('canvas');
         
-        if(canvas.getContext) {
-            var ctx = canvas.getContext('2d', {
-            alpha: false,
-            });
-            game.gameWidth = canvas.width;
-            game.gameHeight = canvas.height;
-            game.backgrounds = new Backgroun3d({
-                width   : canvas.width,
-                height  : canvas.height,
-                ctx     : ctx
-            });
-            game.backgrounds.initStars();
-        }
         //console.log(game.socket);
         $("body #header").remove();
     },

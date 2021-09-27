@@ -19,7 +19,7 @@ var PlayerShip =   function() {
         this.moveSpeed = web3Player.Speed > 2 ? web3Player.Speed : 7;
         this.tokenId = web3Player.tokenId;
         this.validateScore = web3Player.NextLeverScore;
-
+        game.currentLevel = web3Player.Lever;
         this.leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
         this.rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
 
