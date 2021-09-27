@@ -81,7 +81,7 @@ $(document).ready(async function(){
 
     $("#VipModelModal .card-body").on("click", function(){
         var tokenID = $(this).data("tokenid");
-        var VipID = $("#VipModelModal.attr("data-vip");
+        var VipID = $("#VipModelModal").attr("data-vip");
         SmartApps.tokenGame1.buyVip(tokenID,VipID);
     });
 
