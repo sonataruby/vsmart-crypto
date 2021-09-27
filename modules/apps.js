@@ -63,5 +63,19 @@ router.get(prefix + "/farm", (req, res) => {
 	 res.render("apps/farm",dataMain);
 });
 
+router.get(prefix + "/airdrop", (req, res) => {
+	 const dataMain = fsFile.readJSONFile('main.json');
+	 app.set('layout', config.layout.dir + "/apps");
+	 dataMain.loadJS = ["game1.js"];
+	 res.render("apps/airdrop",dataMain);
+});
+
+router.get(prefix + "/ido", (req, res) => {
+	 const dataMain = fsFile.readJSONFile('main.json');
+	 app.set('layout', config.layout.dir + "/apps");
+	 dataMain.loadJS = ["game1.js"];
+	 res.render("apps/ido",dataMain);
+});
+
 app.use(router);
 module.exports.app = app;
