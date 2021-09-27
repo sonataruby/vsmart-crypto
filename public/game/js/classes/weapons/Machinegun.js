@@ -20,17 +20,22 @@ Machinegun.prototype.fire = function(repeat) {
     if (this.parent instanceof PlayerShip) {
         if (this.level === 1) {
             new this.shot(this.parent.x * this.cannon, this.parent.y - 20, this.parent.type, this.damage);
+            new SSBullet(this.parent.x * this.cannon, this.parent.y - 20, this.parent.type, this.damage, "left",5);
+            new SSBullet(this.parent.x * this.cannon, this.parent.y - 20, this.parent.type, this.damage, "right",5);
+            //new Spit(this.parent.x * this.cannon, this.parent.y - 20, this.parent.type, this.damage);
+            if (this.active) game.playerShip.addBullet(3);
             this.cannon *= -1;
             
         } else {
             new this.shot(this.parent.x - 24, this.parent.y - 20, this.parent.type, this.damage);
             new this.shot(this.parent.x + 24, this.parent.y - 20, this.parent.type, this.damage);
+            new SSBullet(this.parent.x - 24, this.parent.y - 20, this.parent.type, this.damage, "left",5);
+            new SSBullet(this.parent.x + 24, this.parent.y - 20, this.parent.type, this.damage, "right",5);
+            //new Spit(this.parent.x * this.cannon, this.parent.y - 20, this.parent.type, this.damage);
+            if (this.active) game.playerShip.addBullet(4);
            
         }
-        new SSBullet(this.parent.x * this.cannon, this.parent.y - 20, this.parent.type, this.damage, "left");
-        new SSBullet(this.parent.x * this.cannon, this.parent.y - 20, this.parent.type, this.damage, "right");
-        //new Spit(this.parent.x * this.cannon, this.parent.y - 20, this.parent.type, this.damage);
-        if (this.active) game.playerShip.addBullet(3);
+        
 
     } else if (this.parent instanceof Scout) {
         new this.shot(this.parent.x - 24, this.parent.y + 20, this.parent.type, this.damage);

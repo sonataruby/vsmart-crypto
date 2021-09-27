@@ -10,7 +10,9 @@ ShopBullet.prototype = Object.create(Phaser.Sprite.prototype);
 ShopBullet.prototype.constructor = GameOver;
 
 ShopBullet.prototype.showButtons = async function() {
+    game.playerShip.alive = false;
     var buttonClose = game.add.button((game.world.centerX + 284),  (game.world.centerY - 250), 'control', async function(button){
+        game.playerShip.alive = true;
         this.remove();
     }, this, 'bulletshop_close', 'bulletshop_close');
     
@@ -34,6 +36,7 @@ ShopBullet.prototype.showButtons = async function() {
                 
                 //game.tween.removeFrom(ShopBullet)
                 //game.state.start('GameState');
+
                 await game.web3.buyBullet(game.tokenId, button.tokenItem, Number(game.playerShip.bullet), true).then(async (value)=>{
 
                     
@@ -43,6 +46,7 @@ ShopBullet.prototype.showButtons = async function() {
                         tokenId:game.playerShip.tokenId});
                     await game.web3.getPlayer(game.playerShip.tokenId).then((value) => {
                         game.playerShip.bullet = Number(value.Bullet);
+                        game.playerShip.alive = true;
                     });
                     this.remove();
                 });

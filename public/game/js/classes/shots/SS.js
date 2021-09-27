@@ -1,9 +1,10 @@
-var SSBullet = function(x, y, type, damage, moveData) {
+var SSBullet = function(x, y, type, damage, moveData, dist) {
     Shot.call(this, x, y, type, damage, 'shots/spit');
     this.moveX = this.x;
     this.moveY = this.y;
-    this.vsp = 30;
+    this.vsp = 25;
     this.moveData = moveData;
+    this.dist = dist;
 }
 
 SSBullet.prototype = Object.create(Shot.prototype);
@@ -12,13 +13,13 @@ SSBullet.prototype.constructor = SSBullet;
 SSBullet.prototype.update = function() {
     //var seed = (this.x + this.moveX) * 10;
     if(this.moveData == "left"){
-        this.x += 2;
+        this.x += this.dist;
         this.y += this.vsp * this.direction;
         if (this.hsp) this.x += this.hsp;
     }
     
     if(this.moveData == "right"){
-        this.x -= 2;
+        this.x -=  this.dist;
         this.y += this.vsp * this.direction;
         if (this.hsp) this.x += this.hsp;
     }
