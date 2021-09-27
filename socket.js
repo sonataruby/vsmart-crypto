@@ -213,7 +213,7 @@ io.on("connection", function (socket) {
   socket.on("sign", function (data) {
     socket.userId = data;
     console.log(data);
-  });
+  }); 
   
 
   socket.on("sync", async (data,callback) => {
