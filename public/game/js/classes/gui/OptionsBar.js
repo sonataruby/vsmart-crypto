@@ -6,7 +6,10 @@ var OptionsBar = function() {
     game.add.image(190, 18, 'control', 'options');
 
     var options = game.add.button(231, 18, 'control', function(button){
-		new ShopBullet();
+    	
+    	$('#BulletModal').attr("data-tokenid",game.playerShip.tokenId);
+    	$('#BulletModal').modal('show');
+		//new ShopBullet();
 	},this,'shopbullet','shopbullet');
     game.add.image(231, 18, 'control', 'shopbullet');
 
