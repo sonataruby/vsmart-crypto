@@ -87,13 +87,14 @@ PlayerShip.prototype.update = function() {
 
     if(!this.alive) return;
     if(this.bullet < 1) {
-        this.weapon.destroy();
+        //this.weapon.destroy();
         this.bullet = 0;
         this.alive = false;
         //if(this.showShop == false) {
             new ShopBullet();
         //}
         this.showShop == true;
+        return;
     }
 
 

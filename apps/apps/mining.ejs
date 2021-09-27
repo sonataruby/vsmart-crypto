@@ -24,12 +24,7 @@ $(document).ready(async function(){
     }
     $(".modal-body .row").html(html);
 
-    $(".btnBuyBulletExe").on("click", function(){
-        var tokenid = $("#BulletModal").data("tokenid");
-        var itemid = $(this).data("itemid");
-        console.log(tokenid," - ",itemid);
-        SmartApps.tokenGame1.buyBullet(tokenid,itemid,0);
-    });
+    
 
    
     
