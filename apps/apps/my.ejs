@@ -30,8 +30,8 @@ $(document).ready(async function(){
           html += '              Lever : '+data[i].Lever+'<br>';
           html += '              Bullet : '+data[i].Bullet+'<br>';
           html += '             <div class="btn-group" role="group">';
-          html += '              <button class="btn btn-outline-info btn-sm btnBuyBullet" data-bs-toggle="modal" data-bs-target="#BulletModal" data-tokenid="'+data[i].tokenId+'"><i class="ti ti-shop"></i>Buy</button>';
-          html += '              <button class="btn btn-outline-info btn-sm btnSellMarket" data-tokenid="'+data[i].tokenId+'"><i class="ti ti-shop"></i>Sell</button>';
+          html += '              <button class="btn btn-outline-info btn-sm btnBuyBullet" data-toggle="modal" data-target="#BulletModal" data-tokenid="'+data[i].tokenId+'"><i class="ti ti-shop"></i>Buy</button>';
+          html += '              <button class="btn btn-outline-info btn-sm btnSellMarket" data-toggle="modal" data-target="#BalletModalSell" data-tokenid="'+data[i].tokenId+'"><i class="ti ti-shop"></i>Sell</button>';
           html += '            </div>';
           html += '            </div>';
           html += '          </div>';
@@ -71,19 +71,46 @@ $(document).ready(async function(){
 </script>
 
 <!-- Modal -->
-<div class="modal fade" id="BulletModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="BulletModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Sellect Bullet</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="row"></div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="BalletModalSell" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Enter Info</h5>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-start">
+        
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Price</label>
+          <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Price Sell">
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlTextarea1" class="form-label">Contents</label>
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Enter Description Item Sell"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Send Market</button>
       </div>
     </div>
   </div>
