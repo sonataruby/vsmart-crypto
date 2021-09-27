@@ -1,6 +1,6 @@
 <h1 class="title title-s2 text-white">My Battle</h1>
 
-<div style="min-width:750px;">
+<div class="container-sm">
 
 
 
@@ -22,7 +22,7 @@ $(document).ready(async function(){
         var data = await SmartApps.tokenGame1.getBalt();
         for(var i =0;i<data.length;i++){
           var img = data[i].Class;
-          html += '<div class="col-sm-3">';
+          html += '<div class="col-sm-4 col-6 mb-4">';
           html += '          <div class="card">';
           html += '            <div class="card-body">';
           html += '              <img src="/nfts/'+img+'.png" style="width:100%; height:120px;">';
