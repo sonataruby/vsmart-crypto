@@ -1,7 +1,7 @@
 var BulletBars = function() {
     //this.bulletBar = new BulletBars(20, 20);
-
-    this.bulletCount = game.add.text(game.world.width - 180, 56, game.playerShip.bullet);
+    var bottom = game.world.height;
+    this.bulletCount = game.add.text(80, bottom, game.playerShip.bullet);
     this.bulletCount.anchor.setTo(0.5, 1);
     this.bulletCount.align = 'right';
     this.bulletCount.fill = '#fff';
