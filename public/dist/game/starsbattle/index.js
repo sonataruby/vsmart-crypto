@@ -472,21 +472,7 @@ var GameState = {
             console.log("Disconnect Client");
             SmartApps.Blockchain.notify("Server connect error");
         });
-        window.addEventListener("beforeunload", function (e) {
-            var SubmitData = {
-                tokenId:game.playerShip.tokenId,
-                score : game.playerShip.score, 
-                bullet : game.playerShip.bullet, 
-                lever : game.currentLevel,
-                record : 0,
-                hash : game.hash};
-            console.log(SubmitData);
-            game.socket.emit("update",SubmitData);
-          var confirmationMessage = "\o/";
-
-          (e || window.event).returnValue = confirmationMessage; //Gecko + IE
-          return confirmationMessage;                            //Webkit, Safari, Chrome
-        });
+        
 
         
         new OptionsBar();

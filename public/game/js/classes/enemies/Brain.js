@@ -1,6 +1,6 @@
 var Brain = function(x, y) {
     Enemy.call(this, x, y, 'en_brain');
-    this.hp = 100;
+    this.hp = 500;
     this.vsp = 3;
 
     this.state = 'down';
