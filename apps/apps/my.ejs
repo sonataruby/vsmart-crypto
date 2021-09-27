@@ -28,8 +28,8 @@ $(document).ready(async function(){
 
           html += '            </div>';
           html += '             <div class="btn-group" role="group">';
-          html += '              <button class="btn btn-outline-info btn-sm" data-tokenid="'+data[i].tokenId+'"><i class="ti ti-shop"></i>Sell System</button>';
-          html += '              <button class="btn btn-outline-info btn-sm btnSellMarket" data-toggle="modal" data-target="#BalletModalSell" data-tokenid="'+data[i].tokenId+'"><i class="ti ti-shop"></i>Sell Market</button>';
+          html += '              <button class="btn btn-outline-info btn-sm sellSystem" data-lever="'+data[i].Lever+'" data-tokenid="'+data[i].tokenId+'"><i class="ti ti-shop"></i>Sell System</button>';
+          html += '              <button class="btn btn-outline-info btn-sm btnSellMarket" data-lever="'+data[i].Lever+'" data-toggle="modal" data-target="#BalletModalSell" data-tokenid="'+data[i].tokenId+'"><i class="ti ti-shop"></i>Sell Market</button>';
            html += '            </div>';
           html += '            </div>';
           html += '          </div>';
@@ -45,6 +45,7 @@ $(document).ready(async function(){
         var tokenid = $(this).data("tokenid");
         
         $(".btnBuyBulletExe").attr("data-tokenid",tokenid);
+        
     });
 
     var dataBullet = await SmartApps.tokenGame1.getBulletMarket(6);
@@ -59,12 +60,29 @@ $(document).ready(async function(){
     $(".btnBuyBulletExe").on("click", function(){
         var tokenid = $(this).data("tokenid");
         var itemid = $(this).data("itemid");
-        console.log(tokenid," - ",itemid);
+        
         SmartApps.tokenGame1.buyBullet(tokenid,itemid,0);
+        return false;
     });
 
-    SmartApps.tokenGame1.getTest();
+   
     
+    $(".sellSystem").on("click", function(){
+        var lever = $(this).data("lever");
+        if(lever < 30){
+          SmartApps.Blockchain.notify("Plz Up lever 30");
+        }else{
+          SmartApps.Blockchain.notify("Plz Wait open system");
+        }
+    });
+
+    $(".btnSellMarket").on("click", function(){
+        var lever = $(this).data("lever");
+        if(lever < 5){
+          SmartApps.Blockchain.notify("Plz Up lever 5");
+          return false;
+        }
+    });
 });
 
 
