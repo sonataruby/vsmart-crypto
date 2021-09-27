@@ -24,7 +24,7 @@ var GameState = {
         
         game.hash = game.web3.keccak256("https://starsbattle.co");
         game.socket = SmartApps.Blockchain.Socket();
-
+        
         new OptionsBar();
         /*
         new AudioSwitch({

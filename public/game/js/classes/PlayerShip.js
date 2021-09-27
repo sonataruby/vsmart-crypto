@@ -39,10 +39,10 @@ var PlayerShip =   function() {
         if (!game.device.desktop) {
             this.activePointer = game.input.activePointer;
         }
+
+       // game.socket.emit("join",{tokenid : this.tokenId));
         game.groups.player.add(this);
         
-        
-
         //console.log(pointer);
         
     });
