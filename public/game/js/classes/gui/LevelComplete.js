@@ -63,9 +63,11 @@ LevelComplete.prototype.showButtons =  function() {
     if (game.currentLevel < 29 && game.playerShip.score >= game.playerShip.validateScore) {
         var next = game.add.button(game.world.centerX + 80, game.world.centerY + 90, 'atlas', async function() {
            
-            
+            $("body").append('<div id="LoaddingGame"><div class="preloader"><span class="spinner spinner-round"></span></div></div>');
             await game.web3.upLever(game.playerShip.tokenId, game.playerShip.score, game.playerShip.bullet).then((value) => {
                 if(value > 0 ){
+                    game.socket.emit("sync",{
+                tokenId:game.playerShip.tokenId});
                     game.currentLevel = Number(game.currentLevel) + Number(value);
                     game.state.start('GameState');
                 }else{
@@ -73,6 +75,7 @@ LevelComplete.prototype.showButtons =  function() {
                 }
                 
             });
+            $("body #LoaddingGame").remove();
             
         }, this, 'gui/icon_next_on', 'gui/icon_next_off', 'gui/icon_next_off');
         next.anchor.setTo(0.5);
