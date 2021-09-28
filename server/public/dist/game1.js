@@ -119,14 +119,14 @@ SmartApps = (function (SmartApps, $, window) {
             }
             
         });
-        console.log(obj);
+       
         return obj;
     };
 
     SmartApps.tokenGame1.buyMarketPlate = async (itemID) => {
         let allow = blockchain.toWei(500);
         let appoveAmount = await SmartApps.tokenSmart.allowance('0xd6d488258cdb2a4b583575467bfcc8abe2afd965');
-         console.log(appoveAmount);
+         
         if(appoveAmount < allow) await SmartApps.tokenSmart.approve('0xd6d488258cdb2a4b583575467bfcc8abe2afd965',allow);
         await GameFatory.MarketPlaceItemOf(itemID).call().then((value) => {
             console.log(value);
@@ -219,7 +219,7 @@ SmartApps = (function (SmartApps, $, window) {
         GameFatory = await blockchain.loadContractNFTFactory();
         login_wallet = await blockchain.getLoginWallet();
         
-        console.log(ContractAddress.AddressContractGame1);
+      
     }
 
     SmartApps.components.docReady.push(SmartApps.tokenGame1.Init);
