@@ -53,6 +53,7 @@ PlayerShip.prototype = Object.create(Phaser.Sprite.prototype);
 PlayerShip.prototype.constructor = PlayerShip;
 PlayerShip.prototype.getInfo = async function() {
     let data = await game.web3.getPlayer(game.tokenId);
+    
     return data;
 }
 

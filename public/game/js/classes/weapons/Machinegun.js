@@ -1,9 +1,9 @@
 var Machinegun = function(parent) {
     this.parent = parent;
     this.reloading = false;
-    this.reloadTime = 0.3
+    this.reloadTime = 0.1
     this.shot = Bullet;
-    this.damage = 1;
+    this.damage = 2.5;
 
     this.level = 1;
     this.cannon = -1;
@@ -12,7 +12,7 @@ var Machinegun = function(parent) {
 }
 
 Machinegun.prototype.fire = function(repeat) {
-    
+
     if (!this.active || game.pause == true) return;
 
     if (this.reloading) return;

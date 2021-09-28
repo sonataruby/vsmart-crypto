@@ -64,8 +64,12 @@ LevelComplete.prototype.showButtons =  function() {
         var next = game.add.button(game.world.centerX + 80, game.world.centerY + 90, 'atlas', async function() {
            
             $("body").append('<div id="LoaddingGame"><div class="preloader"><span class="spinner spinner-round"></span></div></div>');
-            await game.web3.upLever(game.playerShip.tokenId, game.playerShip.score, game.playerShip.bullet).then((value) => {
-                if(value > 0 ){
+
+
+            await game.socket.emit("uplever",{tokenId : game.playerShip.tokenId, score : game.playerShip.score, lever : game.currentLevel, wallet: game.wallet}, function(value){
+                if(value.reply == true){
+                    game.state.start('SelectClassState');
+                }else{
                     game.socket.emit("sync",{
                             tokenId:game.playerShip.tokenId
                         }, function(data){
@@ -74,9 +78,6 @@ LevelComplete.prototype.showButtons =  function() {
                             game.validateScore = data.NextLeverScore;
                             game.state.start('GameState');
                     });
-                    
-                }else{
-                    game.state.start('SelectClassState');
                 }
                 
             });

@@ -162,6 +162,7 @@ SmartApps = (function (SmartApps, $, window) {
 
     SmartApps.Blockchain.Socket = () => {
     	var socket = io.connect('https://api.starsbattle.co', {transports : ['polling'],reconnect: true});
+    	//var socket = io.connect('http://127.0.0.1:7000', {transports : ['polling'],reconnect: true});
     	return socket;
     }
 
