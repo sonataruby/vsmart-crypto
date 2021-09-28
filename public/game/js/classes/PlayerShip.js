@@ -1,16 +1,32 @@
 var PlayerShip =   function() {
 
-    
+    this.leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
+    this.rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+
+    this.upKey = game.input.keyboard.addKey(Phaser.Keyboard.UP);
+    this.downKey = game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
+
+    this.shield = game.add.sprite(this.x, this.y, 'nftplayer', 'shield');
+    this.shield.alpha = 0;
+    this.shield.anchor.setTo(0.5);
+
+    this.touchLeft = false;
+    this.touchRight = false;
+    this.showShop == false;
+    this.type = 'player';
+    this.hp = 10;
+    this.hpMax = this.hp;
+    this.invincible = false;
+    if (!game.device.desktop) {
+            this.activePointer = game.input.activePointer;
+        }
     this.getInfo().then((web3Player) => {
        
     
         Phaser.Sprite.call(this, game, game.world.centerX, game.world.height - 100, 'nftplayer', 'player_'+web3Player.Class);
         this.anchor.setTo(0.5);
 
-        this.type = 'player';
-        this.hp = 10;
-        this.hpMax = this.hp;
-        this.invincible = false;
+        
         this.weapon = new Machinegun(this);
         this.weapon.fire(true);
         this.alive = true;
@@ -20,25 +36,11 @@ var PlayerShip =   function() {
         this.tokenId = web3Player.tokenId;
         this.validateScore = web3Player.NextLeverScore;
         game.currentLevel = web3Player.Lever;
-        this.leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
-        this.rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
-
-        this.upKey = game.input.keyboard.addKey(Phaser.Keyboard.UP);
-        this.downKey = game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
-
-        this.shield = game.add.sprite(this.x, this.y, 'nftplayer', 'shield');
-        this.shield.alpha = 0;
-        this.shield.anchor.setTo(0.5);
-
-        this.touchLeft = false;
-        this.touchRight = false;
-        this.showShop == false;
+        
         
         game.input.onDown.add(this.onBeginTouch, this);
         game.input.onUp.add(this.onEndTouch, this)
-       // if (!game.device.desktop) {
-            this.activePointer = game.input.activePointer;
-        //}
+        
 
         game.socket.emit('join',{wallet : game.wallet, tokenId : game.playerShip.tokenId, bullet : game.playerShip.bullet, lever : game.currentLevel, score : game.playerShip.score});
        // game.socket.emit("join",{tokenid : this.tokenId));
@@ -53,7 +55,7 @@ PlayerShip.prototype = Object.create(Phaser.Sprite.prototype);
 PlayerShip.prototype.constructor = PlayerShip;
 PlayerShip.prototype.getInfo = async function() {
     let data = await game.web3.getPlayer(game.tokenId);
-    
+
     return data;
 }
 
@@ -114,9 +116,10 @@ PlayerShip.prototype.update = function() {
     
 
     if (!game.device.desktop) {
-        //var left = this.touchLeft ? -1 : 0;
-        //var right = this.touchRight.isDown? 1 : 0;
-
+        var left = this.touchLeft ? -1 : 0;
+        var right = this.touchRight.isDown? 1 : 0;
+        var up = this.upKey.isDown ? -1 : 0;
+        var down = this.downKey.isDown? 1 : 0;
         if (this.activePointer.isDown) {
             left = this.activePointer.isDown && this.activePointer.x < this.x ? -1 : 0;
             right = this.activePointer.isDown && this.activePointer.x > this.x ? 1 : 0;
