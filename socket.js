@@ -234,8 +234,7 @@ io.on("connection", function (socket) {
 
         await pool.paramsOf(tokenid).call().then(async (info) => {
 
-          console.log("Info", info);
-
+         
           await db.dbQuery("UPDATE `game_stars` SET bulletCount='"+Number(info.Bullet)+"', Score='"+info.Score+"', Lever='"+info.Lever+"' WHERE tokenId='"+tokenid+"';");
 
           let nextLever = await pool.LeverOf(Number(info.Lever)+1).call();
@@ -258,7 +257,7 @@ io.on("connection", function (socket) {
               data.Bullet = LoadDB.bulletCount;
           }
 
-          console.log("Data", data);
+         
 
           callback(data);
         
