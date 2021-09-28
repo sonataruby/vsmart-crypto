@@ -338,6 +338,7 @@ io.on("connection", function (socket) {
     });
 
   });
+  
   socket.on("sync", async (data,callback) => {
 
       let tokenid = data.tokenId;
