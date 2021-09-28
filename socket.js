@@ -288,7 +288,7 @@ io.on("connection", function (socket) {
   socket.on("sync", async (data,callback) => {
 
       let tokenid = data.tokenId;
-
+      let score  = data.score;
       var LoadDB = await db.dbQuery("SELECT * FROM game_stars WHERE tokenId='"+tokenid+"'",true);
 
       if(LoadDB != "" && LoadDB != undefined){
@@ -302,7 +302,7 @@ io.on("connection", function (socket) {
             Bullet: Number(jsonData.Bullet),
             BulletClass: jsonData.BulletClass,
             Speed: Number(jsonData.Speed),
-            Score: Number(score),
+            Score: Number(jsonData.Score),
             Groups: Number(jsonData.Groups),
             NextLeverScore : 500
         }
