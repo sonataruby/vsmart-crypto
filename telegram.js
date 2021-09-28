@@ -107,19 +107,7 @@ bot.on('message', (msg) => {
     
 });
 */
-bot.on('channel_post', (msg) => {
-    console.log(msg);
-    var send_text = msg.text;
-    var msg = "";
-    if(send_text == "!contract"){
-        msg = Address.AddressContractSmartToken;
-    }
-    if(msg != ""){
-        
-        bot.sendMessage(telegram.group,msg);
-    }
-    
-});
+
 
 bot.on('message', (msg) => {
     
@@ -187,6 +175,11 @@ app.get("/", (req, res) => {
 
 app.post("/telegram", (req, res) => {
   var msg = req.body.text;
+  bot.sendPhoto(getRoomID,'https://starsbattle.co/upload/banner.png',{
+        caption : msg,
+        reply_to_message_id : replyID,
+        parse_mode: 'HTML'
+        });
   //bot.sendMessage(telegram.TelegramChannel,msg);
   var data = '{"ok": "200"}';
   res.header('Content-Type', 'application/json');

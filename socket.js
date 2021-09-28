@@ -6,6 +6,7 @@ const db = require('./server/db');
 let Web3 = require('web3');
 let fs = require('fs');
 const cors = require('cors');
+const axios = require('axios').default; 
 //let web3 = new Web3("https://bsc-dataseed.binance.org");
 let web3 = new Web3(config.blockChianURL);
 
@@ -208,7 +209,9 @@ io.on("connection", function (socket) {
     socket.userId = data;
     activeUsers.add(data);
     io.emit("join", [...activeUsers]);
-    console.log("User Join",activeUsers);
+    axios.post("http://127.0.0.1/telegram",{
+        text : data.tokenId + " Play Game"
+    });
   });
   socket.on("sign", function (data) {
     socket.userId = data;
