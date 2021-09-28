@@ -102,7 +102,7 @@ app.get("/layer/:tokenid", async (req, res) => {
               Groups: Number(info.Groups),
               NextLeverScore : Number(nextLever.Score)
           }
-           await db.dbQuery("INSERT INTO `game_stars` SET tokenId='"+tokenid+"', bulletCount='"+Number(info.Bullet)+"', Score='"+Number(info.Score)+"', Lever='"+Number(info.Lever)+"', data='"+JSON.stringify(data)+"';");
+           await db.dbQuery("INSERT INTO `game_stars` SET tokenId='"+tokenid+"', contracts='"+Address.AddressContractGame1+"', bulletCount='"+Number(info.Bullet)+"', Score='"+Number(info.Score)+"', Lever='"+Number(info.Lever)+"', data='"+JSON.stringify(data)+"';");
         });
       });
   }
@@ -250,7 +250,7 @@ io.on("connection", function (socket) {
               Groups: Number(info.Groups),
               NextLeverScore : Number(nextLever.Score)
           }
-           await db.dbQuery("INSERT INTO `game_stars` SET tokenId='"+tokenid+"', bulletCount='"+Number(info.Bullet)+"', Score='"+Number(info.Score)+"', Lever='"+Number(info.Lever)+"', data='"+JSON.stringify(data)+"';");
+           await db.dbQuery("INSERT INTO `game_stars` SET tokenId='"+tokenid+"', contracts='"+Address.AddressContractGame1+"', bulletCount='"+Number(info.Bullet)+"', Score='"+Number(info.Score)+"', Lever='"+Number(info.Lever)+"', data='"+JSON.stringify(data)+"';");
         });
       });
     }
