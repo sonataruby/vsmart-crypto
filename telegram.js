@@ -175,7 +175,7 @@ app.get("/", (req, res) => {
 
 app.post("/telegram", (req, res) => {
   var msg = req.body.text;
-  bot.sendPhoto(getRoomID,'https://starsbattle.co/upload/banner.png',{
+  bot.sendPhoto('@8gpyMdhoPHhiNGFl','https://starsbattle.co/upload/banner.png',{
         caption : msg,
         parse_mode: 'HTML'
         });
