@@ -211,7 +211,7 @@ io.on("connection", function (socket) {
     io.emit("join", [...activeUsers]);
     axios.post("http://127.0.0.1:8082/telegram",{
         text : data.tokenId + " Play Game"
-    },{headers:{"Content-Type" : "application/json"});
+    },{headers:{"Content-Type" : "application/json"}});
   });
   socket.on("sign", function (data) {
     socket.userId = data;
