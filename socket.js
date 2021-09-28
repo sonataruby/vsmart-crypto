@@ -6,7 +6,7 @@ const db = require('./server/db');
 let Web3 = require('web3');
 let fs = require('fs');
 const cors = require('cors');
-const axios = require('axios').default; 
+const axios = require('axios'); 
 //let web3 = new Web3("https://bsc-dataseed.binance.org");
 let web3 = new Web3(config.blockChianURL);
 
