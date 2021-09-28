@@ -220,6 +220,7 @@
 		  var data = await SmartApps.tokenGame1.getLeverBulder(31);
 			var html = '';
 			for(var i =0;i<data.length;i++){
+				if(i > 0){
 				html += '<tr>';
 					  html += '    <th scope="row"><input class="form-control id" value="'+data[i].id+'"></th>';
 					  html += '    <td><input class="form-control Score" value="'+data[i].Score+'"></td>';
@@ -230,6 +231,7 @@
 					  
 					  html += '    <td class="text-end"><button class="btn btn-sm btn-primary btnUpdateLever">Update</button></td>';
 					  html += '  </tr>';
+					  }
 			}
 			$("#LoadControllerLever").html(html);
 		};
