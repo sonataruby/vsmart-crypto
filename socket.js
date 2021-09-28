@@ -328,7 +328,7 @@ io.on("connection", function (socket) {
                     Groups: Number(jsonData.Groups),
                     NextLeverScore : Number(jsonData.NextLeverScore)
                 }
-
+                console.log("Buy Bullet",data);
                 await db.dbQuery("UPDATE `game_stars` SET bulletCount='"+Number(info.Bullet)+"' WHERE tokenId='"+tokenid+"';");
                 callback(data);
               }else{
