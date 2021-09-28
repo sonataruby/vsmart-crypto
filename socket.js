@@ -408,7 +408,7 @@ io.on("connection", function (socket) {
         var jsonData = JSON.parse(LoadDB.data);
 
           var data = {
-              tokenId : Number(tokenid),
+              tokenId : Number(socket.userId.tokenId),
               name : jsonData.name,
               Class : Number(jsonData.Class),
               Lever: Number(jsonData.Lever),
