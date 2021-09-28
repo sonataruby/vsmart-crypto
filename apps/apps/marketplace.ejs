@@ -53,7 +53,7 @@ $(document).ready(async function(){
         var html = '';
         $("#LoadMyItem").html('<div class="preloader"><span class="spinner spinner-round"></span></div>');
         var html = '';
-        var data = await SmartApps.tokenGame1.getBalt();
+        var data = await SmartApps.tokenGame1.getBalt(false);
         for(var i =0;i<data.length;i++){
         
        

@@ -5,7 +5,7 @@ var db_config = {
 	password: "root",
 	database: "expresstoken"
 }
-var redirect = "";
+var redirect = "/app";
 const allowCustoms = false;
 var server = {
 	public : "http://localhost",
