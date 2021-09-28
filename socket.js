@@ -66,35 +66,27 @@ app.get("/layer/:tokenid", async (req, res) => {
   var tokenid = req.params.tokenid;
   
   var data = {};
-  await loadGame1().then(async (pool) => {
-      await pool.paramsOf(tokenid).call().then(async (info) => {
-        let nextLever = await pool.LeverOf(Number(info.Lever)+1).call();
-        data = {
-            tokenId : Number(tokenid),
-            name : info.ClassName,
-            Class : Number(info.Class),
-            Lever: Number(info.Lever),
-            Bullet: Number(info.Bullet),
-            BulletClass: info.BulletClass,
-            Speed: Number(info.Speed),
-            Score: Number(info.Score),
-            Groups: Number(info.Groups),
-            NextLeverScore : Number(nextLever.Score)
-        }
 
-        var LoadDB = await db.dbQuery("SELECT * FROM game_stars WHERE tokenId='"+tokenid+"'",true);
+  var LoadDB = await db.dbQuery("SELECT * FROM game_stars WHERE tokenId='"+tokenid+"'",true);
 
-        if(LoadDB != "" && LoadDB != undefined){
-            data.Bullet = LoadDB.bulletCount;
-            //data.Score = LoadDB.Score;
-            //data.Lever = LoadDB.Lever;
-        }else{
+  if(LoadDB != "" && LoadDB != undefined){
+    var jsonData = JSON.parse(LoadDB.data);
 
-        }
-
-      });
-  });
-
+    var data = {
+        tokenId : Number(tokenid),
+        name : jsonData.name,
+        Class : Number(jsonData.Class),
+        Lever: Number(jsonData.Lever),
+        Bullet: Number(jsonData.Bullet),
+        BulletClass: jsonData.BulletClass,
+        Speed: Number(jsonData.Speed),
+        Score: Number(score),
+        Groups: Number(jsonData.Groups),
+        NextLeverScore : 500
+    }
+    
+  }
+  
   res.header('Content-Type', 'application/json');
   res.send(data);
   res.end( data );
