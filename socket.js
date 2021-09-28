@@ -236,7 +236,7 @@ io.on("connection", function (socket) {
 
           console.log("Info", info);
 
-          db.dbQuery("UPDATE `game_stars` SET bulletCount='"+Number(info.Bullet)+"', Score='"+info.Score+"', Lever='"+info.Lever+"' WHERE tokenId='"+tokenid+"';");
+          await db.dbQuery("UPDATE `game_stars` SET bulletCount='"+Number(info.Bullet)+"', Score='"+info.Score+"', Lever='"+info.Lever+"' WHERE tokenId='"+tokenid+"';");
 
           let nextLever = await pool.LeverOf(Number(info.Lever)+1).call();
 

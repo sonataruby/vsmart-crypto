@@ -83,27 +83,23 @@ PlayerShip.prototype.pause = function() {
     this.alive = false;
     this.bullet = 0;
     this.weapon.destroy();
+    console.log("Set pause");
 }
 
 PlayerShip.prototype.start = function() {
         this.alive = true;
         game.pause == false;
+        console.log(this.bullet);
         this.weapon.fire(true);
+        console.log("Set start");
 }
 
 PlayerShip.prototype.update = function() {
 
-    if(this.showShop == true && this.bullet > 0 && this.alive == false) {
-        this.showShop == false;
-        this.alive = true;
-    }
     
-
     if(!this.alive || game.pause == true) return;
     if(this.bullet < 1) {
-        //this.weapon.destroy();
-        this.bullet = 0;
-        this.alive = false;
+        this.pause();
         //if(this.showShop == false) {
             new ShopBullet();
         //}
