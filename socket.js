@@ -80,13 +80,13 @@ app.get("/layer/:tokenid", async (req, res) => {
         Bullet: Number(jsonData.Bullet),
         BulletClass: jsonData.BulletClass,
         Speed: Number(jsonData.Speed),
-        Score: Number(score),
+        Score: Number(jsonData.Score),
         Groups: Number(jsonData.Groups),
         NextLeverScore : 500
     }
     
   }
-  
+
   res.header('Content-Type', 'application/json');
   res.send(data);
   res.end( data );
