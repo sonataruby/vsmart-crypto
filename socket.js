@@ -379,7 +379,21 @@ io.on("connection", function (socket) {
     var LoadDB = await db.dbQuery("SELECT * FROM game_stars WHERE tokenId='"+tokenid+"'",true);
 
     if(LoadDB != "" && LoadDB != undefined){
-      db.dbQuery("UPDATE `game_stars` SET bulletCount='"+Number(bulletCount)+"' WHERE tokenId='"+tokenid+"';");
+      var jsonData = JSON.parse(LoadDB.data);
+
+        var data = {
+            tokenId : Number(tokenid),
+            name : jsonData.name,
+            Class : Number(jsonData.Class),
+            Lever: Number(jsonData.Lever),
+            Bullet: Number(bulletCount),
+            BulletClass: jsonData.BulletClass,
+            Speed: Number(jsonData.Speed),
+            Score: Number(jsonData.Score),
+            Groups: Number(jsonData.Groups),
+            NextLeverScore : 500
+        }
+      db.dbQuery("UPDATE `game_stars` SET bulletCount='"+Number(bulletCount)+"', data='"+JSON.stringify(data)+"' WHERE tokenId='"+tokenid+"';");
     }
 
     //io.emit("user update", socket.userId);
