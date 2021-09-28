@@ -402,7 +402,26 @@ io.on("connection", function (socket) {
 
   socket.on("disconnect", () => {
     if(socket.userId != undefined ){
-      db.dbQuery("UPDATE `game_stars` SET bulletCount='"+Number(socket.userId.bullet)+"' WHERE tokenId='"+socket.userId.tokenId+"';");
+      var LoadDB = await db.dbQuery("SELECT * FROM game_stars WHERE tokenId='"+socket.userId.tokenId+"'",true);
+
+      if(LoadDB != "" && LoadDB != undefined){
+        var jsonData = JSON.parse(LoadDB.data);
+
+          var data = {
+              tokenId : Number(tokenid),
+              name : jsonData.name,
+              Class : Number(jsonData.Class),
+              Lever: Number(jsonData.Lever),
+              Bullet: Number(socket.userId.bullet),
+              BulletClass: jsonData.BulletClass,
+              Speed: Number(jsonData.Speed),
+              Score: Number(jsonData.Score),
+              Groups: Number(jsonData.Groups),
+              NextLeverScore : 500
+          }
+        db.dbQuery("UPDATE `game_stars` SET bulletCount='"+Number(socket.userId.bullet)+"', data='"+JSON.stringify(data)+"' WHERE tokenId='"+tokenid+"';");
+      }
+      
     }
     
     activeUsers.delete(socket.userId);
