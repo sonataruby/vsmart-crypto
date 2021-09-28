@@ -12,8 +12,9 @@ var Machinegun = function(parent) {
 }
 
 Machinegun.prototype.fire = function(repeat) {
+    
+    if (!this.active || game.pause == true) return;
 
-    if (!this.active) return;
     if (this.reloading) return;
     this.reloading = true;
     //this.shot = SSBullet;

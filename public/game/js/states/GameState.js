@@ -108,6 +108,7 @@ var GameState = {
         game.socket.emit('sign',{tokenId : game.playerShip.tokenId, bullet : game.playerShip.bullet, lever : game.currentLevel, score : game.playerShip.score});
         //backgroundScreenHome.tilePosition.x +=1;
     }
+
 };
 function initLevelData() {
     storage = new Storage(game.settings.storagePrefix);

@@ -10,7 +10,7 @@ ShopBullet.prototype = Object.create(Phaser.Sprite.prototype);
 ShopBullet.prototype.constructor = GameOver;
 
 ShopBullet.prototype.showButtons = async function() {
-    game.playerShip.pause();
+    game.pause = true;
    
     
     game.socket.emit("update",{
@@ -45,7 +45,7 @@ ShopBullet.prototype.showButtons = async function() {
                 console.log(data.Bullet);
                 game.playerShip.bullet = data.Bullet;
                 game.currentLevel = data.Lever;
-                game.playerShip.start();
+                //game.playerShip.start();
 
             });
             
@@ -56,7 +56,9 @@ ShopBullet.prototype.showButtons = async function() {
     });
 
     $("#BulletModal").on("hidden.bs.modal", function () {
-        game.playerShip.start();
+        game.pause = false;
+        game.playerShip.weapon.fire(true);
+        game.spawner.spawn();
     });
 
     

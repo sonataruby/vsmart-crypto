@@ -78,28 +78,14 @@ PlayerShip.prototype.onEndTouch = function(pointer) {
     //game.backgrounds.drawBackground(this);// Set 3d
 }
 
-PlayerShip.prototype.pause = function() {
-    game.pause == true;
-    this.alive = false;
-    this.bullet = 0;
-    this.weapon.destroy();
-    console.log("Set pause");
-}
 
-PlayerShip.prototype.start = function() {
-        this.alive = true;
-        game.pause == false;
-        console.log(this.bullet);
-        this.weapon.fire(true);
-        console.log("Set start");
-}
 
 PlayerShip.prototype.update = function() {
 
     
-    if(!this.alive || game.pause == true) return;
-    if(this.bullet < 1) {
-        this.pause();
+    if(!this.alive) return;
+    if(Number(this.bullet) < 1) {
+        
         //if(this.showShop == false) {
             new ShopBullet();
         //}
