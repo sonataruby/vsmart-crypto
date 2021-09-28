@@ -30,8 +30,8 @@ var SelectClassState = {
         $("body").append('<div id="LoaddingGame"><div class="preloader"><span class="spinner spinner-round"></span></div></div>');
 
         $('body').append('<div class="modal fade" id="'+CreateObjectID+'"  data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">'+
-                '<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">'+
-                    '<div class="modal-content">'+
+                '<div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">'+
+                    '<div class="modal-content" style="background-color:transparent;border:0px;">'+
       
                     '<div class="modal-body">'+
                     '<div class="row"></div>'+
@@ -49,7 +49,7 @@ var SelectClassState = {
           var lever =  batllat[i].Lever;
           var img = batllat[i].Class;
           html += '<div class="col-sm-4 col-6 mb-4">';
-          html += '          <div class="card">';
+          html += '          <div class="card card-class" style="background-color:transparent;border:0px;">';
           html += '            <div class="card-body playItems" data-tokenid="'+tokenId+'" data-level="'+lever+'">';
           html += '              ID : '+tokenId+'<br>';
           html += '              <img src="/nfts/'+img+'.png" style="width:100%; height:120px;">';
