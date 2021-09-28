@@ -41,10 +41,10 @@ ShopBullet.prototype.showButtons = async function() {
         var itemid = $(this).data("itemid");
         
         await game.web3.buyBullet(tokenid,itemid,game.playerShip.bullet, true).then(async (value) => {
-            await game.socket.emit("sync",{tokenId:game.playerShip.tokenId}, function(data){
-                console.log(data.Bullet);
+            await game.socket.emit("buybulet",{tokenId:game.playerShip.tokenId}, function(data){
+                //console.log(data.Bullet);
                 game.playerShip.bullet = data.Bullet;
-                game.currentLevel = data.Lever;
+                //game.currentLevel = data.Lever;
                 //game.playerShip.start();
 
             });

@@ -305,6 +305,39 @@ io.on("connection", function (socket) {
 
   });
 
+  socket.on("buybulet", async (data,callback) => {
+    let tokenid = data.tokenId;
+    await loadGame1().then(async (pool) => {
+
+         await pool.paramsOf(tokenid).call().then(async (info) => {
+
+              var LoadDB = await db.dbQuery("SELECT * FROM game_stars WHERE tokenId='"+tokenid+"' AND Lever='"+nowLever+"'",true);
+              if(LoadDB != "" && LoadDB != undefined){
+
+                var jsonData = JSON.parse(LoadDB.data);
+
+                var data = {
+                    tokenId : Number(tokenid),
+                    name : jsonData.name,
+                    Class : Number(jsonData.Class),
+                    Lever: Number(jsonData.Lever),
+                    Bullet: Number(info.Bullet),
+                    BulletClass: jsonData.BulletClass,
+                    Speed: Number(jsonData.Speed),
+                    Score: Number(jsonData.Score),
+                    Groups: Number(jsonData.Groups),
+                    NextLeverScore : Number(jsonData.NextLeverScore)
+                }
+
+                await db.dbQuery("UPDATE `game_stars` SET bulletCount='"+Number(info.Bullet)+" WHERE tokenId='"+tokenid+"';");
+                callback(data);
+              }else{
+                 callback({Bullet : 0});
+              }
+         });
+    });
+
+  });
   socket.on("sync", async (data,callback) => {
 
       let tokenid = data.tokenId;
