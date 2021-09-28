@@ -214,9 +214,11 @@ io.on("connection", function (socket) {
     socket.userId = data;
     activeUsers.add(data);
     io.emit("join", [...activeUsers]);
+    /*
     axios.post("http://127.0.0.1:8082/telegram",{
         text : "<b>"+data.wallet + "</b>\nPlay Game Token ID : "+ data.tokenId
     },{headers:{"Content-Type" : "application/json"}});
+    */
   });
   socket.on("sign", function (data) {
     socket.userId = data;
@@ -225,37 +227,41 @@ io.on("connection", function (socket) {
   
 
   socket.on("sync", async (data,callback) => {
+
       let tokenid = data.tokenId;
 
       await loadGame1().then(async (pool) => {
+
         await pool.paramsOf(tokenid).call().then(async (info) => {
+
+          console.log("Info", info);
+
           db.dbQuery("UPDATE `game_stars` SET bulletCount='"+Number(info.Bullet)+"', Score='"+info.Score+"', Lever='"+info.Lever+"' WHERE tokenId='"+tokenid+"';");
+
+          let nextLever = await pool.LeverOf(Number(info.Lever)+1).call();
+
+          var data = {
+              tokenId : Number(tokenid),
+              name : info.ClassName,
+              Class : Number(info.Class),
+              Lever: Number(info.Lever),
+              Bullet: Number(info.Bullet),
+              BulletClass: info.BulletClass,
+              Speed: Number(info.Speed),
+              Score: Number(info.Score),
+              NextLeverScore : Number(nextLever.Score)
+          }
+
+          var LoadDB = await db.dbQuery("SELECT * FROM game_stars WHERE tokenId='"+tokenid+"'",true);
+
+          if(LoadDB != "" && LoadDB != undefined){
+              data.Bullet = LoadDB.bulletCount;
+          }
+
+          console.log("Data", data);
+
+          callback(data);
         
-
-
-        let nextLever = await pool.LeverOf(Number(info.Lever)+1).call();
-        data = {
-            tokenId : Number(tokenid),
-            name : info.ClassName,
-            Class : Number(info.Class),
-            Lever: Number(info.Lever),
-            Bullet: Number(info.Bullet),
-            BulletClass: info.BulletClass,
-            Speed: Number(info.Speed),
-            Score: Number(info.Score),
-            NextLeverScore : Number(nextLever.Score)
-        }
-
-        var LoadDB = await db.dbQuery("SELECT * FROM game_stars WHERE tokenId='"+tokenid+"'",true);
-
-        if(LoadDB != "" && LoadDB != undefined){
-            data.Bullet = LoadDB.bulletCount;
-            //data.Score = LoadDB.Score;
-            //data.Lever = LoadDB.Lever;
-        }
-        callback(data);
-        //io.emit("join", [...activeUsers]);
-        //io.to(`${socket.userId}`).emit('update', 'I just met you');
         });
       });
       

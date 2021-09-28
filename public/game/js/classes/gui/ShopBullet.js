@@ -10,7 +10,7 @@ ShopBullet.prototype = Object.create(Phaser.Sprite.prototype);
 ShopBullet.prototype.constructor = GameOver;
 
 ShopBullet.prototype.showButtons = async function() {
-    game.pause = true;
+    game.playerShip.pause();
    
     
     game.socket.emit("update",{
@@ -41,10 +41,11 @@ ShopBullet.prototype.showButtons = async function() {
         var itemid = $(this).data("itemid");
         
         await game.web3.buyBullet(tokenid,itemid,game.playerShip.bullet, true).then(async (value) => {
-            game.socket.emit("sync",{tokenId:game.playerShip.tokenId}, function(data){
+            await game.socket.emit("sync",{tokenId:game.playerShip.tokenId}, function(data){
+                console.log(data);
                 game.playerShip.bullet = data.Bullet;
                 game.currentLevel = data.Lever;
-                game.pause = false;
+                game.playerShip.start();
 
             });
             
@@ -53,6 +54,11 @@ ShopBullet.prototype.showButtons = async function() {
             $("body #LoaddingGame").remove();
         });
     });
+
+    $("#BulletModal").on("hidden.bs.modal", function () {
+        game.playerShip.start();
+    });
+
     
     
 }

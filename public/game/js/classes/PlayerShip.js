@@ -78,6 +78,18 @@ PlayerShip.prototype.onEndTouch = function(pointer) {
     //game.backgrounds.drawBackground(this);// Set 3d
 }
 
+PlayerShip.prototype.pause = function() {
+    game.pause == true;
+    this.alive = false;
+    this.bullet = 0;
+    this.weapon.destroy();
+}
+
+PlayerShip.prototype.start = function() {
+        this.alive = true;
+        game.pause == false;
+        this.weapon.fire(true);
+}
 
 PlayerShip.prototype.update = function() {
 
@@ -85,6 +97,7 @@ PlayerShip.prototype.update = function() {
         this.showShop == false;
         this.alive = true;
     }
+    
 
     if(!this.alive || game.pause == true) return;
     if(this.bullet < 1) {
@@ -118,8 +131,9 @@ PlayerShip.prototype.update = function() {
     
 
     if (!game.device.desktop) {
-        var left = this.touchLeft ? -1 : 0;
-        var right = this.touchRight.isDown? 1 : 0;
+        //var left = this.touchLeft ? -1 : 0;
+        //var right = this.touchRight.isDown? 1 : 0;
+
         if (this.activePointer.isDown) {
             left = this.activePointer.isDown && this.activePointer.x < this.x ? -1 : 0;
             right = this.activePointer.isDown && this.activePointer.x > this.x ? 1 : 0;
@@ -127,6 +141,7 @@ PlayerShip.prototype.update = function() {
             down = this.activePointer.isDown && this.activePointer.y > this.y? 1 : 0;
             
         }
+
         var hsp = (left + right) * this.moveSpeed;
         var hsp2 = (up + down) * this.moveSpeed;
     }
