@@ -177,7 +177,6 @@ app.post("/telegram", (req, res) => {
   var msg = req.body.text;
   bot.sendPhoto(getRoomID,'https://starsbattle.co/upload/banner.png',{
         caption : msg,
-        reply_to_message_id : replyID,
         parse_mode: 'HTML'
         });
   //bot.sendMessage(telegram.TelegramChannel,msg);
