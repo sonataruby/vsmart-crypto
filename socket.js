@@ -209,7 +209,7 @@ io.on("connection", function (socket) {
     socket.userId = data;
     activeUsers.add(data);
     io.emit("join", [...activeUsers]);
-    axios.post("http://127.0.0.1/telegram",{
+    axios.post("http://127.0.0.1:7000/telegram",{
         text : data.tokenId + " Play Game"
     });
   });
