@@ -33,7 +33,7 @@ var PlayerShip =   function() {
         this.touchLeft = false;
         this.touchRight = false;
         this.showShop == false;
-
+        this.activePointer = null;
         game.input.onDown.add(this.onBeginTouch, this);
         game.input.onUp.add(this.onEndTouch, this)
         if (!game.device.desktop) {

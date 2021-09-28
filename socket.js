@@ -78,6 +78,7 @@ app.get("/layer/:tokenid", async (req, res) => {
             BulletClass: info.BulletClass,
             Speed: Number(info.Speed),
             Score: Number(info.Score),
+            Groups: Number(info.Groups),
             NextLeverScore : Number(nextLever.Score)
         }
 
@@ -162,6 +163,7 @@ app.get("/nft/:tokenid", async (req, res) => {
             BulletClass: info.BulletClass,
             Speed: info.Speed,
             Score: info.Score,
+            Groups: Number(info.Groups),
         }
 
         var LoadDB = await db.dbQuery("SELECT * FROM game_stars WHERE tokenId='"+tokenid+"'",true);
@@ -248,6 +250,7 @@ io.on("connection", function (socket) {
               BulletClass: info.BulletClass,
               Speed: Number(info.Speed),
               Score: Number(info.Score),
+              Groups: Number(info.Groups),
               NextLeverScore : Number(nextLever.Score)
           }
 
