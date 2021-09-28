@@ -400,7 +400,7 @@ io.on("connection", function (socket) {
 
   });
 
-  socket.on("disconnect", () => {
+  socket.on("disconnect", async () => {
     if(socket.userId != undefined ){
       var LoadDB = await db.dbQuery("SELECT * FROM game_stars WHERE tokenId='"+socket.userId.tokenId+"'",true);
 
