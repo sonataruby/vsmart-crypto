@@ -311,7 +311,7 @@ io.on("connection", function (socket) {
 
          await pool.paramsOf(tokenid).call().then(async (info) => {
 
-              var LoadDB = await db.dbQuery("SELECT * FROM game_stars WHERE tokenId='"+tokenid+"' AND Lever='"+nowLever+"'",true);
+              var LoadDB = await db.dbQuery("SELECT * FROM game_stars WHERE tokenId='"+tokenid+"'",true);
               if(LoadDB != "" && LoadDB != undefined){
 
                 var jsonData = JSON.parse(LoadDB.data);
@@ -338,7 +338,7 @@ io.on("connection", function (socket) {
     });
 
   });
-  
+
   socket.on("sync", async (data,callback) => {
 
       let tokenid = data.tokenId;
