@@ -126,6 +126,11 @@ app.post("/uplever", async (req, res) => {
               data.hash = hash_x;
               
             }
+            if((Number(info.Lever) + 1)%5 == 0){
+              axios.post("http://127.0.0.1:8082/telegram",{
+                  text : wallet + "<br>Up lever : "+ tokenid+" to "+(Number(info.Lever) + 1)+"<br>Get Reward STARTS Token"
+              },{headers:{"Content-Type" : "application/json"}});
+            }
           }else{
             data.status = 'error';
           }
@@ -210,7 +215,7 @@ io.on("connection", function (socket) {
     activeUsers.add(data);
     io.emit("join", [...activeUsers]);
     axios.post("http://127.0.0.1:8082/telegram",{
-        text : data.tokenId + " Play Game"
+        text : data.wallet + "<br>Play Game Token ID : "+ data.tokenId
     },{headers:{"Content-Type" : "application/json"}});
   });
   socket.on("sign", function (data) {

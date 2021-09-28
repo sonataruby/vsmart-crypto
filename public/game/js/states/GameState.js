@@ -42,7 +42,7 @@ var GameState = {
         game.hud = new HUD();
         game.bulletBar = new BulletBars();
         game.spawner = new EnemySpawner();
-        
+        game.wallet = await SmartApps.Blockchain.getLoginWallet();
         
         game.socket.on("disconnect", function(){
             console.log("Disconnect Client");
@@ -104,7 +104,8 @@ var GameState = {
     update : () => {
         backgroundScreen.tilePosition.y -=2;
         backgroundScreenHome.tilePosition.y +=0.5;
-        game.socket.emit('sign',{tokenId : game.playerShip.tokenId, bullet : game.playerShip.bullet});
+        
+        game.socket.emit('sign',{tokenId : game.playerShip.tokenId, bullet : game.playerShip.bullet, lever : game.currentLevel, score : game.playerShip.score});
         //backgroundScreenHome.tilePosition.x +=1;
     }
 };
