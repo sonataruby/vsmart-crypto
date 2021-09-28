@@ -419,7 +419,7 @@ io.on("connection", function (socket) {
               Groups: Number(jsonData.Groups),
               NextLeverScore : 500
           }
-        db.dbQuery("UPDATE `game_stars` SET bulletCount='"+Number(socket.userId.bullet)+"', data='"+JSON.stringify(data)+"' WHERE tokenId='"+tokenid+"';");
+        db.dbQuery("UPDATE `game_stars` SET bulletCount='"+Number(socket.userId.bullet)+"', data='"+JSON.stringify(data)+"' WHERE tokenId='"+socket.userId.tokenId+"';");
       }
       
     }
