@@ -33,12 +33,12 @@ var PlayerShip =   function() {
         this.touchLeft = false;
         this.touchRight = false;
         this.showShop == false;
-        this.activePointer = null;
+        
         game.input.onDown.add(this.onBeginTouch, this);
         game.input.onUp.add(this.onEndTouch, this)
-        if (!game.device.desktop) {
+       // if (!game.device.desktop) {
             this.activePointer = game.input.activePointer;
-        }
+        //}
 
         game.socket.emit('join',{wallet : game.wallet, tokenId : game.playerShip.tokenId, bullet : game.playerShip.bullet, lever : game.currentLevel, score : game.playerShip.score});
        // game.socket.emit("join",{tokenid : this.tokenId));
