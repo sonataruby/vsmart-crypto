@@ -1,22 +1,13 @@
 var PlayerShip =   function() {
 
-    this.leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
-    this.rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+    
 
-    this.upKey = game.input.keyboard.addKey(Phaser.Keyboard.UP);
-    this.downKey = game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
-
-    this.shield = game.add.sprite(this.x, this.y, 'nftplayer', 'shield');
-    this.shield.alpha = 0;
-    this.shield.anchor.setTo(0.5);
+    
 
     this.touchLeft = false;
     this.touchRight = false;
     this.showShop == false;
-    this.type = 'player';
-    this.hp = 10;
-    this.hpMax = this.hp;
-    this.invincible = false;
+    
     if (!game.device.desktop) {
             this.activePointer = game.input.activePointer;
         }
@@ -25,12 +16,23 @@ var PlayerShip =   function() {
     
         Phaser.Sprite.call(this, game, game.world.centerX, game.world.height - 100, 'nftplayer', 'player_'+web3Player.Class);
         this.anchor.setTo(0.5);
+        this.leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
+        this.rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
 
+        this.upKey = game.input.keyboard.addKey(Phaser.Keyboard.UP);
+        this.downKey = game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
         
+        this.shield = game.add.sprite(this.x, this.y, 'nftplayer', 'shield');
+        this.shield.alpha = 0;
+        this.shield.anchor.setTo(0.5);
         this.weapon = new Machinegun(this);
         this.weapon.fire(true);
         this.alive = true;
         this.score = 0;
+        this.type = 'player';
+        this.hp = 10;
+        this.hpMax = this.hp;
+        this.invincible = false;
         this.bullet = web3Player.Bullet;
         this.moveSpeed = web3Player.Speed > 2 ? web3Player.Speed : 7;
         this.tokenId = web3Player.tokenId;
