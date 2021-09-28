@@ -329,7 +329,7 @@ io.on("connection", function (socket) {
                     NextLeverScore : Number(jsonData.NextLeverScore)
                 }
 
-                await db.dbQuery("UPDATE `game_stars` SET bulletCount='"+Number(info.Bullet)+" WHERE tokenId='"+tokenid+"';");
+                await db.dbQuery("UPDATE `game_stars` SET bulletCount='"+Number(info.Bullet)+"' WHERE tokenId='"+tokenid+"';");
                 callback(data);
               }else{
                  callback({Bullet : 0});

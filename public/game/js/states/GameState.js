@@ -104,7 +104,7 @@ var GameState = {
     update : () => {
         backgroundScreen.tilePosition.y -=2;
         backgroundScreenHome.tilePosition.y +=0.5;
-        
+
         game.socket.emit('sign',{tokenId : game.playerShip.tokenId, bullet : game.playerShip.bullet, lever : game.currentLevel, score : game.playerShip.score});
         //backgroundScreenHome.tilePosition.x +=1;
     }
