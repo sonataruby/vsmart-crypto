@@ -59,7 +59,7 @@ ShopBullet.prototype.showButtons = async function() {
 
     $(".btnBuyBulletExe").on("click", async function(){
         $("body").append('<div id="LoaddingGame"><div class="preloader"><span class="spinner spinner-round"></span></div></div>');
-        var tokenid = $("#BulletModal").data("tokenid");
+        var tokenid = $('#'+CreateObjectID).data("tokenid");
         var itemid = $(this).data("itemid");
         
         await game.web3.buyBullet(tokenid,itemid,game.playerShip.bullet, true).then(async (value) => {

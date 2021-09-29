@@ -464,23 +464,29 @@ SmartApps = (function (SmartApps, $, window) {
             await blockchain.connect();
         }
 
-        let depositAmount = blockchain.toWei(amount.toString(),"ether");
+        /*
+        //let depositAmount = blockchain.toWei(amount);
+        */
+        
         const gasPrice = await blockchain.getGasPrice();
         var approveGasEstimate = null;
         try {
-            approveGasEstimate = await contractToken.approve(wallet, depositAmount).estimateGas({ from: login_wallet });
+            approveGasEstimate = await contractToken.approve(wallet, amount).estimateGas({ from: login_wallet });
         } catch (e) {
             console.log("Failed to count approvement!");
             console.error(e);
             return false;
         } 
-        let appoveAmount = await contractToken.allowance(wallet,login_wallet).call();
-        if(appoveAmount > depositAmount) return true;
+       
+
+        let appoveAmount = await SmartApps.tokenSmart.allowance(wallet);
+        //console.log(appoveAmount," ",amount, gasPrice);
+        if(appoveAmount >= amount) return true;
        //await contractToken.allowance(wallet,login_wallet).call().then(async (value) => {
             
         //    if(value < amount){
             try {
-                await contractToken.approve(wallet,amount).send({from: login_wallet, gasPrice: gasPrice, gas: approveGasEstimate * 3}).then(async (value) => {
+                await contractToken.approve(wallet,amount).send({from: login_wallet, gasPrice: gasPrice, gas: approveGasEstimate}).then(async (value) => {
                     
                     SmartApps.Blockchain.notify("Approve success. You can deposit start");
                 });
