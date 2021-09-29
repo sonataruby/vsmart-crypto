@@ -67,7 +67,7 @@ app.get("/synclv", async (req, res) => {
     for (var i = 1; i <= 30; i++) {
       let nextLever = await pool.LeverOf(i).call();
       console.log(nextLever);
-       await db.dbQuery("UPDATE `game_lever` SET score='"+nextLever.Score+"', bullet='"+nextLever.Bulet+"', bulletclass='"+nextLever.BulletClass+"', speed='"+nextLever.Speed+"' WHERE  lever='"+i+"';");
+       await db.dbQuery("UPDATE `game_lever` SET score='"+nextLever.Score+"', bullet='"+nextLever.Bullet+"', bulletclass='"+nextLever.BulletClass+"', speed='"+nextLever.Speed+"' WHERE  lever='"+i+"';");
     }
     
   });
