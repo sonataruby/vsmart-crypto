@@ -61,6 +61,21 @@ app.get("/", (req, res) => {
   res.end( data );
 });
 
+app.get("/synclv", async (req, res) => {
+  var data = '{"ok": "200"}';
+  await loadGame1().then(async (pool) => {
+    for (var i = 1; i <= 30; i++) {
+      let nextLever = await pool.LeverOf(i).call();
+      console.log(nextLever);
+       await db.dbQuery("UPDATE `game_lever` SET score='"+nextLever.Score+"', bullet='"+nextLever.Bulet+"', bulletclass='"+nextLever.BulletClass+"', speed='"+nextLever.Speed+"' WHERE  lever='"+i+"';");
+    }
+    
+  });
+  res.header('Content-Type', 'application/json');
+  res.send(data);
+  res.end( data );
+});
+
 
 app.get("/layer/:tokenid", async (req, res) => {
   var tokenid = req.params.tokenid;
@@ -265,7 +280,7 @@ io.on("connection", function (socket) {
         const bl = await web3.eth.getBlock('latest'); 
         var timeNow = bl.timestamp;
         var hash_code = web3.eth.abi.encodeParameters(['uint256'],[Number(jsonData.Lever) + 1 + Number(tokenid) + Number(score) + Number(jsonData.Bullet)]);
-        var hash_x = web3.eth.abi.encodeParameters(['uint256','uint256','uint256','bytes32','address','uint256','uint256'],[tokenid,score,jsonData.Bullet,hash_code,wallet,timeNow,Number(jsonData.Lever)]);
+        var hash_x = web3.eth.abi.encodeParameters(['uint256','uint256','uint256','bytes32','address','uint256'],[tokenid,score,jsonData.Bullet,hash_code,wallet,timeNow]);
 
         var data = {
             tokenId : Number(tokenid),
