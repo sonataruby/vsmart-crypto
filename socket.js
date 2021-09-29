@@ -279,7 +279,7 @@ io.on("connection", function (socket) {
         let  next = await ReadNextLever(jsonData.Lever);
         const bl = await web3.eth.getBlock('latest'); 
         var timeNow = bl.timestamp;
-        var hash_code = web3.eth.abi.encodeParameters(['uint256'],[Number(jsonData.Lever) + 1 + Number(tokenid) + Number(score) + Number(jsonData.Bullet)]);
+        var hash_code = web3.eth.abi.encodeParameters(['uint256'],[Number(jsonData.Lever)+ Number(tokenid) + Number(score) + Number(jsonData.Bullet)]);
         var hash_x = web3.eth.abi.encodeParameters(['uint256','uint256','uint256','bytes32','address','uint256'],[tokenid,score,jsonData.Bullet,hash_code,wallet,timeNow]);
 
         var data = {
@@ -293,7 +293,6 @@ io.on("connection", function (socket) {
             Score: Number(score),
             Groups: Number(jsonData.Groups),
             NextLeverScore : Number(next[1] != undefined ? next[1].score : 0),
-            Confirm : next[0].confirm == "Yes" ? true : false,
             hash : hash_x
         }
         

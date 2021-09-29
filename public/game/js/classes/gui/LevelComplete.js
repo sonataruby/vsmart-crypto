@@ -71,18 +71,23 @@ LevelComplete.prototype.showButtons =  function() {
                 if(value.reply == true){
                     game.state.start('SelectClassState');
                 }else{
-                    await game.web3.upLever(value.hash);
-                    game.socket.emit("sync",{
-                            tokenId:game.playerShip.tokenId
-                        }, function(data){
-                            if(data.Confirm == true){
-                                
-                                //window.location.href="/app/my?claim="+game.playerShip.tokenId;
-                            }
-                            game.currentLevel = data.Lever;
-                            game.validateScore = data.NextLeverScore;
-                            game.state.start('GameState');
-                    });
+                    let validate = await game.web3.upLever(value.hash);
+                    if(validate == true){
+                        game.socket.emit("sync",{
+                                tokenId:game.playerShip.tokenId
+                            }, function(data){
+                                if(data.Confirm == true){
+                                    
+                                    //window.location.href="/app/my?claim="+game.playerShip.tokenId;
+                                }
+                                game.currentLevel = data.Lever;
+                                game.validateScore = data.NextLeverScore;
+                                game.state.start('GameState');
+                        });
+                    }else{
+                        SmartApps.Blockchain.notify("Up lv error");
+                        game.state.start('SelectClassState');
+                    }
                 }
                 
             });
