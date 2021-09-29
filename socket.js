@@ -263,47 +263,66 @@ io.on("connection", function (socket) {
     //console.log(activeUsers);
   }); 
   
-  socket.on("uplever", async (data, callback) => {
-      let tokenid = data.tokenId;
+  socket.on("gethash", async (data, callback) => {
+    let tokenid = data.tokenId;
       let nowLever = data.lever;
       let score = data.score;
       let wallet = data.wallet;
      
       var LoadDB = await db.dbQuery("SELECT * FROM game_stars WHERE tokenId='"+tokenid+"' AND Lever='"+nowLever+"'",true);
 
-
       if(LoadDB != "" && LoadDB != undefined){
 
-        var jsonData = JSON.parse(LoadDB.data);
-        var NextLeverNumber = Number(jsonData.Lever) + 1;
-        let  next = await ReadNextLever(jsonData.Lever);
         const bl = await web3.eth.getBlock('latest'); 
         var timeNow = bl.timestamp;
         var hash_code = web3.eth.abi.encodeParameters(['uint256'],[Number(jsonData.Lever)+ Number(tokenid) + Number(score) + Number(jsonData.Bullet)]);
         var hash_x = web3.eth.abi.encodeParameters(['uint256','uint256','uint256','bytes32','address','uint256'],[tokenid,score,jsonData.Bullet,hash_code,wallet,timeNow]);
-
+        await db.dbQuery("UPDATE `game_stars` SET hash='"+hash_x+"' WHERE tokenId='"+tokenid+"';");
         var data = {
-            tokenId : Number(tokenid),
-            name : jsonData.name,
-            Class : Number(jsonData.Class),
-            Lever: NextLeverNumber,
-            Bullet: Number(LoadDB.bulletCount),
-            BulletClass: jsonData.BulletClass,
-            Speed: Number(jsonData.Speed),
-            Score: Number(score),
-            Groups: Number(jsonData.Groups),
-            NextLeverScore : Number(next[1] != undefined ? next[1].score : 0),
-            hash : hash_x
+          hash : hash_x
         }
-        
-        
-
-        await db.dbQuery("UPDATE `game_stars` SET Lever='"+NextLeverNumber+"', hash='"+hash_x+"', data='"+JSON.stringify(data)+"' WHERE tokenId='"+tokenid+"';");
         callback(data);
-      }else{
-        callback({reply : true});
       }
+  });
+  socket.on("updatelever", async (data, callback) => {
+      let tokenid = data.tokenId;
+      let hash = data.hash;
 
+      await loadGame1().then(async (pool) => {
+
+         await pool.paramsOf(tokenid).call().then(async (info) => {
+
+          var LoadDB = await db.dbQuery("SELECT * FROM game_stars WHERE tokenId='"+tokenid+"' AND hash='"+hash+"'",true);
+
+
+          if(LoadDB != "" && LoadDB != undefined){
+
+            var jsonData = JSON.parse(LoadDB.data);
+            
+            let  next = await ReadNextLever(jsonData.Lever);
+            var NextLeverNumber = LoadDB.Lever +1;
+            var data = {
+                tokenId : Number(tokenid),
+                name : info.name,
+                Class : Number(info.Class),
+                Lever: NextLeverNumber,
+                Bullet: Number(info.Bullet),
+                BulletClass: info.BulletClass,
+                Speed: Number(info.Speed),
+                Score: Number(info.Score),
+                Groups: Number(info.Groups),
+                NextLeverScore : Number(next[1] != undefined ? next[1].score : 0)
+            }
+            
+            
+
+            await db.dbQuery("UPDATE `game_stars` SET Lever='"+NextLeverNumber+"', hash='', data='"+JSON.stringify(data)+"' WHERE tokenId='"+tokenid+"';");
+            callback(data);
+          }
+        });
+      });
+
+      callback({reply : true});
   });
 
   

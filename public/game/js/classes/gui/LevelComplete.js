@@ -73,13 +73,11 @@ LevelComplete.prototype.showButtons =  function() {
                 }else{
                     let validate = await game.web3.upLever(value.hash);
                     if(validate == true){
-                        game.socket.emit("sync",{
-                                tokenId:game.playerShip.tokenId
+                        game.socket.emit("updatelever",{
+                                tokenId:game.playerShip.tokenId,
+                                hash : value.hash
                             }, function(data){
-                                if(data.Confirm == true){
-                                    
-                                    //window.location.href="/app/my?claim="+game.playerShip.tokenId;
-                                }
+                                
                                 game.currentLevel = data.Lever;
                                 game.validateScore = data.NextLeverScore;
                                 game.state.start('GameState');
