@@ -67,7 +67,7 @@ LevelComplete.prototype.showButtons =  function() {
             $("body").append('<div id="LoaddingGame"><div class="preloader"><span class="spinner spinner-round"></span></div></div>');
 
 
-            await game.socket.emit("uplever",{tokenId : game.playerShip.tokenId, score : game.playerShip.score, lever : game.currentLevel, wallet: game.wallet}, async function(value){
+            await game.socket.emit("gethash",{tokenId : game.playerShip.tokenId, score : game.playerShip.score, lever : game.currentLevel, wallet: game.wallet}, async function(value){
                 if(value.reply == true){
                     game.state.start('SelectClassState');
                 }else{
