@@ -3,7 +3,7 @@ var Machinegun = function(parent) {
     this.reloading = false;
     this.reloadTime = 0.1
     this.shot = Bullet;
-    this.damage = 2.5;
+    this.damage = 0.5;
 
     this.level = 1;
     this.cannon = -1;
@@ -24,7 +24,7 @@ Machinegun.prototype.fire = function(repeat) {
             new SSBullet(this.parent.x * this.cannon, this.parent.y - 20, this.parent.type, this.damage, "left",5);
             new SSBullet(this.parent.x * this.cannon, this.parent.y - 20, this.parent.type, this.damage, "right",5);
             //new Spit(this.parent.x * this.cannon, this.parent.y - 20, this.parent.type, this.damage);
-            if (this.active) game.playerShip.addBullet(3);
+            if (this.active) this.parent.addBullet(3);
             this.cannon *= -1;
             
         } else {
@@ -33,7 +33,7 @@ Machinegun.prototype.fire = function(repeat) {
             new SSBullet(this.parent.x + 24, this.parent.y - 20, this.parent.type, this.damage, "left",5);
             new SSBullet(this.parent.x - 24, this.parent.y - 20, this.parent.type, this.damage, "right",5);
             //new Spit(this.parent.x * this.cannon, this.parent.y - 20, this.parent.type, this.damage);
-            if (this.active) game.playerShip.addBullet(4);
+            if (this.active) this.parent.addBullet(4);
            
         }
         

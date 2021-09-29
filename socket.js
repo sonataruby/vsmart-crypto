@@ -159,38 +159,28 @@ app.post("/uplever", async (req, res) => {
 
 app.get("/nft/:tokenid", async (req, res) => {
   var tokenid = req.params.tokenid;
- 
-  var data = [];
+  var data = {};
+
+  var LoadDB = await db.dbQuery("SELECT * FROM game_stars WHERE tokenId='"+tokenid+"'",true);
   
-
-  await loadGame1().then(async (pool) => {
-      await pool.paramsOf(tokenid).call().then(async (info) => {
-        
-        var player = {
-            tokenId : tokenid,
-            name : info.ClassName,
-            Class : info.Class,
-            Lever: info.Lever,
-            Bullet: info.Bullet,
-            BulletClass: info.BulletClass,
-            Speed: info.Speed,
-            Score: info.Score,
-            Groups: Number(info.Groups),
-        }
-
-        var LoadDB = await db.dbQuery("SELECT * FROM game_stars WHERE tokenId='"+tokenid+"'",true);
-
-        if(LoadDB != "" && LoadDB != undefined){
-            player.Bullet = LoadDB.bulletCount;
-            player.Score = LoadDB.Score;
-            //player.Lever = LoadDB.Lever;
-        }else{
-          db.dbQuery("INSERT INTO `game_stars` (`tokenId`, `bulletCount`, `Score`, `Lever`, `Record`) VALUES ('"+tokenid+"', '"+Number(info.Bullet)+"', '"+Number(info.Score)+"', '"+Number(info.Lever)+"', '0);");
-        }
-        player.status = "200";
-        data.push(player);
-      });
-  });
+  if(LoadDB != "" && LoadDB != undefined){
+    var jsonData = JSON.parse(LoadDB.data);
+    let next = await ReadNextLever(jsonData.Lever,true);
+ 
+    var data = {
+        tokenId : Number(tokenid),
+        name : jsonData.name,
+        Class : Number(jsonData.Class),
+        Lever: Number(jsonData.Lever),
+        Bullet: Number(jsonData.Bullet),
+        BulletClass: jsonData.BulletClass,
+        Speed: Number(jsonData.Speed),
+        Score: Number(jsonData.Score),
+        Groups: Number(jsonData.Groups),
+        NextLeverScore : Number(next)
+    }
+    
+  }
 
  
   res.header('Content-Type', 'application/json');
@@ -201,11 +191,7 @@ app.get("/nft/:tokenid", async (req, res) => {
 
 app.post("/nft", async (req, res) => {
   var tokenid = req.body.tokenid;
-   await loadGame1().then(async (pool) => {
-      await pool.paramsOf(tokenid).call().then(async (info) => {
-        db.dbQuery("UPDATE `game_stars` SET bulletCount='"+Number(info.Bullet)+"', Score='"+info.Score+"', Lever='"+info.Lever+"' WHERE tokenId='"+tokenid+"';");
-      });
-    });
+   
   var data = {};
   res.header('Content-Type', 'application/json');
   res.send(data);
@@ -220,6 +206,18 @@ const io = socket(server, {
 });
 
 const activeUsers = new Set();
+
+/*Game Databse*/
+let ReadNextLever = async (lever,NextLeverScore) => {
+  var LoadDB = await db.dbQuery("SELECT * FROM game_lever WHERE lever IN ('"+lever+"','"+(lever+1)+"')");
+  return NextLeverScore == true && LoadDB[1] != undefined ? LoadDB[1].score : LoadDB;
+}
+
+let WriteLog = async () => {
+
+}
+
+
 
 io.on("connection", function (socket) {
   console.log("Made socket connection");
@@ -237,7 +235,7 @@ io.on("connection", function (socket) {
       await loadGame1().then(async (pool) => {
 
          await pool.paramsOf(tokenid).call().then(async (info) => {
-          let nextLever = await pool.LeverOf(Number(info.Lever)+1).call();
+          let  next = await ReadNextLever(info.Lever,true);
           var data = {
               tokenId : Number(tokenid),
               name : info.ClassName,
@@ -248,7 +246,7 @@ io.on("connection", function (socket) {
               Speed: Number(info.Speed),
               Score: Number(info.Score),
               Groups: Number(info.Groups),
-              NextLeverScore : Number(nextLever.Score)
+              NextLeverScore : Number(next)
           }
            await db.dbQuery("INSERT INTO `game_stars` SET tokenId='"+tokenid+"', contracts='"+Address.AddressContractGame1+"', bulletCount='"+Number(info.Bullet)+"', Score='"+Number(info.Score)+"', Lever='"+Number(info.Lever)+"', data='"+JSON.stringify(data)+"';");
         });
@@ -277,18 +275,21 @@ io.on("connection", function (socket) {
       if(LoadDB != "" && LoadDB != undefined){
 
         var jsonData = JSON.parse(LoadDB.data);
+        var NextLeverNumber = Number(jsonData.Lever) + 1;
+        let  next = await ReadNextLever(jsonData.Lever);
 
         var data = {
             tokenId : Number(tokenid),
             name : jsonData.name,
             Class : Number(jsonData.Class),
-            Lever: Number(jsonData.Lever) + 1,
+            Lever: NextLeverNumber,
             Bullet: Number(LoadDB.bulletCount),
             BulletClass: jsonData.BulletClass,
             Speed: Number(jsonData.Speed),
             Score: Number(score),
             Groups: Number(jsonData.Groups),
-            NextLeverScore : 500
+            NextLeverScore : Number(next[1] != undefined ? next[1].score : 0),
+            Confirm : next[0].confirm
         }
         
         const bl = await web3.eth.getBlock('latest'); 
@@ -297,7 +298,7 @@ io.on("connection", function (socket) {
         var hash_x = web3.eth.abi.encodeParameters(['uint256','uint256','uint256','bytes32','address','uint256'],[tokenid,score,jsonData.Bullet,hash_code,wallet,timeNow]);
 
 
-        await db.dbQuery("UPDATE `game_stars` SET Lever='"+(Number(jsonData.Lever) + 1)+"', hash='"+hash_x+"', data='"+JSON.stringify(data)+"' WHERE tokenId='"+tokenid+"';");
+        await db.dbQuery("UPDATE `game_stars` SET Lever='"+NextLeverNumber+"', hash='"+hash_x+"', data='"+JSON.stringify(data)+"' WHERE tokenId='"+tokenid+"';");
         callback(data);
       }else{
         callback({reply : true});
@@ -347,7 +348,7 @@ io.on("connection", function (socket) {
 
       if(LoadDB != "" && LoadDB != undefined){
         var jsonData = JSON.parse(LoadDB.data);
-
+        let  next = await ReadNextLever(jsonData.Lever,true);
         var data = {
             tokenId : Number(tokenid),
             name : jsonData.name,
@@ -358,7 +359,7 @@ io.on("connection", function (socket) {
             Speed: Number(jsonData.Speed),
             Score: Number(jsonData.Score),
             Groups: Number(jsonData.Groups),
-            NextLeverScore : 500
+            NextLeverScore : Number(next)
         }
         
       }
@@ -380,7 +381,7 @@ io.on("connection", function (socket) {
 
     if(LoadDB != "" && LoadDB != undefined){
       var jsonData = JSON.parse(LoadDB.data);
-
+      let  next = await ReadNextLever(jsonData.Lever,true);
         var data = {
             tokenId : Number(tokenid),
             name : jsonData.name,
@@ -391,7 +392,7 @@ io.on("connection", function (socket) {
             Speed: Number(jsonData.Speed),
             Score: Number(jsonData.Score),
             Groups: Number(jsonData.Groups),
-            NextLeverScore : 500
+            NextLeverScore : Number(next)
         }
       db.dbQuery("UPDATE `game_stars` SET bulletCount='"+Number(bulletCount)+"', data='"+JSON.stringify(data)+"' WHERE tokenId='"+tokenid+"';");
     }
@@ -406,7 +407,7 @@ io.on("connection", function (socket) {
 
       if(LoadDB != "" && LoadDB != undefined){
         var jsonData = JSON.parse(LoadDB.data);
-
+        let  next = await ReadNextLever(jsonData.Lever,true);
           var data = {
               tokenId : Number(socket.userId.tokenId),
               name : jsonData.name,
@@ -417,7 +418,7 @@ io.on("connection", function (socket) {
               Speed: Number(jsonData.Speed),
               Score: Number(jsonData.Score),
               Groups: Number(jsonData.Groups),
-              NextLeverScore : 500
+              NextLeverScore : Number(next)
           }
         db.dbQuery("UPDATE `game_stars` SET bulletCount='"+Number(socket.userId.bullet)+"', data='"+JSON.stringify(data)+"' WHERE tokenId='"+socket.userId.tokenId+"';");
       }

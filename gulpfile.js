@@ -281,7 +281,7 @@ gulp.task('game1js', function() {
             'public/game/js/levels.js'
         ])
         .pipe(concat('index.js'))
-        .pipe(uglify())
+        //.pipe(uglify())
         .pipe(gulp.dest("public/dist/game/starsbattle"))
         .pipe(browserSync.stream());
 });

@@ -37,17 +37,29 @@ var GameState = {
         game.hash = game.web3.keccak256("https://starsbattle.co");
         game.socket = SmartApps.Blockchain.Socket();
         game.pause = false;
-        game.playerShip = new PlayerShip();
+        game.ready = false;
+        game.player = {};
+        game.install = false;
+        game.playerShip = {};
         game.parallax = new Parallax();
-        game.hud = new HUD();
+        game.hud = {};
         game.bulletBar = new BulletBars();
-        game.spawner = new EnemySpawner();
+        game.spawner = {};
+
         game.wallet = await SmartApps.Blockchain.getLoginWallet();
+        await game.socket.emit("sync", {tokenId : game.tokenId, score : 0},function(data){
+            game.install = true;
+            game.player = data;
+            
+        });
+
         
+
         game.socket.on("disconnect", function(){
             console.log("Disconnect Client");
             SmartApps.Blockchain.notify("Server connect error");
         });
+        
         
         /*
         window.addEventListener("beforeunload", function (e) {
@@ -101,9 +113,13 @@ var GameState = {
         //console.log(game.socket);
         $("body #header").remove();
     },
+    
     update : () => {
+        if(game.install == false) return;
+        getLayer();
         backgroundScreen.tilePosition.y -=2;
         backgroundScreenHome.tilePosition.y +=0.5;
+
         if(game.playerShip != undefined && game.playerShip.tokenId > 0){
             game.socket.emit('sign',{tokenId : game.playerShip.tokenId, bullet : game.playerShip.bullet, lever : game.currentLevel, score : game.playerShip.score});
         }
@@ -111,6 +127,18 @@ var GameState = {
     }
 
 };
+
+function getLayer  (){
+        if(game.ready == false){
+            
+            game.playerShip = new PlayerShip();
+            
+            game.hud = new HUD();
+            //game.bulletBar = new BulletBars();
+            game.spawner = new EnemySpawner();
+            game.ready = true;
+        }
+    }
 function initLevelData() {
     storage = new Storage(game.settings.storagePrefix);
     var levels = [];
