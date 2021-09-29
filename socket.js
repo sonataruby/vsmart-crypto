@@ -340,6 +340,39 @@ io.on("connection", function (socket) {
 
   });
 
+  socket.on("buyvip", async (data,callback) => {
+    let tokenid = data.tokenId;
+    await loadGame1().then(async (pool) => {
+
+         await pool.paramsOf(tokenid).call().then(async (info) => {
+
+              var LoadDB = await db.dbQuery("SELECT * FROM game_stars WHERE tokenId='"+tokenid+"'",true);
+              if(LoadDB != "" && LoadDB != undefined){
+
+                var jsonData = JSON.parse(LoadDB.data);
+
+                var data = {
+                    tokenId : Number(tokenid),
+                    name : jsonData.name,
+                    Class : Number(jsonData.Class),
+                    Lever: Number(jsonData.Lever),
+                    Bullet: Number(jsonData.Bullet),
+                    BulletClass: Number(jsonData.BulletClass),
+                    Speed: Number(jsonData.Speed),
+                    Score: Number(jsonData.Score),
+                    Groups: Number(info.Groups),
+                    NextLeverScore : Number(jsonData.NextLeverScore)
+                }
+                
+                await db.dbQuery("UPDATE `game_stars` SET data='"+JSON.stringify(data)+"' WHERE tokenId='"+tokenid+"';");
+                callback(data);
+              }else{
+                 callback({Bullet : 0});
+              }
+         });
+    });
+  });
+
   socket.on("sync", async (data,callback) => {
 
       let tokenid = data.tokenId;

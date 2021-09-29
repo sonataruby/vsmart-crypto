@@ -48,9 +48,13 @@ var SelectClassState = {
           var tokenId =  batllat[i].tokenId;
           var lever =  batllat[i].Lever;
           var img = batllat[i].Class;
+          var vip = batllat[i].Groups;
           html += '<div class="col-sm-4 col-6 mb-4">';
           html += '          <div class="card card-class" style="background-color:transparent;border:0px;">';
           html += '            <div class="card-body playItems" data-tokenid="'+tokenId+'" data-level="'+lever+'">';
+          if(vip > 0){
+            html += '             <div class="card-vip"><img src="/assets/vip/vip'+vip+'.png" style="width:100%;height:100%;"></div>';
+          }
           html += '              ID : '+tokenId+'<br>';
           html += '              <img src="/nfts/'+img+'.png" style="width:100%; height:120px;">';
           html += '              <b>'+batllat[i].name+'</b><br>';
