@@ -77,7 +77,9 @@ LevelComplete.prototype.showButtons =  function() {
                     game.socket.emit("sync",{
                             tokenId:game.playerShip.tokenId
                         }, function(data){
-                            
+                            if(data.Confirm == true){
+                                window.location.href="/app/my?claim="+game.playerShip.tokenId;
+                            }
                             game.currentLevel = data.Lever;
                             game.validateScore = data.NextLeverScore;
                             game.state.start('GameState');

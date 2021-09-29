@@ -411,7 +411,8 @@ io.on("connection", function (socket) {
             Speed: Number(jsonData.Speed),
             Score: Number(jsonData.Score),
             Groups: Number(jsonData.Groups),
-            NextLeverScore : Number(next)
+            NextLeverScore : Number(next),
+            Confirm : false,
         }
         
       }
