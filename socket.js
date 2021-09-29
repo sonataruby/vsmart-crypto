@@ -70,8 +70,9 @@ app.get("/layer/:tokenid", async (req, res) => {
   var LoadDB = await db.dbQuery("SELECT * FROM game_stars WHERE tokenId='"+tokenid+"'",true);
 
   if(LoadDB != "" && LoadDB != undefined){
-    var jsonData = JSON.parse(LoadDB.data);
 
+    var jsonData = JSON.parse(LoadDB.data);
+    let next = await ReadNextLever(jsonData.Lever,true);
     var data = {
         tokenId : Number(tokenid),
         name : jsonData.name,
@@ -82,12 +83,15 @@ app.get("/layer/:tokenid", async (req, res) => {
         Speed: Number(jsonData.Speed),
         Score: Number(jsonData.Score),
         Groups: Number(jsonData.Groups),
-        NextLeverScore : 500
+        NextLeverScore : Number(next),
+        Confirm : jsonData.confirm == "Yes" ? true : false
     }
+    console.log(data);
     
   }else{
-    await loadGame1().then(async (pool) => {
 
+    await loadGame1().then(async (pool) => {
+        console.log("SYNC Blockchian");
          await pool.paramsOf(tokenid).call().then(async (info) => {
           let nextLever = await pool.LeverOf(Number(info.Lever)+1).call();
           var data = {
@@ -109,7 +113,7 @@ app.get("/layer/:tokenid", async (req, res) => {
 
     if(LoadDB != "" && LoadDB != undefined){
       var jsonData = JSON.parse(LoadDB.data);
-
+      let next = await ReadNextLever(jsonData.Lever,true);
       var data = {
           tokenId : Number(tokenid),
           name : jsonData.name,
@@ -120,7 +124,8 @@ app.get("/layer/:tokenid", async (req, res) => {
           Speed: Number(jsonData.Speed),
           Score: Number(jsonData.Score),
           Groups: Number(jsonData.Groups),
-          NextLeverScore : 500
+          NextLeverScore : Number(next),
+          Confirm : jsonData.confirm == "Yes" ? true : false
       }
       
     }
@@ -308,7 +313,7 @@ io.on("connection", function (socket) {
             Score: Number(score),
             Groups: Number(jsonData.Groups),
             NextLeverScore : Number(next[1] != undefined ? next[1].score : 0),
-            Confirm : next[0].confirm
+            Confirm : next[0].confirm == "Yes" ? true : false
         }
         
         const bl = await web3.eth.getBlock('latest'); 
@@ -412,7 +417,7 @@ io.on("connection", function (socket) {
             Score: Number(jsonData.Score),
             Groups: Number(jsonData.Groups),
             NextLeverScore : Number(next),
-            Confirm : false,
+            Confirm : next.confirm == "Yes" ? true : false,
         }
         
       }
