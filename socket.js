@@ -275,8 +275,8 @@ io.on("connection", function (socket) {
 
         const bl = await web3.eth.getBlock('latest'); 
         var timeNow = bl.timestamp;
-        var hash_code = web3.eth.abi.encodeParameters(['uint256'],[Number(jsonData.Lever)+ Number(tokenid) + Number(score) + Number(jsonData.Bullet)]);
-        var hash_x = web3.eth.abi.encodeParameters(['uint256','uint256','uint256','bytes32','address','uint256'],[tokenid,score,jsonData.Bullet,hash_code,wallet,timeNow]);
+        var hash_code = web3.eth.abi.encodeParameters(['uint256'],[Number(nowLever)+ Number(tokenid) + Number(score) + Number(LoadDB.bulletCount)]);
+        var hash_x = web3.eth.abi.encodeParameters(['uint256','uint256','uint256','bytes32','address','uint256'],[tokenid,score,LoadDB.bulletCount,hash_code,wallet,timeNow]);
         await db.dbQuery("UPDATE `game_stars` SET hash='"+hash_x+"' WHERE tokenId='"+tokenid+"';");
         var data = {
           hash : hash_x
