@@ -52,10 +52,7 @@ LevelComplete.prototype.showScore = function() {
 }
 
 LevelComplete.prototype.showButtons =  function() {
-    if(game.playerShip.score <  game.playerShip.validateScore){
-        game.state.start('GameState');
-        return;
-    }
+    
     game.socket.emit("update",{
                 tokenId:game.playerShip.tokenId,
                 score : game.playerShip.score, 
@@ -63,7 +60,10 @@ LevelComplete.prototype.showButtons =  function() {
                 lever : game.currentLevel,
                 record : this.levelData[game.currentLevel].highscore,
                 hash : game.hash});
-    
+    if(game.playerShip.score <  game.playerShip.validateScore){
+        game.state.start('GameOver');
+        return;
+    }
     if (game.currentLevel < 29 && game.playerShip.score >= game.playerShip.validateScore) {
         var next = game.add.button(game.world.centerX + 80, game.world.centerY + 90, 'atlas', async function() {
            
