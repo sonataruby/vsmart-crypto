@@ -121,6 +121,9 @@ var GameState = {
         backgroundScreenHome.tilePosition.y +=0.5;
 
         if(game.playerShip != undefined && game.playerShip.tokenId > 0){
+            if(Number(game.playerShip.bullet) < 1){
+                game.pause = true;
+            }
             game.socket.emit('sign',{tokenId : game.playerShip.tokenId, bullet : game.playerShip.bullet, lever : game.currentLevel, score : game.playerShip.score});
         }
         //backgroundScreenHome.tilePosition.x +=1;

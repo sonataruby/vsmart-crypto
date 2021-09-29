@@ -2,6 +2,7 @@ var ShopBullet = function() {
     //Phaser.Sprite.call(this, game, game.world.centerX, game.world.centerY + 1000, 'control', 'gui/shop_bg');
     //game.groups.shop.add(this);
     //this.anchor.setTo(0.5);
+    this.show = false;
     this.showButtons();
     this.childGroup = game.add.group();
 }
@@ -11,7 +12,8 @@ ShopBullet.prototype.constructor = GameOver;
 
 ShopBullet.prototype.showButtons = async function() {
     game.pause = true;
-   
+
+    if(this.show == true) return;
     
     game.socket.emit("update",{
                 tokenId:game.playerShip.tokenId,
@@ -46,6 +48,10 @@ ShopBullet.prototype.showButtons = async function() {
                 game.playerShip.bullet = Number(data.Bullet);
                 //game.currentLevel = data.Lever;
                 //game.playerShip.start();
+                 game.pause = false;
+                game.playerShip.weapon.fire(true);
+                game.spawner.spawn();
+                this.show = false;
 
             });
             
@@ -56,11 +62,15 @@ ShopBullet.prototype.showButtons = async function() {
     });
 
     $("#BulletModal").on("hidden.bs.modal", function () {
-        game.pause = false;
-        game.playerShip.weapon.fire(true);
-        game.spawner.spawn();
+        if(Number(game.playerShip.bullet) > 0){
+            game.pause = false;
+            game.playerShip.weapon.fire(true);
+            game.spawner.spawn();
+        }
+        this.show = false;
     });
 
+    this.show = true;
     
     
 }

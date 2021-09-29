@@ -217,6 +217,10 @@ PlayerShip.prototype.addScore = function(value) {
     game.hud.updateScore();
 }
 PlayerShip.prototype.addBullet = function(value) {
+    if(this.bullet < 1) {
+        this.bullet = 0;
+        return;
+    }
     this.bullet -= Number(value);
     game.bulletBar.updateBullet();
 }
