@@ -105,6 +105,25 @@ app.get("/layer/:tokenid", async (req, res) => {
            await db.dbQuery("INSERT INTO `game_stars` SET tokenId='"+tokenid+"', contracts='"+Address.AddressContractGame1+"', bulletCount='"+Number(info.Bullet)+"', Score='"+Number(info.Score)+"', Lever='"+Number(info.Lever)+"', data='"+JSON.stringify(data)+"';");
         });
       });
+    var LoadDB = await db.dbQuery("SELECT * FROM game_stars WHERE tokenId='"+tokenid+"'",true);
+
+    if(LoadDB != "" && LoadDB != undefined){
+      var jsonData = JSON.parse(LoadDB.data);
+
+      var data = {
+          tokenId : Number(tokenid),
+          name : jsonData.name,
+          Class : Number(jsonData.Class),
+          Lever: Number(jsonData.Lever),
+          Bullet: Number(jsonData.Bullet),
+          BulletClass: jsonData.BulletClass,
+          Speed: Number(jsonData.Speed),
+          Score: Number(jsonData.Score),
+          Groups: Number(jsonData.Groups),
+          NextLeverScore : 500
+      }
+      
+    }
   }
 
   res.header('Content-Type', 'application/json');
