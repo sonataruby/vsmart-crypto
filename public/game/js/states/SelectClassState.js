@@ -49,17 +49,26 @@ var SelectClassState = {
           var lever =  batllat[i].Lever;
           var img = batllat[i].Class;
           var vip = batllat[i].Groups;
-          html += '<div class="col-sm-4 col-6 mb-4">';
+          html += '<div class="col-sm-6 col-12 mb-4">';
+
           html += '          <div class="card card-class" style="background-color:transparent;border:0px;">';
           html += '            <div class="card-body playItems" data-tokenid="'+tokenId+'" data-level="'+lever+'">';
+          html += '             <div class="row g-0"><div class="col-md-4">';
+          html += '              <img src="/nfts/'+img+'.png" style="width:100%; height:120px;">';
           if(vip > 0){
             html += '             <div class="card-vip"><img src="/assets/vip/vip'+vip+'.png" style="width:100%;height:100%;"></div>';
           }
-          html += '              ID : '+tokenId+'<br>';
-          html += '              <img src="/nfts/'+img+'.png" style="width:100%; height:120px;">';
+          html += '             </div><div class="col-md-8">';
+          
+          html += '              Token ID : '+tokenId+'<br>';
+          
           html += '              <b>'+batllat[i].name+'</b><br>';
           html += '              Lever : '+batllat[i].Lever+'<br>';
           html += '              Bullet : '+batllat[i].Bullet+'<br>';
+          html += '              Speed : '+batllat[i].Speed+' | Damge : 0.5';
+          html += '             </div>';
+          html += '             <div><button class="btn btn-sm btn-primary">Claim</button> <button class="btn btn-sm btn-primary">Sell Market</button> <button class="btn btn-sm btn-primary">Sell System</button></div>';
+          html += '             </div>';
           html += '            </div>';
           html += '          </div>';
           html += '</div>';
