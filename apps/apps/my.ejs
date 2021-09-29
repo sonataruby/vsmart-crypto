@@ -35,10 +35,7 @@ $(document).ready(async function(){
           html += '              <button class="btn btn-outline-info btn-sm btnSellMarket" data-lever="'+data[i].Lever+'" data-toggle="modal" data-target="#BalletModalSell" data-tokenid="'+data[i].tokenId+'"><i class="ti ti-shop"></i>Sell Market</button>';
           html += '            </div>';
 
-          if(data[i].Confirm == true){
-          html += '             <div class="btn-group" role="group">';
-          html += '              <button class="btn btn-primary btn-sm btnBuyBullet" data-toggle="modal" data-target="#BulletModal" data-tokenid="'+data[i].tokenId+'"><i class="ti ti-shop"></i>Claim Reward</button></div>';
-          }
+         
 
           html += '            </div>';
           html += '          </div>';

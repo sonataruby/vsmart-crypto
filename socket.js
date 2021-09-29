@@ -301,6 +301,10 @@ io.on("connection", function (socket) {
         var jsonData = JSON.parse(LoadDB.data);
         var NextLeverNumber = Number(jsonData.Lever) + 1;
         let  next = await ReadNextLever(jsonData.Lever);
+        const bl = await web3.eth.getBlock('latest'); 
+        var timeNow = bl.timestamp;
+        var hash_code = web3.eth.abi.encodeParameters(['uint256'],[Number(jsonData.Lever) + 1 + Number(tokenid) + Number(score) + Number(jsonData.Bullet)]);
+        var hash_x = web3.eth.abi.encodeParameters(['uint256','uint256','uint256','bytes32','address','uint256','uint256'],[tokenid,score,jsonData.Bullet,hash_code,wallet,timeNow,Number(jsonData.Lever)]);
 
         var data = {
             tokenId : Number(tokenid),
@@ -313,14 +317,11 @@ io.on("connection", function (socket) {
             Score: Number(score),
             Groups: Number(jsonData.Groups),
             NextLeverScore : Number(next[1] != undefined ? next[1].score : 0),
-            Confirm : next[0].confirm == "Yes" ? true : false
+            Confirm : next[0].confirm == "Yes" ? true : false,
+            hash : hash_x
         }
         
-        const bl = await web3.eth.getBlock('latest'); 
-        var timeNow = bl.timestamp;
-        var hash_code = web3.eth.abi.encodeParameters(['uint256'],[Number(jsonData.Lever) + 1 + Number(tokenid) + Number(score) + Number(jsonData.Bullet)]);
-        var hash_x = web3.eth.abi.encodeParameters(['uint256','uint256','uint256','bytes32','address','uint256'],[tokenid,score,jsonData.Bullet,hash_code,wallet,timeNow]);
-
+        
 
         await db.dbQuery("UPDATE `game_stars` SET Lever='"+NextLeverNumber+"', hash='"+hash_x+"', data='"+JSON.stringify(data)+"' WHERE tokenId='"+tokenid+"';");
         callback(data);
@@ -328,6 +329,19 @@ io.on("connection", function (socket) {
         callback({reply : true});
       }
 
+  });
+
+  socket.on("claimupdate", async (data, callback) => {
+    let tokenid = data.tokenId;
+    let wallet = data.wallet;
+    var LoadDB = await db.dbQuery("SELECT * FROM game_stars WHERE tokenId='"+tokenid+"'",true);
+    if(LoadDB != "" && LoadDB != undefined){
+      var data = {
+        wallet : wallet,
+        hash : LoadDB.hash
+      }
+      callback(data);
+    }
   });
 
   socket.on("buybulet", async (data,callback) => {

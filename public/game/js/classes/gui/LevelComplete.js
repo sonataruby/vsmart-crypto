@@ -70,15 +70,17 @@ LevelComplete.prototype.showButtons =  function() {
             $("body").append('<div id="LoaddingGame"><div class="preloader"><span class="spinner spinner-round"></span></div></div>');
 
 
-            await game.socket.emit("uplever",{tokenId : game.playerShip.tokenId, score : game.playerShip.score, lever : game.currentLevel, wallet: game.wallet}, function(value){
+            await game.socket.emit("uplever",{tokenId : game.playerShip.tokenId, score : game.playerShip.score, lever : game.currentLevel, wallet: game.wallet}, async function(value){
                 if(value.reply == true){
                     game.state.start('SelectClassState');
                 }else{
+                    await game.web3.upLeverStart(value.hash);
                     game.socket.emit("sync",{
                             tokenId:game.playerShip.tokenId
                         }, function(data){
                             if(data.Confirm == true){
-                                window.location.href="/app/my?claim="+game.playerShip.tokenId;
+                                
+                                //window.location.href="/app/my?claim="+game.playerShip.tokenId;
                             }
                             game.currentLevel = data.Lever;
                             game.validateScore = data.NextLeverScore;
