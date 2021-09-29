@@ -67,7 +67,7 @@ var SelectClassState = {
           html += '              Bullet : '+batllat[i].Bullet+'<br>';
           html += '              Speed : '+batllat[i].Speed+' | Damge : 0.5';
           html += '             </div>';
-          html += '             <div><button class="btn btn-sm btn-primary">Claim</button> <button class="btn btn-sm btn-primary">Sell Market</button> <button class="btn btn-sm btn-primary">Sell System</button></div>';
+          //html += '             <div class="col-md-12" stype="padding-top:10px;"><button class="btn btn-sm btn-primary">Claim</button> <button class="btn btn-sm btn-primary sellSystem">Sell Market</button> <button class="btn btn-sm btn-primary sellSystem">Sell System</button></div>';
           html += '             </div>';
           html += '            </div>';
           html += '          </div>';
