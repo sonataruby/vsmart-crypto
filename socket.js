@@ -83,15 +83,14 @@ app.get("/layer/:tokenid", async (req, res) => {
         Speed: Number(jsonData.Speed),
         Score: Number(jsonData.Score),
         Groups: Number(jsonData.Groups),
-        NextLeverScore : Number(next),
-        Confirm : jsonData.confirm == "Yes" ? true : false
+        NextLeverScore : Number(next)
     }
-    console.log(data);
+    
     
   }else{
 
     await loadGame1().then(async (pool) => {
-        console.log("SYNC Blockchian");
+       
          await pool.paramsOf(tokenid).call().then(async (info) => {
           let nextLever = await pool.LeverOf(Number(info.Lever)+1).call();
           var data = {
@@ -124,8 +123,7 @@ app.get("/layer/:tokenid", async (req, res) => {
           Speed: Number(jsonData.Speed),
           Score: Number(jsonData.Score),
           Groups: Number(jsonData.Groups),
-          NextLeverScore : Number(next),
-          Confirm : jsonData.confirm == "Yes" ? true : false
+          NextLeverScore : Number(next)
       }
       
     }
@@ -137,45 +135,8 @@ app.get("/layer/:tokenid", async (req, res) => {
 });
 
 app.post("/uplever", async (req, res) => {
-  var tokenid = req.body.tokenid;
-  var score = req.body.score;
-  var bullet = req.body.bullet;
-  var wallet = req.body.wallet;
-
   var data = {};
-  if(Number(tokenid) > 0 ){
-    await loadGame1().then(async (pool) => {
-        await pool.paramsOf(tokenid).call().then(async (info) => {
-          
-          //var timeNow = "Singal";
-          //var hash_code = web3.utils.padRight(web3.utils.asciiToHex("SingalsData"),64);
-          const bl = await web3.eth.getBlock('latest'); 
-          var timeNow = bl.timestamp;
-
-          var hash_code = web3.eth.abi.encodeParameters(['uint256'],[Number(info.Lever) + Number(tokenid) + Number(score) + Number(bullet)]);
-          var hash_x = web3.eth.abi.encodeParameters(['uint256','uint256','uint256','bytes32','address','uint256'],[tokenid,score,bullet,hash_code,wallet,timeNow]);
-
-          if(info.Score < score){
-            var LoadDB = await db.dbQuery("SELECT * FROM game_stars WHERE tokenId='"+tokenid+"'",true);
-
-            if(LoadDB != "" && LoadDB != undefined){
-              data.status = "update";
-              data.hash = hash_x;
-              
-            }
-            if((Number(info.Lever) + 1)%5 == 0){
-              axios.post("http://127.0.0.1:8082/telegram",{
-                  text : wallet + "\nUp lever : "+ tokenid+" to "+(Number(info.Lever) + 1)+"\nGet Reward STARTS Token"
-              },{headers:{"Content-Type" : "application/json"}});
-            }
-          }else{
-            data.status = 'error';
-          }
-
-        });
-
-    });
-  }
+  console.log("Load up on web");
   res.header('Content-Type', 'application/json');
   res.send(data);
   res.end( data );
@@ -331,18 +292,7 @@ io.on("connection", function (socket) {
 
   });
 
-  socket.on("claimupdate", async (data, callback) => {
-    let tokenid = data.tokenId;
-    let wallet = data.wallet;
-    var LoadDB = await db.dbQuery("SELECT * FROM game_stars WHERE tokenId='"+tokenid+"'",true);
-    if(LoadDB != "" && LoadDB != undefined){
-      var data = {
-        wallet : wallet,
-        hash : LoadDB.hash
-      }
-      callback(data);
-    }
-  });
+  
 
   socket.on("buybulet", async (data,callback) => {
     let tokenid = data.tokenId;
