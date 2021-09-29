@@ -6,7 +6,15 @@ var EnemySpawner = function() {
 EnemySpawner.prototype.spawn = function() {
     if (!game.playerShip.alive || game.pause == true) return;
     
-    if (this.level.length === 0) return new LevelComplete();
+    if (this.level.length === 0) {
+        if(game.playerShip.score <  game.playerShip.validateScore){
+            
+            return new GameOver();
+        }else{
+            return new LevelComplete();
+        }
+        
+    }
     var enemyData = this.level.shift();
 
     if (enemyData.enemy === 'asteroid') {
