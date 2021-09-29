@@ -29,7 +29,7 @@ var SelectClassState = {
         var CreateObjectID = "Object"+Math.floor(Math.random() * 9999999999999);
         $("body").append('<div id="LoaddingGame"><div class="preloader"><span class="spinner spinner-round"></span></div></div>');
 
-        $('body').append('<div class="modal fade" id="'+CreateObjectID+'"  data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">'+
+        $('body').append('<div class="modal fade" id="'+CreateObjectID+'" data-backdrop="static"  data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">'+
                 '<div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">'+
                     '<div class="modal-content" style="background-color:transparent;border:0px;">'+
       

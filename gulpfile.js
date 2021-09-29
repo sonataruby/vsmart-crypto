@@ -164,7 +164,7 @@ gulp.task('market', function() {
             'dev/market.js',
         ])
         .pipe(concat('market.js'))
-        //.pipe(uglify())
+        .pipe(uglify())
         .pipe(gulp.dest("public/dist"))
         .pipe(browserSync.stream());
     
@@ -177,7 +177,7 @@ gulp.task('game1', function() {
             'dev/game1.js',
         ])
         .pipe(concat('game1.js'))
-        .pipe(uglify())
+        //.pipe(uglify())
         .pipe(gulp.dest("public/dist"))
         .pipe(browserSync.stream());
     
@@ -277,7 +277,6 @@ gulp.task('game1js', function() {
             'public/game/js/classes/gui/OptionsBar.js',
             'public/game/js/classes/gui/GameOptions.js',
             'public/game/js/classes/gui/ShopBullet.js',
-          //  'public/game/js/classes/gui/ShopBallet.js',
             'public/game/js/levels.js'
         ])
         .pipe(concat('index.js'))
