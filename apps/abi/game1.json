@@ -1,5 +1,10 @@
 [
 	{
+		"inputs": [],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
 		"anonymous": false,
 		"inputs": [
 			{
@@ -183,6 +188,161 @@
 		"inputs": [
 			{
 				"internalType": "address",
+				"name": "",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "LeverHistory",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "time",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "Lever",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "Score",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "LeverOf",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "Score",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "Bullet",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "BulletClass",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "Speed",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "LeverRewardOf",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "Lever",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "Reward",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "LeverUpLimitOf",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "time",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "Lever",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "LogBuyBulletOf",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "wallet",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "time",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "Bullet",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "BulletReward",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "TokenReward",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
 				"name": "to",
 				"type": "address"
 			},
@@ -200,6 +360,38 @@
 	{
 		"inputs": [
 			{
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			}
+		],
+		"name": "balanceOf",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "baseURI",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "uint256",
 				"name": "tokenId",
 				"type": "uint256"
@@ -208,6 +400,264 @@
 		"name": "burn",
 		"outputs": [],
 		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "claimed",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "getApproved",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "totalCats",
+				"type": "uint256"
+			}
+		],
+		"name": "getLeverData",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "Score",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "Bullet",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "BulletClass",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "Speed",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct StarsBattleNFT.ParamsLever[]",
+				"name": "result",
+				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "getNextLeverScore",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "getOptions",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "string",
+						"name": "ClassName",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "Class",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "Lever",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "Bullet",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "BulletClass",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "Speed",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "Score",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "Groups",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct StarsBattleNFT.Params",
+				"name": "",
+				"type": "tuple"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_tokenid",
+				"type": "uint256"
+			}
+		],
+		"name": "getTokenBuyInfo",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "address",
+						"name": "wallet",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "time",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "Bullet",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "BulletReward",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "TokenReward",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct StarsBattleNFT.LogBuyBullet",
+				"name": "",
+				"type": "tuple"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_owner",
+				"type": "address"
+			}
+		],
+		"name": "getTokenOwner",
+		"outputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "operator",
+				"type": "address"
+			}
+		],
+		"name": "isApprovedForAll",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -257,6 +707,105 @@
 			}
 		],
 		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "name",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "ownerOf",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "paramsOf",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "ClassName",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "Class",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "Lever",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "Bullet",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "BulletClass",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "Speed",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "Score",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "Groups",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -623,548 +1172,6 @@
 	{
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "from",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "to",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "tokenId",
-				"type": "uint256"
-			}
-		],
-		"name": "transferFrom",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "newOwner",
-				"type": "address"
-			}
-		],
-		"name": "transferOwnership",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"stateMutability": "nonpayable",
-		"type": "constructor"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_tokenId",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_bullet",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_gamebullet",
-				"type": "uint256"
-			}
-		],
-		"name": "updateBullet",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "bytes",
-				"name": "_sigs",
-				"type": "bytes"
-			}
-		],
-		"name": "upLeverStart",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "owner",
-				"type": "address"
-			}
-		],
-		"name": "balanceOf",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "baseURI",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "claimed",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "tokenId",
-				"type": "uint256"
-			}
-		],
-		"name": "getApproved",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "totalCats",
-				"type": "uint256"
-			}
-		],
-		"name": "getLeverData",
-		"outputs": [
-			{
-				"components": [
-					{
-						"internalType": "uint256",
-						"name": "Score",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "Bullet",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "BulletClass",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "Speed",
-						"type": "uint256"
-					}
-				],
-				"internalType": "struct StarsBattleNFT.ParamsLever[]",
-				"name": "result",
-				"type": "tuple[]"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_tokenId",
-				"type": "uint256"
-			}
-		],
-		"name": "getNextLeverScore",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_tokenId",
-				"type": "uint256"
-			}
-		],
-		"name": "getOptions",
-		"outputs": [
-			{
-				"components": [
-					{
-						"internalType": "string",
-						"name": "ClassName",
-						"type": "string"
-					},
-					{
-						"internalType": "uint256",
-						"name": "Class",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "Lever",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "Bullet",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "BulletClass",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "Speed",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "Score",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "Groups",
-						"type": "uint256"
-					}
-				],
-				"internalType": "struct StarsBattleNFT.Params",
-				"name": "",
-				"type": "tuple"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_owner",
-				"type": "address"
-			}
-		],
-		"name": "getTokenOwner",
-		"outputs": [
-			{
-				"internalType": "uint256[]",
-				"name": "",
-				"type": "uint256[]"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "owner",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "operator",
-				"type": "address"
-			}
-		],
-		"name": "isApprovedForAll",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "LeverHistory",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "time",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "Lever",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "Score",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "LeverOf",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "Score",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "Bullet",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "BulletClass",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "Speed",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "LeverRewardOf",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "Lever",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "Reward",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "LeverUpLimitOf",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "time",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "Lever",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "name",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "owner",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "tokenId",
-				"type": "uint256"
-			}
-		],
-		"name": "ownerOf",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "paramsOf",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "ClassName",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "Class",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "Lever",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "Bullet",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "BulletClass",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "Speed",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "Score",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "Groups",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
 				"internalType": "bytes4",
 				"name": "interfaceId",
 				"type": "bytes4"
@@ -1267,6 +1274,84 @@
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "transferFrom",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "transferOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes",
+				"name": "_sigs",
+				"type": "bytes"
+			}
+		],
+		"name": "upLeverStart",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_tokenId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_bullet",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_gamebullet",
+				"type": "uint256"
+			}
+		],
+		"name": "updateBullet",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	}
 ]

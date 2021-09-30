@@ -37,5 +37,7 @@ var telegram = {
 
 }
 module.exports.telegram = telegram;
-module.exports.blockChianURL = "https://data-seed-prebsc-1-s2.binance.org:8545";
+//module.exports.blockChianURL = "https://data-seed-prebsc-1-s2.binance.org:8545";
+module.exports.blockChianURL = "https://bsc-dataseed.binance.org";
+
 //https://bsc-dataseed.binance.org <== Mainnet

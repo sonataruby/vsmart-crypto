@@ -69,10 +69,17 @@
 			<div class="card-body">
 			Setup Reward Token
 			<div class="input-group mb-3">
-				  <input type="text" class="form-control" id="adminAddress" placeholder="Token Contract Wallet" aria-label="Recipient's username" aria-describedby="button-addon2">
-				  <button class="btn btn-outline-secondary" type="button" id="setRewardToken">Set Reward Token</button>
+				  <input type="text" class="form-control addressTokenReward" value="<%=address.AddressContractSmartToken%>" placeholder="Token Contract Wallet" aria-label="Recipient's username" aria-describedby="button-addon2">
+				  <button class="btn btn-outline-secondary" type="button" id="setRewardToken">Enable Reward </button>
 				</div>
+			
+
+				<div class="rewardTable"></div>
+
+				
+
 			</div>
+
 		</div>
 	</div>
 
@@ -264,5 +271,45 @@
 			SmartApps.tokenGame1.addAdmin(address);
 		});
 
+		var loadLeverDataReward = async () => {
+				var reward = await SmartApps.tokenGame1.getRewardLever();
+				var html = '';
+
+				for(var i =0;i<reward.length;i++){
+					
+				
+					html +='<div class="input-group mb-3">';
+					html +='  <button class="btn btn-secondary" type="button">Lever</button>';
+					html +='  <input type="text" class="form-control lever" value="'+reward[i].Lever+'" placeholder="Lever">';
+					html +='  <button class="btn btn-secondary" type="button">Reward</button>';
+					html +='  <input type="text" class="form-control rewardValue" value="'+reward[i].Reward+'" placeholder="Reward Token">';
+					html +='  <button class="btn btn-outline-secondary setReward" type="button">Set Reward</button>';
+					html +='</div>';
+				}
+
+				$(".rewardTable").html(html);
+		}
+
+		await loadLeverDataReward();
+
+		$(".setReward").on("click", function(){
+				var block = $(this).parent();
+				var lever = block.find(".lever").val();
+				var reward = block.find(".rewardValue").val();
+				if(Number(reward) == 0){
+					alert("Error Number Reward");
+					return;
+				}
+				SmartApps.tokenGame1.setRewardLever(lever,reward);
+		});
+		$("#setRewardToken").on("click", function(){
+			var address = $(this).parent().find(".addressTokenReward").val();
+				if(address == ""){
+					alert("Error Address");
+					return;
+				}
+			SmartApps.tokenGame1.setEnableReward(address);
+		});
+		
 	});
 </script>

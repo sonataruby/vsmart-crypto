@@ -66,6 +66,46 @@ SmartApps = (function (SmartApps, $, window) {
         });
     };
 
+    
+    SmartApps.tokenGame1.setEnableReward = async (address) => {
+        //var _reward = blockchain.toWei(reward);
+        
+        await Game1.setEnableReward(address).send({gas:180000}).then((info) => {
+            console.log(info);
+        });
+    }
+    SmartApps.tokenGame1.setRewardLever = async (lever, reward) => {
+        //var _reward = blockchain.toWei(reward);
+        
+        await Game1.setRewardLever(lever,lever,reward).send({gas:180000}).then((info) => {
+            console.log(info);
+        });
+    }
+
+    SmartApps.tokenGame1.getRewardLever = async () => {
+        var obj = [];
+
+        var getData = await Game1.LeverRewardOf(5).call();
+        obj.push(getData);
+
+        var getData = await Game1.LeverRewardOf(10).call();
+        if(getData.Lever == 0) getData.Lever = 10;
+        obj.push(getData);
+
+
+        var getData = await Game1.LeverRewardOf(15).call();
+        if(getData.Lever == 0) getData.Lever = 15;
+        obj.push(getData);
+
+        var getData = await Game1.LeverRewardOf(20).call();
+        if(getData.Lever == 0) getData.Lever = 20;
+        obj.push(getData);
+        var getData = await Game1.LeverRewardOf(25).call();
+        if(getData.Lever == 0) getData.Lever = 25;
+        obj.push(getData);
+
+        return obj;
+    };
 
 
 
