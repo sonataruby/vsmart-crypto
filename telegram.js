@@ -142,7 +142,7 @@ bot.on('message', (msg) => {
     }
 
     if(send_text == "/game"){
-        msg = Address.AddressContractSmartToken;
+        msg = 'Play Game https://starsbattle.co/app/mining get reward every day';
     }
 
     if(send_text == "/chart"){
