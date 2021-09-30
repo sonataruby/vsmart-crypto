@@ -138,7 +138,7 @@ bot.on('message', (msg) => {
     }
 
     if(send_text == "/airdrop"){
-        photoMsg = airdroptext;
+        msg = airdroptext;
     }
 
     if(send_text == "/game"){
