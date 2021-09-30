@@ -277,6 +277,15 @@ app.get("/game/stars", async (req, res) => {
     res.render("game/stars",dataMain);
 });
 
+app.get("/game/stars/builder", async (req, res) => {
+    const dataMain = readJSONFile('main.json');
+    //let jsonData = fs.readFile(path.resolve(__dirname, "../public/game/js/levels.js"));
+    //console.log(path.resolve(__dirname, "../public/game/js/levels.js"));
+    //console.log(jsonData);
+    res.render("game/builder",dataMain);
+});
+
+
 /*Build Block*/
 app.get("/block", function(){
 

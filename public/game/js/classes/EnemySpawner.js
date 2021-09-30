@@ -8,7 +8,11 @@ EnemySpawner.prototype.spawn = function() {
     
     if (this.level.length === 0) {
         if(game.playerShip.score <  game.playerShip.validateScore){
-            
+            game.audio.playSound('sndExplosion');
+            game.playerShip.alive = false;
+            game.playerShip.alpha = 0;
+            game.playerShip.weapon.destroy();
+            new Explosion(game.playerShip.x, game.playerShip.y);
             return new GameOver();
         }else{
             return new LevelComplete();

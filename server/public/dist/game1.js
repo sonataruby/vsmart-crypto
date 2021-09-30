@@ -247,7 +247,7 @@ SmartApps = (function (SmartApps, $, window) {
             }
             
         });
-        console.log(obj);
+        
         return obj;
     };
     
