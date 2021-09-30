@@ -134,7 +134,7 @@ bot.on('message', (msg) => {
     var photoMsg = "";
 
     if(send_text == "/contract"){
-        photoMsg = 'Testnet Contract : <a href="https://bscscan.com/address/'+Address.AddressContractSmartToken+'">'+Address.AddressContractSmartToken+'</a>';
+        photoMsg = 'Mainnet Contract : <a href="https://bscscan.com/address/'+Address.AddressContractSmartToken+'">'+Address.AddressContractSmartToken+'</a>';
     }
 
     if(send_text == "/airdrop"){
