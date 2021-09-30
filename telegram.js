@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json()) 
 
 
-telegram.group = '@8gpyMdhoPHhiNGFl'; //<== Test
+telegram.group = '@StarsBattle'; //<== Test
 app.use(cors());
 app.options('*', cors());
 
@@ -45,7 +45,7 @@ const getNumber = () => {
     return number;
 }
 
-var airdroptext = 'Airdrop: STARS BATTLE $STARS\n🔥 Reward: 100 $STARS\n🤑 Refer: 10 $STARS\n🛃 Website: https://starsbattle.co\n🚧 Rating: ⭐️⭐️⭐️⭐️⭐️\n🤖 Airdrop Link: <a href="https://t.me/StarsBattleBot?token=0xb1beea51ddbc7e99d02b5630e24fd376ee4f9b46">Airdrop bot</a>\n===========================\n📝 Tasks:\n🔘 Start Telegram Bot\n🔘 Join Telegram <a href="https://t.me/StarsBattleChannel">Channel</a> & <a href="https://t.me/StarsBattle">Group</a>\n🔘 Follow On <a href="https://twitter.com/StarsBattle_co">Twitter</a>\n🔘 Submit BEP-20 Address\n===========================\n🚀 Distribution: 30th September 2021\n🔴 Note: The huge STARS BATTLE network, with the efforts of the project development team, with a great future, guarantees investors that they can easily invest their capital in STARS BATTLE.';
+var airdroptext = '🔥 Airdrop: STARS BATTLE $STARS\nStars Battle (STARS) is a NFT Game play to earn where anyone can earn tokens through skilled gameplay and contributions to the ecosystem. Players can battle, collect, and update a their Spaceship.\n============================\n$STARS List to do October – 2021: \n• 01/10/2021: Pre-sale on <a href="https://dxsale.app">dxsale.app/ ( 100% locked LP)</a>\n• 02/10/2021: Launching Action Game Play to earn.\n• 07/10/2021: IDO on <a href="https://starsbattle.co/app/ido">https://starsbattle.co/app/ido</a> \n• 30/10/2021: List CMC and Coingecko\n============================\n🌐 Website: <a href="https://starsbattle.co/">https://starsbattle.co/<a>\n🌐Game demo: <a href="https://youtu.be/YKGRIvdKszU">https://youtu.be/YKGRIvdKszU<a>\n✅ Airdrop link: <a href="https://t.me/StarsBattleAirdropBot">https://t.me/StarsBattleAirdropBot<a>\n\n📢 Airdrop Info: \n💰Total reward: 1.000.000 STARS ($100.000)\n💰 For joining: Get 20 STARS ($2.0)\n💰 For each referral: Get 5 STARS ($0.5)\n🗓 Airdrop will end on 30th October & distribution begins. \n🔝 Allocate all first 40.000 user.\n\n📘By Participating you are agreeing to the Stars Battle Airdrop Program Terms and Conditions. Please see pinned post for more information.';
 bot.on("polling_error", console.log);
 bot.onText(/\/start/, (msg,match) => {
     
@@ -71,7 +71,7 @@ bot.onText(/\/start/, (msg,match) => {
               "media": "https://cryptocar.cc/nfts/"+getNumber()+"/2.gif",
               "caption": "CAR NFT Class"
         }]);
-    */
+   
 
     bot.sendPhoto(msg.chat.id,'https://starsbattle.co/upload/banner.png',{
         caption : airdroptext,
@@ -80,7 +80,7 @@ bot.onText(/\/start/, (msg,match) => {
                 },
         parse_mode: 'HTML'
         });
-
+ */
     
 });
 
@@ -116,7 +116,7 @@ bot.on('message', (msg) => {
 });
 */
 
-
+let allowAirdrop = false;
 bot.on('message', (msg) => {
    
     var send_text = msg.text;
@@ -134,7 +134,7 @@ bot.on('message', (msg) => {
     var photoMsg = "";
 
     if(send_text == "/contract"){
-        photoMsg = 'Testnet Contract : <a href="https://testnet.bscscan.com/address/'+Address.AddressContractSmartToken+'">'+Address.AddressContractSmartToken+'</a>';
+        photoMsg = 'Testnet Contract : <a href="https://bscscan.com/address/'+Address.AddressContractSmartToken+'">'+Address.AddressContractSmartToken+'</a>';
     }
 
     if(send_text == "/airdrop"){
@@ -174,7 +174,7 @@ bot.on('message', (msg) => {
         });
     }
 
-    if(type == "private"){
+    if(type == "private" && allowAirdrop == true){
         var step1_text = 'Join Start >>'
         if (send_text.toString().indexOf(step1_text) === 0) {
 
@@ -304,7 +304,7 @@ app.get("/", (req, res) => {
 
 app.post("/telegram", (req, res) => {
   var msg = req.body.text;
-  bot.sendPhoto('@DevStarts','https://starsbattle.co/upload/banner.png',{
+  bot.sendPhoto('@StarsBattle','https://starsbattle.co/upload/banner.png',{
         caption : msg,
         parse_mode: 'HTML'
         });
