@@ -138,7 +138,7 @@ bot.on('message', (msg) => {
     }
 
     if(send_text == "/airdrop"){
-        msg = airdroptext;
+        msg = "Preive chat with bot : https://t.me/StarsBattleAirdropBot";
     }
 
     if(send_text == "/game"){
