@@ -316,7 +316,7 @@ io.on("connection", function (socket) {
             var NextLeverNumber = LoadDB.Lever +1;
             var data = {
                 tokenId : Number(tokenid),
-                name : info.name,
+                name : info.ClassName,
                 Class : Number(info.Class),
                 Lever: NextLeverNumber,
                 Bullet: Number(info.Bullet),
@@ -329,11 +329,11 @@ io.on("connection", function (socket) {
             
             if(NextLeverNumber%5 == 0){
               axios.post("http://127.0.0.1:8082/telegramtext",{
-                text : "<b>NFT STARS : "+tokenid + "</b>\nUp Lever : "+ NextLeverNumber+"<br>Score : " + info.Score+"<br>Reward : "+next[1].reward_token+" token STARS"
+                text : "<b>NFT STARS : "+tokenid + "</b>\nUp Lever : "+ NextLeverNumber+"\nScore : " + info.Score+"\nReward : "+next[1].reward_token+" token STARS"
               },{headers:{"Content-Type" : "application/json"}});
             }else{
               axios.post("http://127.0.0.1:8082/telegramtext",{
-                text : "<b>NFT STARS : "+tokenid + "</b>\nUp Lever : "+ NextLeverNumber + "<br>Score : " + info.Score
+                text : "<b>NFT STARS : "+tokenid + "</b>\nUp Lever : "+ NextLeverNumber + "\nScore : " + info.Score
               },{headers:{"Content-Type" : "application/json"}});
             }
             
