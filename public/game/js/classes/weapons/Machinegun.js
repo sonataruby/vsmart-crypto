@@ -19,6 +19,7 @@ Machinegun.prototype.fire = function(repeat) {
     this.reloading = true;
     //this.shot = SSBullet;
     if (this.parent instanceof PlayerShip) {
+        if(game.currentLevel < 5) this.damage = 0.4;
         if (this.level === 1) {
             new this.shot(this.parent.x * this.cannon, this.parent.y - 20, this.parent.type, this.damage);
             new SSBullet(this.parent.x * this.cannon, this.parent.y - 20, this.parent.type, this.damage, "left",5);
