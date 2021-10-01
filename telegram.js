@@ -315,6 +315,21 @@ app.post("/telegram", (req, res) => {
   res.end( data );
 });
 
+app.post("/telegramtext", (req, res) => {
+  var msg = req.body.text;
+  /*
+  bot.sendPhoto('@StarsBattle','https://starsbattle.co/upload/banner.png',{
+        caption : msg,
+        parse_mode: 'HTML'
+        });
+    */
+  bot.sendMessage(telegram.TelegramChannel,msg);
+  var data = '{"ok": "200"}';
+  res.header('Content-Type', 'application/json');
+  res.send(data);
+  res.end( data );
+});
+
 app.listen(8082, () =>
   console.log(`Example app listening on port 8082!`),
 );

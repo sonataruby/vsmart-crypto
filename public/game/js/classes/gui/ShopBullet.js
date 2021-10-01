@@ -17,7 +17,7 @@ ShopBullet.prototype.showButtons = async function() {
         $('#'+CreateObjectID).modal('show');
         return;
     }
-    game.socket.emit("update",{
+    await game.socket.emit("update",{
                 tokenId:game.playerShip.tokenId,
                 score : game.playerShip.score, 
                 bullet : game.playerShip.bullet, 

@@ -314,9 +314,12 @@ io.on("connection", function (socket) {
                 NextLeverScore : Number(next[1] != undefined ? next[1].score : 0)
             }
             
-            
+            axios.post("http://127.0.0.1:8082/telegramtext",{
+                text : "<b>"+tokenId + "</b>\nUp Lever : "+ NextLeverNumber
+            },{headers:{"Content-Type" : "application/json"}});
 
             await db.dbQuery("UPDATE `game_stars` SET Lever='"+NextLeverNumber+"', hash='', data='"+JSON.stringify(data)+"' WHERE tokenId='"+tokenid+"';");
+
             callback(data);
           }
         });
