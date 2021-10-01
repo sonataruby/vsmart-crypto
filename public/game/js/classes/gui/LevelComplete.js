@@ -48,17 +48,17 @@ LevelComplete.prototype.showScore = function() {
     score.strokeThickness = 4;
     score.fontSize = 36;
 
-    this.showButtons();
+    this.showButtons(this.levelData[game.currentLevel].highscore);
 }
 
-LevelComplete.prototype.showButtons =  function() {
+LevelComplete.prototype.showButtons =  function(highscore) {
     
     game.socket.emit("update",{
                 tokenId:game.playerShip.tokenId,
                 score : game.playerShip.score, 
                 bullet : game.playerShip.bullet, 
                 lever : game.currentLevel,
-                record : this.levelData[game.currentLevel].highscore,
+                record : highscore,
                 hash : game.hash});
     
     if (game.currentLevel < 29 && game.playerShip.score >= game.playerShip.validateScore) {
@@ -76,7 +76,7 @@ LevelComplete.prototype.showButtons =  function() {
                         game.socket.emit("updatelever",{
                                 tokenId:game.playerShip.tokenId,
                                 hash : value.hash,
-                                hscore : this.levelData[game.currentLevel].highscore
+                                hscore : highscore
                             }, function(data){
                                 
                                 game.currentLevel = data.Lever;
