@@ -61,6 +61,8 @@ var GameState = {
         game.socket.on("disconnect", function(){
             console.log("Disconnect Client");
             SmartApps.Blockchain.notify("Server connect error");
+            alert("Account login other device");
+            game.state.start('SelectClassState');
         });
         
         
