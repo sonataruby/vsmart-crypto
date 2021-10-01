@@ -75,7 +75,8 @@ LevelComplete.prototype.showButtons =  function() {
                     if(validate == true){
                         game.socket.emit("updatelever",{
                                 tokenId:game.playerShip.tokenId,
-                                hash : value.hash
+                                hash : value.hash,
+                                hscore : this.levelData[game.currentLevel].highscore
                             }, function(data){
                                 
                                 game.currentLevel = data.Lever;

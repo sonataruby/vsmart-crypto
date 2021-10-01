@@ -300,7 +300,7 @@ io.on("connection", function (socket) {
   socket.on("updatelever", async (data, callback) => {
       let tokenid = data.tokenId;
       let hash = data.hash;
-
+      let HScore = data.hscore;
       await loadGame1().then(async (pool) => {
 
          await pool.paramsOf(tokenid).call().then(async (info) => {
@@ -329,17 +329,17 @@ io.on("connection", function (socket) {
             
             if(NextLeverNumber%5 == 0){
               axios.post("http://127.0.0.1:8082/telegramtext",{
-                text : "<b>NFT STARS : "+tokenid + "</b>\nUp Lever : "+ NextLeverNumber+"\nScore : " + info.Score+"\nReward : "+next[1].reward_token+" token STARS"
+                text : "<b>NFT STARS : "+tokenid + "</b>\nUp Level : "+ NextLeverNumber+"\nScore : " + info.Score+"\nReward : "+next[1].reward_token+" token STARS"
               },{headers:{"Content-Type" : "application/json"}});
             }else{
               axios.post("http://127.0.0.1:8082/telegramtext",{
-                text : "<b>NFT STARS : "+tokenid + "</b>\nUp Lever : "+ NextLeverNumber + "\nScore : " + info.Score
+                text : "<b>NFT STARS : "+tokenid + "</b>\nUp Level : "+ NextLeverNumber + "\nScore : " + info.Score
               },{headers:{"Content-Type" : "application/json"}});
             }
             
 
             await db.dbQuery("UPDATE `game_stars` SET Lever='"+NextLeverNumber+"', hash='', data='"+JSON.stringify(data)+"' WHERE tokenId='"+tokenid+"';");
-            updateTopDaily(tokenid, info.Score);
+            updateTopDaily(tokenid, HScore > 0 ? HScore : info.Score);
             callback(data);
           }
         });
