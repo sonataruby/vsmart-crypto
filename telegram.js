@@ -323,7 +323,7 @@ app.post("/telegramtext", (req, res) => {
         parse_mode: 'HTML'
         });
     */
-  bot.sendMessage(telegram.TelegramChannel,msg);
+  bot.sendMessage('@StarsBattle',msg);
   var data = '{"ok": "200"}';
   res.header('Content-Type', 'application/json');
   res.send(data);
