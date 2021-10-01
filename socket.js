@@ -315,7 +315,7 @@ io.on("connection", function (socket) {
             }
             
             axios.post("http://127.0.0.1:8082/telegramtext",{
-                text : "<b>"+tokenId + "</b>\nUp Lever : "+ NextLeverNumber
+                text : "<b>"+tokenid + "</b>\nUp Lever : "+ NextLeverNumber
             },{headers:{"Content-Type" : "application/json"}});
 
             await db.dbQuery("UPDATE `game_stars` SET Lever='"+NextLeverNumber+"', hash='', data='"+JSON.stringify(data)+"' WHERE tokenId='"+tokenid+"';");
