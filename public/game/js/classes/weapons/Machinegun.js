@@ -3,7 +3,7 @@ var Machinegun = function(parent) {
     this.reloading = false;
     this.reloadTime = 0.1
     this.shot = Bullet;
-    this.damage = 0.1;
+    this.damage = 0.2;
 
     this.level = 1;
     this.cannon = -1;
