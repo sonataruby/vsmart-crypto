@@ -144,6 +144,10 @@ bot.on('message', (msg) => {
     if(send_text == "/game"){
         msg = 'Play Game https://starsbattle.co/app/mining get reward every day';
     }
+    if(send_text == "/presell"){
+        msg = 'Presell on DxSell.app https://dxsale.app/app/v3/defipresale?saleID=681&chain=BSC';
+    }
+    
 
     if(send_text == "/chart"){
         msg = Address.AddressContractSmartToken;
