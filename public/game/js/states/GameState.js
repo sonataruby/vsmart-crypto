@@ -48,9 +48,7 @@ var GameState = {
 
         game.wallet = await SmartApps.Blockchain.getLoginWallet();
         await game.socket.emit("sync", {tokenId : game.tokenId, score : 0},function(data){
-            if(data.Confirm == true){
-                window.location.href="/app/my?claim="+game.tokenId;
-            }
+            
             game.install = true;
             game.player = data;
             

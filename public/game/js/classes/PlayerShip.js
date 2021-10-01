@@ -30,6 +30,11 @@ var PlayerShip =   function() {
         this.touchRight = false;
         this.showShop == false;
         
+        if(game.currentLevel > 4){
+            alert("Wait open next time");
+            game.state.start('SelectClassState');
+            return;
+        }
         if (!game.device.desktop) {
                 this.activePointer = game.input.activePointer;
             }
