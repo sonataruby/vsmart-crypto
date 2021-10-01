@@ -73,7 +73,7 @@ router.get(prefix + "/airdrop", (req, res) => {
 router.get(prefix + "/ido", (req, res) => {
 	 const dataMain = fsFile.readJSONFile('main.json');
 	 app.set('layout', config.layout.dir + "/apps");
-	 dataMain.loadJS = ["game1.js"];
+	 dataMain.loadJS = ["ido.js"];
 	 res.render("apps/ido",dataMain);
 });
 

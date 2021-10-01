@@ -233,7 +233,7 @@ var levelData = [
         {'enemy': "scout 3",'timeout': 3},
         {'enemy': "asteroid 3",'timeout': 1},
         {'enemy': "slider",'timeout': 1},
-        {'enemy': "octopus",'timeout': 40},
+        {'enemy': "octopus",'timeout': 2},
         {'enemy': "asteroid 3",'timeout': 3},
         {'enemy': "marine",'timeout': 1},
         {'enemy': "marine 3",'timeout': 1},
@@ -261,7 +261,7 @@ var levelData = [
         {'enemy': "slider",'timeout': 1},
         {'enemy': "marine 3",'timeout': 1},
         {'enemy': "marine",'timeout': 3}, 
-        {'enemy': "octopus",'timeout': 40},
+        {'enemy': "octopus",'timeout': 3},
     ],//lv6
     [
         {'enemy': "scout 3",'timeout': 1},

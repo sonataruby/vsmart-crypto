@@ -10,7 +10,107 @@
 	}
 	
 }
+.icon-list li { display: inline-block; margin: 0 5px; }
 
+.icon-currency-list { display: flex; justify-content: center; align-items: center; }
+/** 03.08 CountDown */
+.countdown { display: flex; justify-content: space-around; margin: 0 -5px; }
+
+.countdown-small { justify-content: flex-start; margin: 0 -20px; }
+
+.countdown-s2 { margin: 0; justify-content: space-between; }
+
+.countdown-s3 { margin: 0 -16px 0 -25px; }
+
+.countdown-s4 { margin: 0; }
+
+.countdown-md { padding-bottom: 35px; }
+
+.countdown-item { padding: 0 5px; }
+
+.countdown-s2 .countdown-item { padding: 0; }
+
+.countdown-s3 .countdown-item { flex-grow: 1; }
+
+.countdown-s3.countdown-small .countdown-item, .countdown-s3-alt .countdown-item { flex-grow: 0; width: auto; }
+
+.countdown-s4 .countdown-item, .countdown-s5 .countdown-item { width: 100%; }
+
+.countdown-wd .countdown-item { flex-grow: 0; width: 100%; }
+
+.countdown-md .countdown-item { width: 80px; }
+
+.countdown-wd { text-align: center; }
+
+.countdown-time { position: relative; height: 54px; width: 54px; border-radius: 50%; border: 2px solid #16a3fe; text-align: center; line-height: 50px; display: block; }
+
+.countdown-s2 .countdown-time { border-radius: 6px; background-color: #122272; border-color: transparent; font-size: 1.4rem; font-weight: 500; color: #fff; }
+
+.countdown-s3 .countdown-time { border-radius: 0; border: none; font-size: 2.8125rem; line-height: 50px; font-weight: 700; height: 50px; width: 100%; color: #1940b0; }
+
+.tc-light .countdown-s3 .countdown-time { color: #fff; }
+
+.countdown-s3 .countdown-time:after { position: absolute; top: calc(50% - 3px); right: -6px; transform: translate(50%, -50%); content: ':'; }
+
+.countdown-s3 .countdown-time-last:after { display: none; }
+
+.countdown-s3-alt .countdown-time { font-size: 1.875rem; padding: 0 20px; font-weight: 300; height: 38px; line-height: 38px; margin-bottom: 0.5rem; }
+
+.countdown-s3.countdown-small .countdown-time { font-size: 1rem; line-height: 24px; height: 24px; text-align: left; padding: 0 20px; }
+
+.countdown-s4 .countdown-time { font-size: 2rem; }
+
+.countdown-s4 .countdown-time, .countdown-thin .countdown-time { font-weight: 300; }
+
+.tc-light .countdown-s5 .countdown-time { color: #16a3fe; }
+
+.countdown-md .countdown-time { font-size: 2rem; line-height: normal; font-weight: 400; height: auto; }
+
+.countdown-text { display: block; font-weight: 500; font-size: 12px; letter-spacing: 0.01em; padding-top: 8px; text-align: center; }
+
+.tc-light .countdown-text { color: #8ca2e5; }
+
+.countdown-s2 .countdown-text { text-transform: uppercase; font-weight: 400; }
+
+.tc-light .countdown-s2 .countdown-text { color: #16a3fe; }
+
+.countdown-s3 .countdown-text { text-transform: uppercase; }
+
+.tc-light .countdown-s3 .countdown-text { color: #8ca2e5; }
+
+.countdown-s3-alt .countdown-text { text-transform: capitalize; padding-top: 0; font-weight: 400; }
+
+.countdown-s3.countdown-small .countdown-text { text-align: left; padding: 0 22px; }
+
+.countdown-s4 .countdown-text { text-transform: capitalize; padding-top: 0; }
+
+.tc-light .countdown-s5 .countdown-text { color: #16a3fe; }
+
+.countdown-md .countdown-text { font-weight: 400; padding-top: 2px; }
+
+.status-countdown { overflow: hidden; }
+
+@media (min-width: 420px) { .countdown-time { height: 64px; width: 64px; line-height: 60px; } }
+
+@media (min-width: 576px) { .status-countdown { min-width: 290px; }
+  .countdown-large .countdown-time { font-size: 3.5rem; }
+  .countdown-large .countdown-time:after { font-size: 2.5rem; } }
+
+@media (min-width: 768px) { .countdown-wd .countdown .item { width: 100%; }
+  .countdown-xxl .countdown-time { font-size: 5.5rem; }
+  .countdown-xl .countdown-time { font-size: 4rem; }
+  .countdown-xl.countdown-s2 .countdown-time { width: 123px; height: 123px; line-height: 123px; border-radius: 4px; }
+  .countdown-xxl .countdown-text { padding-top: 30px; }
+  .countdown-s3-lg { margin: 0 -38px; } }
+
+@media (min-width: 992px) { .countdown-s4 .countdown-time { font-size: 2rem; }
+  .countdown-large .countdown-time { font-size: 3.5rem; } }
+
+@media (min-width: 1200px) { .countdown-s4 .countdown-time { font-size: 2.9rem; }
+  .countdown-large .countdown-time { font-size: 3.6rem; } }
+.nk-block-token{
+	list-style: none;
+}
 .btnMint{
 	cursor: pointer;
 	padding-top: 30px;
