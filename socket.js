@@ -217,6 +217,19 @@ let WriteLog = async () => {
 
 }
 
+let updateTopDaily = async (tokenid, score) => {
+
+  var LoadDB = await db.dbQuery("SELECT * FROM game_topdaily WHERE tokenid = '"+tokenid+"'");
+  const bl = await web3.eth.getBlock('latest'); 
+  var timeNow = bl.timestamp;
+  if(LoadDB == "" || LoadDB == undefined){
+      await db.dbQuery("INSERT INTO `game_topdaily` SET tokenid='"+tokenid+"', score='"+score+"', daily='"+timeNow+"';");
+  }else{
+      if(LoadDB.score < score){
+        await db.dbQuery("UPDATE `game_topdaily` SET score='"+score+"', daily='"+timeNow+"' WHERE tokenid='"+tokenid+"';");
+      }
+  }
+}
 
 
 io.on("connection", function (socket) {
@@ -314,12 +327,19 @@ io.on("connection", function (socket) {
                 NextLeverScore : Number(next[1] != undefined ? next[1].score : 0)
             }
             
-            axios.post("http://127.0.0.1:8082/telegramtext",{
-                text : "<b>"+tokenid + "</b>\nUp Lever : "+ NextLeverNumber
-            },{headers:{"Content-Type" : "application/json"}});
+            if(NextLeverNumber%5 == 0){
+              axios.post("http://127.0.0.1:8082/telegramtext",{
+                text : "<b>NFT STARS : "+tokenid + "</b>\nUp Lever : "+ NextLeverNumber+"<br>Score : " + info.Score+"<br>Reward : "+next[1].reward_token+" token STARS"
+              },{headers:{"Content-Type" : "application/json"}});
+            }else{
+              axios.post("http://127.0.0.1:8082/telegramtext",{
+                text : "<b>NFT STARS : "+tokenid + "</b>\nUp Lever : "+ NextLeverNumber + "<br>Score : " + info.Score
+              },{headers:{"Content-Type" : "application/json"}});
+            }
+            
 
             await db.dbQuery("UPDATE `game_stars` SET Lever='"+NextLeverNumber+"', hash='', data='"+JSON.stringify(data)+"' WHERE tokenId='"+tokenid+"';");
-
+            updateTopDaily(tokenid, info.Score);
             callback(data);
           }
         });
