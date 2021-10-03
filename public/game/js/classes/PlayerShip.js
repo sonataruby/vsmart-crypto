@@ -84,7 +84,7 @@ PlayerShip.prototype.update = function() {
 
     
     if(!this.alive) return;
-    if(Number(this.bullet) < 1) {
+    if(Number(this.bullet) < 4) {
         
         //if(this.showShop == false) {
             new ShopBullet();
