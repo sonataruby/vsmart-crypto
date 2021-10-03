@@ -5,6 +5,7 @@ const config = require('./config');
 const db = require('./server/db');
 let Web3 = require('web3');
 let fs = require('fs');
+const moment = require("moment");
 const cors = require('cors');
 const axios = require('axios'); 
 //let web3 = new Web3("https://bsc-dataseed.binance.org");
@@ -157,6 +158,33 @@ app.post("/uplever", async (req, res) => {
   res.end( data );
 });
 
+app.get("/topdaily", async (req, res) => {
+  var data = [];
+  var timestamp = moment();
+  var mysqlDate = timestamp.format("YYYY-MM-DD");
+  
+  var LoadDB = await db.dbQuery("SELECT * FROM game_topdaily WHERE daily='"+mysqlDate+"' ORDER BY score DESC LIMIT 10");
+  
+  for (var i = 0; i < LoadDB.length; i++) {
+    var item = LoadDB[i];
+    if(item.wallet == "" || item.wallet == null){
+      
+      await loadGame1().then(async (pool) => {
+        item.wallet = await pool.ownerOf(item.tokenid).call();
+        await db.dbQuery("UPDATE  game_topdaily SET wallet='"+item.wallet+"' WHERE id='"+item.id+"'");
+      });
+    }
+    data.push(item);
+    
+  }
+
+  res.header('Content-Type', 'application/json');
+  res.send(data);
+  res.end( data );
+});
+
+
+
 app.get("/nft/:tokenid", async (req, res) => {
   var tokenid = req.params.tokenid;
   var data = {};
@@ -219,16 +247,22 @@ let WriteLog = async () => {
 
 let updateTopDaily = async (tokenid, score) => {
 
-  var LoadDB = await db.dbQuery("SELECT * FROM game_topdaily WHERE tokenid = '"+tokenid+"'");
+ 
   const bl = await web3.eth.getBlock('latest'); 
-  var timeNow = bl.timestamp;
+  var timeNow = moment.unix(bl.timestamp).format("YYYY-MM-DD");
+
+  var LoadDB = await db.dbQuery("SELECT * FROM game_topdaily WHERE tokenid = '"+tokenid+"' AND daily='"+timeNow+"'");
+  var completelv = moment.unix(bl.timestamp).format("YYYY-MM-DD HH:mm:ss");;
+
   if(LoadDB == "" || LoadDB == undefined){
-      await db.dbQuery("INSERT INTO `game_topdaily` SET tokenid='"+tokenid+"', score='"+score+"', daily='"+timeNow+"';");
+      await db.dbQuery("INSERT INTO `game_topdaily` SET tokenid='"+tokenid+"', score='"+score+"', daily='"+timeNow+"', complete_at='"+completelv+"';");
   }else{
+
       if(LoadDB.score < score){
-        await db.dbQuery("UPDATE `game_topdaily` SET score='"+score+"', daily='"+timeNow+"' WHERE tokenid='"+tokenid+"';");
+        await db.dbQuery("UPDATE `game_topdaily` SET score='"+score+"', complete_at='"+completelv+"' WHERE tokenid='"+tokenid+"';");
       }
   }
+
 }
 
 
