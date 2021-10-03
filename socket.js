@@ -164,18 +164,19 @@ app.get("/topdaily", async (req, res) => {
   var mysqlDate = timestamp.format("YYYY-MM-DD");
   
   var LoadDB = await db.dbQuery("SELECT * FROM game_topdaily WHERE daily='"+mysqlDate+"' ORDER BY score DESC LIMIT 10");
-  
-  for (var i = 0; i < LoadDB.length; i++) {
-    var item = LoadDB[i];
-    if(item.wallet == "" || item.wallet == null){
+  if(LoadDB != "" && LoadDB != undefined){
+    for (var i = 0; i < LoadDB.length; i++) {
+      var item = LoadDB[i];
+      if(item.wallet == "" || item.wallet == null){
+        
+        await loadGame1().then(async (pool) => {
+          item.wallet = await pool.ownerOf(item.tokenid).call();
+          await db.dbQuery("UPDATE  game_topdaily SET wallet='"+item.wallet+"' WHERE id='"+item.id+"'");
+        });
+      }
+      data.push(item);
       
-      await loadGame1().then(async (pool) => {
-        item.wallet = await pool.ownerOf(item.tokenid).call();
-        await db.dbQuery("UPDATE  game_topdaily SET wallet='"+item.wallet+"' WHERE id='"+item.id+"'");
-      });
     }
-    data.push(item);
-    
   }
 
   res.header('Content-Type', 'application/json');
