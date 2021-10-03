@@ -16,11 +16,11 @@ app.set('view engine', 'ejs');
 var router = express.Router();
 
 const prefix = "/app";
-router.get(prefix, (req, res) => {
+router.get(prefix, async (req, res) => {
 	 const dataMain = fsFile.readJSONFile('main.json');
 	 dataMain.topDaily = [];
 	 app.set('layout', config.layout.dir + "/apps");
-	 axios.get("https://api.starsbattle.co/topdaily").then((value) => {
+	 await axios.get("http://127.0.0.1:7000/topdaily").then((value) => {
 	 	
 	 	dataMain.topDaily = value.data;
 	 });
@@ -43,35 +43,39 @@ router.get(prefix + "/mining", (req, res) => {
 router.get(prefix + "/marketplace", (req, res) => {
 	 const dataMain = fsFile.readJSONFile('main.json');
 	 app.set('layout', config.layout.dir + "/apps");
-	 dataMain.loadJS = ["game1.js"];
+	 dataMain.loadJS = [];
 	 res.render("apps/marketplace",dataMain);
 });
 
 
-router.get(prefix + "/dailystask", (req, res) => {
+router.get(prefix + "/dailystask", async (req, res) => {
 	 const dataMain = fsFile.readJSONFile('main.json');
 	 app.set('layout', config.layout.dir + "/apps");
-	 dataMain.loadJS = ["game1.js"];
+	 await axios.get("http://127.0.0.1:7000/topdaily").then((value) => {
+	 	
+	 	dataMain.topDaily = value.data;
+	 });
+	 dataMain.loadJS = [];
 	 res.render("apps/dailystask",dataMain);
 });
 router.get(prefix + "/market", (req, res) => {
 	 const dataMain = fsFile.readJSONFile('main.json');
 	 app.set('layout', config.layout.dir + "/apps");
-	 dataMain.loadJS = ["game1.js"];
+	 dataMain.loadJS = ["market.js"];
 	 res.render("apps/market",dataMain);
 });
 
 router.get(prefix + "/farm", (req, res) => {
 	 const dataMain = fsFile.readJSONFile('main.json');
 	 app.set('layout', config.layout.dir + "/apps");
-	 dataMain.loadJS = ["game1.js"];
+	 dataMain.loadJS = ["farm.js"];
 	 res.render("apps/farm",dataMain);
 });
 
 router.get(prefix + "/airdrop", (req, res) => {
 	 const dataMain = fsFile.readJSONFile('main.json');
 	 app.set('layout', config.layout.dir + "/apps");
-	 dataMain.loadJS = ["game1.js"];
+	 dataMain.loadJS = [];
 	 res.render("apps/airdrop",dataMain);
 });
 

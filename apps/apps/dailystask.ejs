@@ -7,24 +7,36 @@
 	    <tr>
 	      <th scope="col">#</th>
 	      <th scope="col">Wallet</th>
-	      <th scope="col">Reward</th>
+	      <th scope="col" class="text-end">Reward</th>
 	      
 	    </tr>
 	  </thead>
 	  <tbody>
-	  	<% for(var i=0; i<10; i++) {%>
+	  	<% for(var i=0; i<10; i++) {
+	  		if(topDaily[i] != undefined){
+	  	%>
+
 	    <tr>
 	      <th scope="row"><%=i+1%></th>
 	      <td><div style="overflow: hidden;
-	text-overflow: ellipsis;
-	display: -webkit-box;
-	-webkit-line-clamp: 1;
-	-webkit-box-orient: vertical;
-	max-width: 230px;">0x77732a57F6Dd9D6a61d1052831755e513214061b</div></td>
-	      <td class="text-end"><%=200-(i*20)%> <%=token.name%></td>
+text-overflow: ellipsis;
+display: -webkit-box;
+-webkit-line-clamp: 1;
+-webkit-box-orient: vertical;
+max-width: 180px;"><%= topDaily[i].wallet%></div></td>
+	      <td class="text-end"><%=200-(i*20)%></td>
 	      
 	    </tr>
-	    <%}%>
+	    <%}else{%>
+	    	<tr>
+	      <th scope="row"><%=i+1%></th>
+	      <td>Wait</td>
+	      <td class="text-end"><%=200-(i*20)%></td>
+	      
+	    </tr>
+	    <%}
+	    }
+	    %>
 	  </tbody>
 	</table>
 
