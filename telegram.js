@@ -131,7 +131,8 @@ bot.on('message', (msg) => {
     var type = msg.chat.type;
 
     if(msg.new_chat_member !== undefined || msg.left_chat_member !== undefined){
-        setTimeout(() => { bot.deleteMessage(msg.chat.id, msg.message_id); }, 1500);
+
+        setTimeout(() => { bot.deleteMessage(getUserid, msg.message_id); }, 10);
     } 
     var msg = "";
     var photoMsg = "";
