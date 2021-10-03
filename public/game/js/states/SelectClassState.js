@@ -31,7 +31,7 @@ var SelectClassState = {
 
         $('body').append('<div class="modal fade" id="'+CreateObjectID+'" data-backdrop="static"  data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">'+
                 '<div class="modal-dialog modal-lg modal-dialog-centered">'+
-                    '<div class="modal-content" style="background-color:transparent;border:0px;">'+
+                    '<div class="modal-content" style="background-color:transparent;border:0px;margin-top:70px;">'+
       
                     '<div class="modal-body">'+
                     '<div class="row"></div>'+
