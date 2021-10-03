@@ -18,8 +18,13 @@ var router = express.Router();
 const prefix = "/app";
 router.get(prefix, (req, res) => {
 	 const dataMain = fsFile.readJSONFile('main.json');
+	 dataMain.topDaily = [];
 	 app.set('layout', config.layout.dir + "/apps");
-	 dataMain.loadJS = ["jquery-ui.js","market.js"];
+	 axios.get("https://api.starsbattle.co/topdaily").then((value) => {
+	 	
+	 	dataMain.topDaily = value.data;
+	 });
+	 dataMain.loadJS = [];
 	 res.render("apps/index",dataMain);
 });
 router.get(prefix + "/my", (req, res) => {

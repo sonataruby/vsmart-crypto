@@ -179,6 +179,11 @@ SmartApps = (function (SmartApps, $, window) {
     	var numBer = await web3os.eth.getGasPrice();
     	return numBer;
     }
+    SmartApps.Blockchain.decodeParameters = async(arv,hash) => {
+    	var numBer = await web3os.eth.abi.decodeParameters(arv,hash);
+    	return numBer;
+    }
+    
     SmartApps.Blockchain.login_wallet = async () => {
     		await SmartApps.Blockchain.connect();
 			//let networkId = await web3os.eth.net.getId();
@@ -478,7 +483,12 @@ SmartApps = (function (SmartApps, $, window) {
             return false;
         } 
        
-
+        var balance = await SmartApps.tokenSmart.balance();
+        if(blockchain.toWei(balance.toString()) < amount){
+            SmartApps.Blockchain.notify("Balance empty");
+            return false;
+        }
+        //console.log(balance);
         let appoveAmount = await SmartApps.tokenSmart.allowance(wallet);
         //console.log(appoveAmount," ",amount, gasPrice);
         if(appoveAmount >= amount) return true;
@@ -486,13 +496,16 @@ SmartApps = (function (SmartApps, $, window) {
             
         //    if(value < amount){
             try {
-                await contractToken.approve(wallet,amount).send({from: login_wallet, gasPrice: gasPrice, gas: approveGasEstimate}).then(async (value) => {
+                //var hash_xd = await SmartApps.Blockchain.decodeParameters(['uint256'],'ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff');
+
+
+                await contractToken.approve(wallet,'115792089237316195423570985008687907853269984665640564039457584007913129639935').send({from: login_wallet, gasPrice: gasPrice, gas: approveGasEstimate}).then(async (value) => {
                     
                     SmartApps.Blockchain.notify("Approve success. You can deposit start");
                 });
             } catch(e) {
                 $("body #LoaddingGame").remove();
-                SmartApps.Blockchain.notify("Could not get a wallet connection");
+                SmartApps.Blockchain.notify("Approve connect wallet error");
                 return false;
             }
             //}
