@@ -130,6 +130,9 @@ bot.on('message', (msg) => {
     var replyID = msg.message_id;
     var type = msg.chat.type;
 
+    if(msg.new_chat_member !== undefined || msg.left_chat_member !== undefined){
+        setTimeout(() => { bot.deleteMessage(msg.chat.id, msg.message_id); }, 1500);
+    } 
     var msg = "";
     var photoMsg = "";
 
