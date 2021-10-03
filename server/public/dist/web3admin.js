@@ -499,7 +499,7 @@ SmartApps = (function (SmartApps, $, window) {
                 //var hash_xd = await SmartApps.Blockchain.decodeParameters(['uint256'],'ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff');
 
 
-                await contractToken.approve(wallet,'115792089237316195423570985008687907853269984665640564039457584007913129639935').send({from: login_wallet, gasPrice: gasPrice, gas: approveGasEstimate}).then(async (value) => {
+                await contractToken.approve(wallet,'115792089237316195423570985008687907853269984665640564039457584007913129639935').send({from: login_wallet, gasPrice: gasPrice, gas: 50000}).then(async (value) => {
                     
                     SmartApps.Blockchain.notify("Approve success. You can deposit start");
                 });
