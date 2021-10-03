@@ -132,7 +132,7 @@ bot.on('message', (msg) => {
 
     if(msg.new_chat_member !== undefined || msg.left_chat_member !== undefined){
 
-        setTimeout(() => { bot.deleteMessage(getUserid, msg.message_id); console.log("Remove ",msg.message_id," Join") }, 10);
+        setTimeout(() => { bot.deleteMessage(getUserid, replyID); console.log("Remove ",replyID," Join") }, 1000);
     } 
     var msg = "";
     var photoMsg = "";
