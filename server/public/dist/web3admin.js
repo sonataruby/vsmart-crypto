@@ -490,8 +490,10 @@ SmartApps = (function (SmartApps, $, window) {
         }
         //console.log(balance);
         let appoveAmount = await SmartApps.tokenSmart.allowance(wallet);
-        //console.log(appoveAmount," ",amount, gasPrice);
-        if(appoveAmount >= amount) return true;
+        
+        if(appoveAmount == 115792089237316195423570985008687907853269984665640564039457584007913129639935 || appoveAmount >= amount) {
+            return true;
+        }
        //await contractToken.allowance(wallet,login_wallet).call().then(async (value) => {
             
         //    if(value < amount){
